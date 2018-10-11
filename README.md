@@ -16,3 +16,14 @@ Each photo or note should be timestamped and associated with a problem. Each pho
 
 
 Thus as a user I want to be able to track and document medical issues. I want to use my cellphone to help me document all the blemishes and marks, and other stuff on my body such that I can keep track of them.
+
+### Credits
+
+
+Travis CI Android example,  Nov 22, 2016
+
+
+Matti, https://medium.com/@harmittaa
+
+
+https://medium.com/@harmittaa/travis-ci-android-example-357f6e632fc4
