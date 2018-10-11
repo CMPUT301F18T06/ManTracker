@@ -4,3 +4,6 @@ It's easiest to rename this now if you have a better name.
 
 https://github.com/vanniktech/gradle-android-javadoc-plugin
 Might as well setup TravisCI later. Do we want to set up a linter?
+
+
+1: New edit from Aaron Espiritu - adespiri 
