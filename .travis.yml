@@ -54,8 +54,6 @@ android:
 branches:
   only:
   - master
-  - stable
-  - travisCI-testcases
 
 
 before_install:
