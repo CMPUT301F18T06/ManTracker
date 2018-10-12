@@ -11,3 +11,4 @@ Do we want to set up a linter?
 1: New edit from Aaron Espiritu - adespiri 
 2. rfurrer
 3. aanand
+4. bitancor
