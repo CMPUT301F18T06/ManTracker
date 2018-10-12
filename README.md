@@ -1,5 +1,5 @@
 # ManTracker
-## CMPUT 301 Project
+[![Build Status](https://travis-ci.com/CMPUT301F18T06/ManTracker.svg?branch=master)](https://travis-ci.com/CMPUT301F18T06/ManTracker)
 
 ### User's Problem Description
 
