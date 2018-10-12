@@ -73,7 +73,8 @@ before_script:
 #TODO
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
-    - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+#    - ./gradlew build connectedCheck --stacktrace
+#    - ./gradlew build testDebug --stacktrace
 
 
 #TODO
