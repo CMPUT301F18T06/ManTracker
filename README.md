@@ -1,6 +1,7 @@
 # ManTracker
 [![Build Status](https://travis-ci.com/CMPUT301F18T06/ManTracker.svg?branch=master)](https://travis-ci.com/CMPUT301F18T06/ManTracker)
 [![CodeFactor](https://www.codefactor.io/repository/github/cmput301f18t06/mantracker/badge)](https://www.codefactor.io/repository/github/cmput301f18t06/mantracker)
+[![BCH compliance](https://bettercodehub.com/edge/badge/CMPUT301F18T06/ManTracker?branch=master)](https://bettercodehub.com/)
 
 ### User's Problem Description
 
