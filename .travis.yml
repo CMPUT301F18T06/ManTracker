@@ -26,7 +26,6 @@ android:
     # use the latest revision of Android SDK Tools
     - tools
     - platform-tools
-    - tools
 
     # The BuildTools version used by your project
     - build-tools-26.0.2
@@ -45,6 +44,10 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-26
     - sys-img-armeabi-v7a-android-17
+  licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 # whitelist
 branches:
@@ -71,9 +74,6 @@ before_script:
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
     - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-#    - "./gradlew clean lint --stacktrace"
-#    - "./gradlew clean test --stacktrace"
-#    - "./gradlew clean assembleDebug --stacktrace"
 
 
 #TODO
@@ -84,7 +84,7 @@ script:
 #
 ## Verification
 #- jarsigner -verify app-release-unsigned.apk
-#- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk yourapp.apk"
+#- "${ANDROID_HOME}/build-tools/26.0.2/zipalign -v 4 app-release-unsigned.apk yourapp.apk"
 #
 #
 #deploy:
