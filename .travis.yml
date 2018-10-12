@@ -67,14 +67,14 @@ before_script:
     - adb shell input keyevent 82 &
 
 
-#TODO: add commented lines
+#TODO
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
     - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
-#./gradlew clean androidDependencies     
-#./gradlew clean lint
-#./gradlew clean test
-#./gradlew clean assembleDebug
+    - "./gradlew clean androidDependencies"
+    - "./gradlew clean lint"
+    - "./gradlew clean test"
+    - "./gradlew clean assembleDebug"
 
 
 #TODO
