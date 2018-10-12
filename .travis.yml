@@ -53,6 +53,7 @@ android:
 branches:
   only:
   - master
+  - travisCI-testcases
 
 
 before_install:
@@ -73,6 +74,7 @@ before_script:
 #TODO
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
+    - ./gradlew clean test
 #    - ./gradlew build connectedCheck --stacktrace
 #    - ./gradlew build testDebug --stacktrace
 
