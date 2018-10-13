@@ -37,6 +37,7 @@ android:
 branches:
   only:
   - master
+  - stable
 
 before_instal:
     - touch ~/.android/repositories.cfg
