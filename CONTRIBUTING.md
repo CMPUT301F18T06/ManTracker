@@ -10,7 +10,7 @@ If a branch is intended to merge into master, it should follow a naming conventi
 
 2.  Update the README.md with details of changes to the interface and any relavent file/code changes. 
 
-3.  If from Prototype to Master, increase the version numbers in all files to the version this Pull Request represents.
+3.  If from master to stable, increase the version numbers in all files to the version this Pull Request represents.
 
 4.  Avoid pull requests that address multiple features or issues. 
 
