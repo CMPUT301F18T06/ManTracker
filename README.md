@@ -1,5 +1,7 @@
 # ManTracker
 [![Build Status](https://travis-ci.com/CMPUT301F18T06/ManTracker.svg?branch=master)](https://travis-ci.com/CMPUT301F18T06/ManTracker)
+[![CodeFactor](https://www.codefactor.io/repository/github/cmput301f18t06/mantracker/badge)](https://www.codefactor.io/repository/github/cmput301f18t06/mantracker)
+[![BCH compliance](https://bettercodehub.com/edge/badge/CMPUT301F18T06/ManTracker?branch=master)](https://bettercodehub.com/)
 
 ### User's Problem Description
 
@@ -16,3 +18,14 @@ Each photo or note should be timestamped and associated with a problem. Each pho
 
 
 Thus as a user I want to be able to track and document medical issues. I want to use my cellphone to help me document all the blemishes and marks, and other stuff on my body such that I can keep track of them.
+
+### Credits
+
+
+Travis CI Android example,  Nov 22, 2016
+
+
+Matti, https://medium.com/@harmittaa
+
+
+https://medium.com/@harmittaa/travis-ci-android-example-357f6e632fc4
