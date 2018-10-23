@@ -4,10 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class MedicalProblemTest {
+public class UserTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
 }
-
