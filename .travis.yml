@@ -55,4 +55,5 @@ script:
     - echo "Travis branch is $TRAVIS_BRANCH"
     - ./gradlew clean androidDependencies
     - ./gradlew clean test
+    - ./gradle test --tests 'project.ece301.mantracker*'
     - ./gradlew clean build
