@@ -12,7 +12,7 @@ public class Email {
     private String email = "";
 
     public static boolean isValid(String email){
-        return Pattern.compile(pattern).matcher(email).find();
+        return Pattern.compile(pattern).matcher(email).matches();
     }
 
     public Email(@NonNull String email) throws InvalidEmailException {
