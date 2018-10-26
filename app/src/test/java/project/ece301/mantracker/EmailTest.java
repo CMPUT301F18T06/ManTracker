@@ -16,7 +16,7 @@ public class EmailTest {
         } catch (Email.InvalidEmailException e) {
             e.printStackTrace();
         }
-        
+
         assertEquals("foo@example.com", email.getEmail());
     }
 

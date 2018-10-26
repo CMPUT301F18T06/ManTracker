@@ -1,5 +1,7 @@
 package project.ece301.mantracker.Account;
 
+import android.support.annotation.NonNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +10,7 @@ public class Username {
     private static final int minLength = 8;
     private static final String pattern = "[\\w.-]{"+minLength+",}";
 
+    @NonNull
     private String username;
 
     public static boolean isValid(String userID){
@@ -18,7 +21,7 @@ public class Username {
         return true;
     }
 
-    public Username(String userID) throws InvalidUsernameException {
+    public Username(@NonNull String userID) throws InvalidUsernameException {
         setUserID(userID);
     }
 
