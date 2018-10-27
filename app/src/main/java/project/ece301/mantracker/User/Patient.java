@@ -2,12 +2,13 @@ package project.ece301.mantracker.User;
 
 import java.util.ArrayList;
 
+import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
 
 //
-public class Patient {
+public class Patient extends Account{
     private ArrayList<MedicalProblem> problemList;
     private ArrayList<BodyLocation> bodyLocations;
     private ArrayList<GeoLocation> geoLocations;
