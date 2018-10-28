@@ -12,7 +12,7 @@ public class BodyLocationTest {
     public void getBodyPart() {
         String expected = "Head";
         BodyLocation bodyLocation = new BodyLocation();
-        bodyLocation.setBodyPart("Penis");
+        bodyLocation.setBodyPart("Head");
         assertEquals(expected, bodyLocation.getBodyPart());
     }
 
@@ -20,7 +20,7 @@ public class BodyLocationTest {
     public void setBodyPart() {
         String expected = "Hands";
         BodyLocation bodyLocation = new BodyLocation();
-        bodyLocation.setBodyPart("Balls");
+        bodyLocation.setBodyPart("Hands");
         assertEquals(expected, bodyLocation.getBodyPart());
     }
 
