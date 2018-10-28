@@ -10,7 +10,7 @@ public class BodyLocationTest {
 
     @Test
     public void getBodyPart() {
-        String expected = "Penis";
+        String expected = "Head";
         BodyLocation bodyLocation = new BodyLocation();
         bodyLocation.setBodyPart("Penis");
         assertEquals(expected, bodyLocation.getBodyPart());
@@ -18,7 +18,7 @@ public class BodyLocationTest {
 
     @Test
     public void setBodyPart() {
-        String expected = "Balls";
+        String expected = "Hands";
         BodyLocation bodyLocation = new BodyLocation();
         bodyLocation.setBodyPart("Balls");
         assertEquals(expected, bodyLocation.getBodyPart());
@@ -26,17 +26,17 @@ public class BodyLocationTest {
 
     @Test
     public void setPhoto() {
-        String expected = "Nudes.jpeg";
+        String expected = "Legs.jpeg";
         BodyLocation bodyLocation = new BodyLocation();
-        bodyLocation.setPhoto("Nudes.jpeg");
+        bodyLocation.setPhoto("Legs.jpeg");
         assertEquals(expected, bodyLocation.getPhoto());
     }
 
     @Test
     public void getPhoto() {
-        String expected = "Boobs.jpeg";
+        String expected = "Arms.jpeg";
         BodyLocation bodyLocation = new BodyLocation();
-        bodyLocation.setPhoto("Boobs.jpeg");
+        bodyLocation.setPhoto("Arms.jpeg");
         assertEquals(expected, bodyLocation.getPhoto());
     }
 
