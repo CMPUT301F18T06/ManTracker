@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MedicalProblem implements details {
-    private Date date;
+    private String date;
     private String description;
     private String title;
     private ArrayList<Record> associatedRecords;
 
-    public MedicalProblem(Date initDate, String initDescription, String initTitle) {
-        date = initDate;
+    public MedicalProblem(String initDescription, String initTitle, String initDate) {
+        associatedRecords = new ArrayList<Record>();
         description = initDescription;
         title = initTitle;
-        associatedRecords = new ArrayList<Record>();
+        date = initDate;
     }
 
     @Override
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
     @Override
-   public void setDate(Date newDate) {
-
+   public void setDate(String newDate) {
+        date = newDate;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class MedicalProblem implements details {
 
     @Override
     public void setTitle(String newTitle) {
-
+        title = newTitle;
     }
 
     @Override
@@ -47,15 +47,15 @@ public class MedicalProblem implements details {
     }
 
     public void addRecord(Record newRecord) {
-
+        associatedRecords.add(newRecord);
     }
 
     public Record getRecord(int index) {
-        return new Record();
+        return associatedRecords.get(index);
     }
 
     public void deleteRecord(Record record) {
-
+        associatedRecords.remove(record);
     }
 
     public boolean hasRecord(Record record) {
