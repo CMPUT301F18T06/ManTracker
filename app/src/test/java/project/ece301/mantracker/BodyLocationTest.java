@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 public class BodyLocationTest {
