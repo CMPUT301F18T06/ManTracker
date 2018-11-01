@@ -2,16 +2,16 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 
-//Body Locations
 public class BodyLocation implements Photo {
 
     protected String bodyImage;
     protected ArrayList<Integer> ImageCordinates = new ArrayList<Integer>();
     protected String bodyPart;
 
-    // Constructor
-    public BodyLocation(){
 
+    public BodyLocation(String bodyImage, String bodyPart){
+        this.bodyImage=bodyImage;
+        this.bodyPart=bodyPart;
     }
 
     public String getBodyPart(){
@@ -34,7 +34,6 @@ public class BodyLocation implements Photo {
 
     @Override
     public void showPhoto(String image) {
-
     }
 
 }

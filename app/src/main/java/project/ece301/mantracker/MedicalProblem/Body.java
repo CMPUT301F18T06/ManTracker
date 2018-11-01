@@ -10,4 +10,12 @@ public class Body {
         this.bodySide=bodySide;
     }
 
+    public String getBodySide() {
+        return bodySide;
+    }
+
+    public void setBodySide(String bodySide) {
+        this.bodySide = bodySide;
+    }
+    
 }
