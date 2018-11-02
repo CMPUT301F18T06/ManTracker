@@ -10,12 +10,19 @@ public class Body {
         this.bodySide=bodySide;
     }
 
-    public void addBodyLocation(String bodyimage, String bodyPart){
-        bodyLocations.add( new BodyLocation(bodyimage,bodyPart) );
+    public Body(){
+    };
+
+    public void addBodyLocation(BodyLocation bodyLocation){
+        bodyLocations.add( bodyLocation );
     }
 
-    public void removeBodyLocation(int index){
-        bodyLocations.remove(index);
+    public BodyLocation getBodyLocation(int index){
+        return bodyLocations.get(index);
+    }
+
+    public void deleteBodyLocation(BodyLocation bodyLocation){
+        bodyLocations.remove(bodyLocation);
     }
 
     public String getBodySide() {
