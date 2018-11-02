@@ -7,4 +7,6 @@
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="title_activity_pateint_list">PateintListActivity</string>
     <string name="title_activity_record_list">RecordListActivity</string>
+    <string name="search">Search...</string>
+
 </resources>
