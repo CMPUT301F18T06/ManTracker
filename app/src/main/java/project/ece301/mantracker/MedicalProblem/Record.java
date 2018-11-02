@@ -172,6 +172,4 @@ public class Record implements details {
     public ArrayList<String> getCommentlist() {
         return null;
     }
-
-
 }

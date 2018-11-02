@@ -281,6 +281,4 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
         record.deleteComment(another_new_comment);
         assertEquals(0,record.getNumOfComment());
     }
-
-
 }

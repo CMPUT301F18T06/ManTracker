@@ -16,7 +16,7 @@ android:
   components:
     # The BuildTools version used by your project
     - build-tools-26.0.2
-    - build-tools-27.0.3
+    - build-tools-27.1.1
 
     # The SDK version used to compile your project
     - android-26
@@ -55,4 +55,5 @@ script:
     - echo "Travis branch is $TRAVIS_BRANCH"
     - ./gradlew clean androidDependencies
     - ./gradlew clean test
+    - ./gradle test --tests 'project.ece301.mantracker*'
     - ./gradlew clean build

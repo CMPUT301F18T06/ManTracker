@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ManTracker</string>
     <string name="action_settings">Settings</string>
+    <string name="add_problem">Add New Problem</string>
+    <string name="user_greeting"><b>Hello User!</b></string>
+    <string name="medical_problems"><b>Medical Problems: </b></string>
 </resources>
