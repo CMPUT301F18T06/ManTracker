@@ -80,7 +80,6 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
 
 
     }
-
     public void testDeleteBodyLocationPoint(){
         Record record  = new Record("Description 1" , "title 1", geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
         Object new_bdlocation_point = new Object();
@@ -281,4 +280,6 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
         record.deleteComment(another_new_comment);
         assertEquals(0,record.getNumOfComment());
     }
+
+
 }
