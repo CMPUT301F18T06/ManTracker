@@ -4,4 +4,7 @@
     <string name="add_problem">Add New Problem</string>
     <string name="user_greeting"><b>Hello User!</b></string>
     <string name="medical_problems"><b>Medical Problems: </b></string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_pateint_list">PateintListActivity</string>
+    <string name="title_activity_record_list">RecordListActivity</string>
 </resources>
