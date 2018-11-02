@@ -6,7 +6,13 @@ import project.ece301.mantracker.Account.Username;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Username test.
+ */
 public class UsernameTest {
+    /**
+     * Is valid test.
+     */
     @Test
     public void isValidTest() {
         assertEquals(false, Username.isValid("the8"));
@@ -15,6 +21,9 @@ public class UsernameTest {
         assertEquals(false, Username.isValid("the<>eee8"));
     }
 
+    /**
+     * Is unique test.
+     */
     @Test
     public void isUniqueTest(){
         boolean valid = true;
@@ -28,3 +37,4 @@ public class UsernameTest {
         assertEquals(false, valid);
     }
 }
+

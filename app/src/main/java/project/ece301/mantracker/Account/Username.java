@@ -14,7 +14,7 @@ public class Username {
     private String username;
 
     public static boolean isValid(String userID){
-        return Pattern.compile(pattern).matcher(userID).find() && isUnique(userID);
+        return Pattern.compile(pattern).matcher(userID).matches() && isUnique(userID);
     }
 
     private static boolean isUnique(String s) {
