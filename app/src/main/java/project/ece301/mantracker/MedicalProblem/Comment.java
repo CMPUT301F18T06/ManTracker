@@ -1,11 +1,15 @@
-package project.ece301.mantracker.Account;
+package project.ece301.mantracker.MedicalProblem;
+
+import android.support.annotation.NonNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Comment {
+import project.ece301.mantracker.Account.Account;
+
+public class Comment implements Comparable<Comment> {
     private static final SimpleDateFormat dF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
             Locale.getDefault());
     private Date date;
@@ -19,6 +23,7 @@ public class Comment {
     }
 
     public Comment(Account user, String comment) {
+        this.date = new Date();
         this.user = user;
         this.comment = comment;
     }
@@ -69,4 +74,8 @@ public class Comment {
         return getDateAsString() + " | " + getUserID() + " | " + getComment();
     }
 
+    @Override
+    public int compareTo(@NonNull Comment comment) {
+        return getDate().compareTo(comment.getDate());
+    }
 }

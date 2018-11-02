@@ -5,10 +5,10 @@ import org.junit.Test;
 import java.util.Date;
 
 import project.ece301.mantracker.Account.Account;
-import project.ece301.mantracker.Account.Comment;
-import project.ece301.mantracker.Account.Username;
+import project.ece301.mantracker.MedicalProblem.Comment;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * The type Comment test.
@@ -35,5 +35,17 @@ public class CommentTest {
         Comment c = new Comment(new Account(), "I am a comment");
         c.setDate("2018-03-10 08:30:30"); //yyyy-MM-dd HH:mm:ss
         assertEquals("2018-03-10 08:30:30 | " + c.getUserID() + " | I am a comment", c.toString());
+    }
+
+    @Test
+    public void compareToTest() {
+        Comment c = new Comment(new Account(), "I am a comment");
+        Comment c2 = new Comment(new Account(), "I am a comment");
+        c.setDate("2015-03-10 08:30:30"); //yyyy-MM-dd HH:mm:ss
+        c2.setDate("2018-03-10 08:30:30"); //yyyy-MM-dd HH:mm:ss
+
+        assertTrue(c.compareTo(c2) < 0);
+
+        assertTrue(c.getDateAsString().compareTo(c2.getDateAsString()) < 0);
     }
 }

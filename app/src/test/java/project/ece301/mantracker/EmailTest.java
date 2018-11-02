@@ -25,3 +25,4 @@ public class EmailTest {
         assertEquals(false, Email.isValid(".the8@gsg.c"));
     }
 }
+

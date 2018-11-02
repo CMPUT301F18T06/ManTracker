@@ -1,13 +1,9 @@
 package project.ece301.mantracker;
 
-import android.media.RemoteController;
-
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import project.ece301.mantracker.MedicalProblem;
+import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.MedicalProblem.Record;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;

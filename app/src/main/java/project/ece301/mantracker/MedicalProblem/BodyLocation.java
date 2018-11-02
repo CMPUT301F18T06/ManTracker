@@ -9,6 +9,9 @@ public class BodyLocation implements Photo {
     protected String bodyPart;
 
 
+    public BodyLocation() {
+    }
+
     public BodyLocation(String bodyImage, String bodyPart){
         this.bodyImage=bodyImage;
         this.bodyPart=bodyPart;
