@@ -18,11 +18,15 @@ public class Patient extends Account{
 
     }
 
-    public MedicalProblem getProblem() { return null; }
+    public MedicalProblem getProblem(MedicalProblem problem) { return null; }
 
     public void addProblem(MedicalProblem problem) {}
 
     public void deleteProblem(MedicalProblem problem) {}
+
+    public ArrayList<MedicalProblem> getAllProblems() {
+        return null;
+    }
 
     public BodyLocation getBodyLocation(BodyLocation bodyLocation) { return null; }
 
@@ -33,6 +37,8 @@ public class Patient extends Account{
     public ArrayList<Record> getAllRecords() { return null; }
 
     public void addRecord(Record record) {}
+
+    public Record getRecord(Integer rID) { return null; }
 
     public void removeRecord(Integer rID) {}
 }
