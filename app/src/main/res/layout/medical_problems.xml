@@ -6,6 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/addProblemButton"
+        android:layout_width="183dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/buttonColor"
+        android:text="@string/add_problem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/problemListView" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,49 +25,21 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/searchBar"
+        android:id="@+id/aut"
         android:layout_width="384dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@android:color/background_light"
         android:ems="10"
+        android:hint="@string/search"
         android:inputType="textPersonName"
-        android:text="@string/search"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
-        android:id="@+id/problemScrollList"
-        android:layout_width="386dp"
-        android:layout_height="299dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/darkBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-    <Button
-        android:id="@+id/addProblemButton"
-        android:layout_width="141dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/buttonColor"
-        android:text="@string/add_problem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problemScrollList" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" tools:targetApi="o" />
 
     <ImageView
         android:id="@+id/profileImage"
@@ -64,6 +47,7 @@
         android:layout_height="99dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="60dp"
+        android:contentDescription="@string/profilePicture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[10]" />
@@ -89,6 +73,15 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/problemListView"
+        android:layout_width="match_parent"
+        android:layout_height="271dp"
+        android:layout_marginTop="156dp"
+        android:background="@color/darkBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aut" />
 
 
 </android.support.constraint.ConstraintLayout>

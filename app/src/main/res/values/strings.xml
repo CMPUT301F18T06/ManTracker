@@ -8,5 +8,7 @@
     <string name="title_activity_pateint_list">PateintListActivity</string>
     <string name="title_activity_record_list">RecordListActivity</string>
     <string name="search">Search...</string>
+    <string name="profilePicture">Profile Picture</string>
+
 
 </resources>
