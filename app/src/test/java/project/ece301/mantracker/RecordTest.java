@@ -1,5 +1,6 @@
 package project.ece301.mantracker;
 
+import project.ece301.mantracker.MedicalProblem.Record;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
 
 
     }
+
     public void testDeleteBodyLocationPoint(){
         Record record  = new Record("Description 1" , "title 1", geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
         Object new_bdlocation_point = new Object();

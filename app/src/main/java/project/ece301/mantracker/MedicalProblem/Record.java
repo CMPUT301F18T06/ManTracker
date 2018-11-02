@@ -1,10 +1,12 @@
-package project.ece301.mantracker;
+package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-class Record implements details{
+import project.ece301.mantracker.details;
+
+public class Record implements details {
     private Date date;
     private Integer ID;
     private String Description;
