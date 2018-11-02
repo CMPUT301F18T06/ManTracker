@@ -6,12 +6,13 @@ import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
+import project.ece301.mantracker.MedicalProblem.Geolocation;
 
 //
 public class Patient extends Account{
     private ArrayList<MedicalProblem> problemList;
     private ArrayList<BodyLocation> bodyLocations;
-    private ArrayList<GeoLocation> geoLocations;
+    private ArrayList<Geolocation> geoLocations;
     private ArrayList<Record> records;
 
     public Patient() {
