@@ -9,6 +9,11 @@
     <string name="title_activity_record_list">RecordListActivity</string>
     <string name="search">Search...</string>
     <string name="profilePicture">Profile Picture</string>
+    <string name="contentDescription">Content Description</string>
+    <string name="User">User:</string>
+    <string name="recordDescription">Description:</string>
+    <string name="recordDate">Date:</string>
+    <string name="recordCount">Number of Records Logged:</string>
 
 
 </resources>
