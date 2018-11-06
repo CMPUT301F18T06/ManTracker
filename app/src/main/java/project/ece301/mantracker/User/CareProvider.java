@@ -9,20 +9,24 @@ public class CareProvider extends Account{
     private ArrayList<Patient> patients;
 
     public CareProvider() {
-
+        this.patients = new ArrayList<>();
     }
 
-    public CareProvider(ArrayList<Patient> patients) {}
+    public CareProvider(ArrayList<Patient> patients) {
+        this.patients = patients;
+    }
 
-    public Patient getPatient(Patient patient) {
-        return null;
+    public Patient getPatient(Integer ind) {
+        return this.patients.get(ind);
     }
 
     public void addPatient(Patient patient) {
-
+        this.patients.add(patient);
     }
 
-    public void deletePatient(Patient patient) {}
+    public void deletePatient(Patient patient) {
+        this.patients.remove(patient);
+    }
 
-    public ArrayList<Patient> getPatientsList() { return null; }
+    public ArrayList<Patient> getPatientsList() { return this.patients; }
 }

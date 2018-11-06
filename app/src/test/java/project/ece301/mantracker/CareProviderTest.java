@@ -22,7 +22,7 @@ public class CareProviderTest {
         Patient patient = new Patient();
         patients.add(patient);
         CareProvider careProvider = new CareProvider(patients);
-        assertEquals(patient, careProvider.getPatient(patient));
+        assertEquals(patient, careProvider.getPatient(0));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class CareProviderTest {
         CareProvider careProvider = new CareProvider();
         Patient patient = new Patient();
         careProvider.addPatient(patient);
-        assertEquals(patient, careProvider.getPatient(patient));
+        assertEquals(patient, careProvider.getPatient(0));
     }
 
     @Test
