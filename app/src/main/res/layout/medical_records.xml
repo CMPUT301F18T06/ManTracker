@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="72dp"
-        android:text="@string/recordDescription"
+        android:text="@string/descriptionHeader"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -95,7 +95,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="12dp"
-        android:backgrou
         android:background="@color/descriptionBox"
         android:text="description goes here"
         android:textSize="18sp"
@@ -119,7 +118,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="144dp"
-        android:text="@string/recordDate"
+        android:text="@string/dateHeader"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +129,7 @@
         android:layout_height="21dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/recordCount"
+        android:text="@string/countHeader"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

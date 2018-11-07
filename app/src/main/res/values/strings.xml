@@ -11,9 +11,15 @@
     <string name="profilePicture">Profile Picture</string>
     <string name="contentDescription">Content Description</string>
     <string name="User">User:</string>
-    <string name="recordDescription">Description:</string>
-    <string name="recordDate">Date:</string>
-    <string name="recordCount">Number of Records Logged:</string>
+    <string name="descriptionHeader">Description:</string>
+    <string name="dateHeader">Date:</string>
+    <string name="countHeader">Number of Records Logged:</string>
+    <string name="titleHeader">Title:</string>
+    <string name="commentHeader">Comment:</string>
+    <string name="titleInputHint">Add Title Here...</string>
+    <string name="commentInputHint">Add Comment Here...</string>
+    <string name="selectDate">Set Date</string>
+    <string name="save">Save</string>
 
 
 </resources>
