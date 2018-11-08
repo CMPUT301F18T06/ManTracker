@@ -1,175 +1,75 @@
 package project.ece301.mantracker.data;
 
-import project.ece301.mantracker.MedicalProblem.details;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
-public class Record implements details {
+@Entity(tableName = "records")
+public class Record {
+
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private int id;
+
+    @NonNull
+    @ColumnInfo(name = "date")
     private Date date;
-    private Integer ID;
-    private String Description;
-    private String Title;
-    public Date testing_date;
-    public Integer testing_ID;
-    private String comment;
-    private ArrayList<String> commentlist;
 
-    private Object geolocation;
-    private Object bdlocation;
-    private ArrayList<Object> bodylocationpointlist;
-    private ArrayList<Object> photolist;
+    @NonNull
+    @ColumnInfo(name = "title")
+    private String title;
 
-    public Record(String Description , String title ,   Object geolocation,Object bdlocation,
-                  ArrayList<Object> bodylocationpointlist, ArrayList<Object> photolist, ArrayList<String> commentlist){
+    @NonNull
+    @ColumnInfo(name = "description")
+    private String description;
 
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
-        this.Description = Description;
-        this.Title = title;
+    @ColumnInfo(name = "geolocation")
+    private Geolocation geolocation;
+
+    @ColumnInfo(name = "body_location")
+    private BodyLocation bodyLocation;
+
+    public Record(@NonNull Date date, @NonNull String title, @NonNull String description,
+                  Geolocation geolocation, BodyLocation bodyLocation) {
+        this.date = date;
+        this.title = title;
+        this.description = description;
         this.geolocation = geolocation;
-        this.bdlocation = bdlocation;
-        this.bodylocationpointlist = bodylocationpointlist;
-        this.photolist = photolist;
-        this.commentlist = commentlist;
-
+        this.bodyLocation = bodyLocation;
     }
 
     public Record(){
 
     }
 
-    public Record(String Description , String title ){
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
-        this.Description = Description;
-        this.Title = title;
-
+    @NonNull
+    public int getId() {
+        return id;
     }
 
-    public Integer getID() {
-        return null;
-    }
-
-    public void setID() {
-
-    }
-
+    @NonNull
     public Date getDate() {
-        return null;
+        return date;
     }
 
-    public void setDate() {
-
-    }
-
+    @NonNull
     public String getTitle() {
-        return null;
-    }
-
-    public void setTitle(String title) {
-
-
-
+        return title;
     }
 
     public String getDescription() {
-        return null;
+        return description;
     }
 
-    public void setDescription(String description) {
-
+    public Geolocation getGeolocation() {
+        return geolocation;
     }
 
-
-//  addBodyLocationPoint(BodyLocationPoint): void
-//  deleteBodyLocationPoint(BodyLocationPoint):void
-//  getNumOfBodyLocationPoints()
-
-    //    Input a BodyLocationpoint class
-    public void addBodyLocationPoint(Object bdlocationpoint){
-
-    }
-    //    Input a BodyLocationPoint class
-    public void deleteBodyLocationPoint(Object bdlocationpoint){
-
-    }
-    public int getNumOfBodyLocationPoints(){
-        return 0;
-    }
-    public Object getBodyLocationPointsList(){
-        return null;
-    }
-//
-// getBodyLocation():BodyLocation;
-// setBodyLocation(Bodylocation):
-
-    //    Input a bodylocation class
-    public void setBodyLocation(Object bdlocation){
-
-    }
-
-    public Object getBodyLocation(){
-        return null;
-    }
-
-    //addPhoto(Photo):void
-//deletePhoto(Photo):void
-//getNumOfPhotots():Integer
-//    Input a photo class
-    public void addPhoto(Object photo){
-
-    }
-    //    Input a photo class
-    public void deletePhoto(Object photo){
-
-    }
-    public int getNumOfPhotos(){
-        return 0;
-    }
-    public ArrayList<Object> getPhotoList(){
-        return null;
-
-    }
-
-//    + getGeoLocation():Geolocation
-//+ setGeoLocation(Geolocation):void
-
-    //    Input a geolocation class
-    public void setGeoLocation(Object geolocation){
-
-    }
-    public Object getGeoLocation(){
-        return null;
-    }
-
-
-//    addComment()
-//    deleteComment()
-//    getNumOfComment()
-
-    //    Input a commnet class
-    public void addComment(String comment){
-
-    }
-    //    Input a commnet class
-    public void deleteComment(String comment){
-
-    }
-    public int getNumOfComment(){
-        return 0;
-    }
-
-    public ArrayList<String> getCommentlist() {
-        return null;
+    public BodyLocation getBodyLocation() {
+        return bodyLocation;
     }
 }

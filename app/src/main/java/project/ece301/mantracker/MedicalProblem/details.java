@@ -3,7 +3,6 @@ package project.ece301.mantracker.MedicalProblem;
 
 public interface details {
 
-
     public String getDate();
     public void setDate(String date);
     public String getTitle();

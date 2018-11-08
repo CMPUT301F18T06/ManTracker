@@ -6,7 +6,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
 
-public class RecordTest extends ActivityInstrumentationTestCase2 {
+public class RecordTest extends ActivityInstrumentationTestCase2 { //TODO: fix - make presentatable
 
     Object geolocation = new Object();
     Object bdlocation = new Object();
