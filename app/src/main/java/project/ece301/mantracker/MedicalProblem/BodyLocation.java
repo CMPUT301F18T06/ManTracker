@@ -2,6 +2,8 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 
+import project.ece301.mantracker.util.Photo;
+
 public class BodyLocation implements Photo {
 
     protected String bodyImage;

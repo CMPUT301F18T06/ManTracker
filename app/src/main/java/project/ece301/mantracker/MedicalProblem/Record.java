@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import project.ece301.mantracker.util.details;
+
 
 public class Record implements details {
     private Date date;

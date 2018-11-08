@@ -1,4 +1,4 @@
-package project.ece301.mantracker.MedicalProblem;
+package project.ece301.mantracker.util;
 
 import android.graphics.Bitmap;
 

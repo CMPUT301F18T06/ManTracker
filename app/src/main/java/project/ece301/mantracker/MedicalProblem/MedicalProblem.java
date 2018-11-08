@@ -2,6 +2,8 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 
+import project.ece301.mantracker.util.details;
+
 
 public class MedicalProblem implements details {
     private String date;

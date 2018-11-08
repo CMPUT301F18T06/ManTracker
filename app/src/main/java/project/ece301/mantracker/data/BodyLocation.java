@@ -1,20 +1,23 @@
 package project.ece301.mantracker.data;
 
+import android.graphics.Bitmap;
+
 import java.util.ArrayList;
 
-import project.ece301.mantracker.MedicalProblem.Photo;
+import project.ece301.mantracker.util.Photo;
 
 public class BodyLocation implements Photo {
 
-    protected String bodyImage;
-    protected ArrayList<Integer> ImageCordinates = new ArrayList<Integer>();
+    private Bitmap bodyImage;
+    private int xCoordinate;
+    private int yCoordinate;
     protected String bodyPart;
 
 
     public BodyLocation() {
     }
 
-    public BodyLocation(String bodyImage, String bodyPart){
+    public BodyLocation(Bitmap bodyImage, String bodyPart){
         this.bodyImage=bodyImage;
         this.bodyPart=bodyPart;
     }
@@ -28,17 +31,18 @@ public class BodyLocation implements Photo {
     }
 
     @Override
-    public void setPhoto(String image) {
-        this.bodyImage=image;
+    public void setPhoto(Bitmap photo) {
+        this.bodyImage=photo;
     }
 
     @Override
-    public String getPhoto() {
+    public void showPhoto(Bitmap photo) {
+
+    }
+
+    @Override
+    public Bitmap getPhoto() {
         return bodyImage;
-    }
-
-    @Override
-    public void showPhoto(String image) {
     }
 
 }

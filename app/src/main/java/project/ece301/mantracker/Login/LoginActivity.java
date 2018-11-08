@@ -12,28 +12,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private EditText username;
     private EditText password;
-    private EditText email;
-    private EditText phonenumber;
     private LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);
 
-//        username = findViewById(R.id.username);
-//        password = findViewById(R.id.password);
-//        email = findViewById(R.id.email);
-//        phonenumber = findViewById(R.id.phonenumber);
-//        findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
         presenter = new LoginPresenter(this, new LoginInteractor());
     }
 
     private void validateCredentials() {
-        presenter.validateCredentials(username.getText().toString(),
-                password.getText().toString(), email.getText().toString(),
-                phonenumber.getText().toString());
+        presenter.validateCredentials(username.getText().toString(), password.getText().toString(),
+                "", ""); //TODO: implement login (currently a copy of create account)
     }
 
     @Override
