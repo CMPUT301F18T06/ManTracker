@@ -27,5 +27,4 @@ public class PateintListActivity extends AppCompatActivity {
             }
         });
     }
-
 }
