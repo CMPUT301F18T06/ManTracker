@@ -1,12 +1,13 @@
 package project.ece301.mantracker.MedicalProblem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
 import project.ece301.mantracker.details;
 
-public class Record implements details {
+public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
     private Date date;
     private Integer ID;
     private String Description;
