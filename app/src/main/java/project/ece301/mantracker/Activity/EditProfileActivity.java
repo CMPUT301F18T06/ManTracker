@@ -1,15 +1,23 @@
 package project.ece301.mantracker.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
+import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.R;
 
 public class EditProfileActivity extends AppCompatActivity {
+
+    private TextView usernameTextView;
+    private TextView emailTextView;
+    private TextView phoneTextView;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,10 @@ public class EditProfileActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        this.usernameTextView = (TextView) findViewById(R.id.usernameTextView);
+        this.emailTextView = (TextView) findViewById(R.id.emailTextView);
+        this.phoneTextView = (TextView) findViewById(R.id.phoneTextView);
     }
 
 }
