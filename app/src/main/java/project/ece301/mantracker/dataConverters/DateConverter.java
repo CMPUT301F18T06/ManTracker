@@ -1,4 +1,4 @@
-package project.ece301.mantracker.data;
+package project.ece301.mantracker.dataConverters;
 
 /*
  * Copyright 2017, The Android Open Source Project

@@ -1,5 +1,6 @@
 package project.ece301.mantracker.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
 import project.ece301.mantracker.R;
 
 
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Intent myIntent = new Intent(this, CreateAccountActivity.class);
+        startActivity(myIntent);
     }
 
     @Override

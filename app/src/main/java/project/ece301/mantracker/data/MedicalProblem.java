@@ -9,6 +9,8 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
+import project.ece301.mantracker.dataConverters.DateConverter;
+
 @Entity(tableName = "problems", foreignKeys = {
         @ForeignKey(entity = Account.class,
                 parentColumns = "id",
@@ -40,6 +42,50 @@ public class MedicalProblem {
         this.username = username;
         this.date = date;
         this.title = title;
+        this.description = description;
+    }
+
+    @NonNull
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Integer id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NonNull String username) {
+        this.username = username;
+    }
+
+    @NonNull
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(@NonNull Date date) {
+        this.date = date;
+    }
+
+    @NonNull
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
     }
 }

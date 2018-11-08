@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-import project.ece301.mantracker.details;
 
 public class Record implements details {
     private Date date;
@@ -68,7 +67,8 @@ public class Record implements details {
         return null;
     }
 
-    public void setDate() {
+    @Override
+    public void setDate(Date date) {
 
     }
 

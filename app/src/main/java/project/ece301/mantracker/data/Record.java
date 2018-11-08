@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 
 import java.util.Date;
 
+import project.ece301.mantracker.dataConverters.DateConverter;
 import project.ece301.mantracker.util.Geolocation;
 
 @Entity(tableName = "records", foreignKeys = {
@@ -42,10 +43,10 @@ public class Record {
     private Geolocation geolocation;
 
     @ColumnInfo(name = "body_location")
-    private BodyLocation bodyLocation;
+    private BodyLocation bodyLocation; //TODO: implement type converter
 
     @ColumnInfo(name = "problem_id")
-    private BodyLocation problemId;
+    private Integer problemId;
 
     public Record(@NonNull Date date, @NonNull String title, @NonNull String description,
                   Geolocation geolocation, BodyLocation bodyLocation) {
@@ -54,11 +55,6 @@ public class Record {
         this.description = description;
         this.geolocation = geolocation;
         this.bodyLocation = bodyLocation;
-    }
-
-    @NonNull
-    public int getId() {
-        return id;
     }
 
     @NonNull
