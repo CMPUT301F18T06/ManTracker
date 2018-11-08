@@ -6,6 +6,7 @@ package project.ece301.mantracker.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
@@ -15,7 +16,8 @@ import java.util.Date;
 import project.ece301.mantracker.dataConverters.DateConverter;
 import project.ece301.mantracker.util.Geolocation;
 
-@Entity(tableName = "records", foreignKeys = {
+@Entity(tableName = "records", indices = {@Index("id")},
+        foreignKeys = {
         @ForeignKey(entity = MedicalProblem.class,
                 parentColumns = "id",
                 childColumns = "problem_id")})

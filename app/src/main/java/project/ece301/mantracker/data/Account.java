@@ -2,10 +2,11 @@ package project.ece301.mantracker.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
+@Entity(indices = {@Index("id")})
 public class Account {
     //includes username, email and phone #
     @PrimaryKey
