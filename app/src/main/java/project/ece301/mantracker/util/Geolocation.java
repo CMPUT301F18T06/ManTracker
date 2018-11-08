@@ -1,4 +1,4 @@
-package project.ece301.mantracker.data;
+package project.ece301.mantracker.util;
 
 public class Geolocation {
     private final double latitude;

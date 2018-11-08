@@ -1,39 +1,28 @@
 package project.ece301.mantracker.data;
 
-import project.ece301.mantracker.util.Email;
-import project.ece301.mantracker.util.Username;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+@Entity
 public class Account {
     //includes username, email and phone #
-    private Username username;
-    private Email email;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String username;
+
+    @ColumnInfo(name = "email")
+    private String email;
+
+    @ColumnInfo(name = "phone")
     private String phone;
 
-    public Account() {}
-
-    public Account(Email email, Username username, String phone) {
-    }
-
-    public void setEmail(Email email) {
-
-    }
-
-    public void setPhone(String phone) {
-
-    }
-
-    public void setUsername(Username username) {}
-
-    public Email getEmail() {
-        return null;
-    }
-
-    public String getPhone() {
-        return null;
-    }
-
-    public Username getUsername() {
-        return null;
+    public Account(@NonNull String username, String email, String phone) {
+        this.username = username;
+        this.email = email;
+        this.phone = phone;
     }
 }
 

@@ -1,19 +1,30 @@
 package project.ece301.mantracker.data;
+// see https://codelabs.developers.google.com/codelabs/android-persistence/#0
+// see https://github.com/googlecodelabs/android-persistence/tree/master/app/src
+// /main/java/com/example/android/persistence/codelab/db
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
 
-@Entity(tableName = "records")
+import project.ece301.mantracker.util.Geolocation;
+
+@Entity(tableName = "records", foreignKeys = {
+        @ForeignKey(entity = MedicalProblem.class,
+                parentColumns = "id",
+                childColumns = "problem_id")})
+@TypeConverters(DateConverter.class)
 public class Record {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "id")
-    private int id;
+    private Integer id;
 
     @NonNull
     @ColumnInfo(name = "date")
@@ -33,6 +44,9 @@ public class Record {
     @ColumnInfo(name = "body_location")
     private BodyLocation bodyLocation;
 
+    @ColumnInfo(name = "problem_id")
+    private BodyLocation problemId;
+
     public Record(@NonNull Date date, @NonNull String title, @NonNull String description,
                   Geolocation geolocation, BodyLocation bodyLocation) {
         this.date = date;
@@ -40,10 +54,6 @@ public class Record {
         this.description = description;
         this.geolocation = geolocation;
         this.bodyLocation = bodyLocation;
-    }
-
-    public Record(){
-
     }
 
     @NonNull

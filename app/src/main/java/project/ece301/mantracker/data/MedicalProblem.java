@@ -1,70 +1,45 @@
 package project.ece301.mantracker.data;
 
-import project.ece301.mantracker.MedicalProblem.details;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.util.Date;
 
+@Entity(tableName = "problems", foreignKeys = {
+        @ForeignKey(entity = Account.class,
+                parentColumns = "id",
+                childColumns = "user_id")})
+@TypeConverters(DateConverter.class)
+public class MedicalProblem {
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "id")
+    private Integer id;
 
-public class MedicalProblem implements details {
-    private String date;
-    private String description;
+    @NonNull
+    @ColumnInfo(name = "user_id")
+    private String username;
+
+    @NonNull
+    @ColumnInfo(name = "date")
+    private Date date;
+
+    @NonNull
+    @ColumnInfo(name = "title")
     private String title;
-    private ArrayList<Record> associatedRecords;
 
-    public MedicalProblem() {
+    @ColumnInfo(name = "description")
+    private String description;
+
+    public MedicalProblem(@NonNull String username, @NonNull Date date,
+                          @NonNull String title, String description) {
+        this.username = username;
+        this.date = date;
+        this.title = title;
+        this.description = description;
     }
-
-    public MedicalProblem(String initDescription, String initTitle, String initDate) {
-        associatedRecords = new ArrayList<Record>();
-        description = initDescription;
-        title = initTitle;
-        date = initDate;
-    }
-
-    @Override
-    public String getDate() {
-        return date;
-    }
-
-    @Override
-   public void setDate(String newDate) {
-        date = newDate;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public void setTitle(String newTitle) {
-        title = newTitle;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String newDescription) {
-        description = newDescription;
-    }
-
-    public void addRecord(Record newRecord) {
-        associatedRecords.add(newRecord);
-    }
-
-    public Record getRecord(int index) {
-        return associatedRecords.get(index);
-    }
-
-    public void deleteRecord(Record record) {
-        associatedRecords.remove(record);
-    }
-
-    public boolean hasRecord(Record record) {
-        return associatedRecords.contains(record);
-    }
-
 }
