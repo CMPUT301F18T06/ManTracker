@@ -21,13 +21,19 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_login);
 
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        username = findViewById(R.id.email);
-        password = findViewById(R.id.phonenumber);
-        findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
+//        username = findViewById(R.id.username);
+//        password = findViewById(R.id.password);
+//        email = findViewById(R.id.email);
+//        phonenumber = findViewById(R.id.phonenumber);
+//        findViewById(R.id.button).setOnClickListener(v -> validateCredentials());
 
         presenter = new LoginPresenter(this, new LoginInteractor());
+    }
+
+    private void validateCredentials() {
+        presenter.validateCredentials(username.getText().toString(),
+                password.getText().toString(), email.getText().toString(),
+                phonenumber.getText().toString());
     }
 
     @Override
@@ -38,12 +44,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showUsernameNotUniqueError() {
-        username.setError(getString(R.string.username_taken_error));
+//        username.setError(getString(R.string.username_taken_error));
     }
 
     @Override
     public void showUsernameError() {
-        username.setError(getString(R.string.username_error));
+//        username.setError(getString(R.string.username_error));
     }
 
     @Override
