@@ -1,7 +1,5 @@
 package project.ece301.mantracker.MedicalProblem;
 
-import java.util.Date;
-
 
 public interface details {
 

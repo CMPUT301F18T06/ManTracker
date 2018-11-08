@@ -1,4 +1,7 @@
-package project.ece301.mantracker.Account;
+package project.ece301.mantracker.data;
+
+import project.ece301.mantracker.util.Email;
+import project.ece301.mantracker.util.Username;
 
 public class Account {
     //includes username, email and phone #

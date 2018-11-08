@@ -1,4 +1,4 @@
-package project.ece301.mantracker.MedicalProblem;
+package project.ece301.mantracker.data;
 
 import android.support.annotation.NonNull;
 
@@ -6,8 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import project.ece301.mantracker.User.Account;
 
 public class Comment implements Comparable<Comment> {
     private static final SimpleDateFormat dF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",

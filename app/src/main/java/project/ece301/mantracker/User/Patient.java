@@ -2,7 +2,6 @@ package project.ece301.mantracker.User;
 
 import java.util.ArrayList;
 
-import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
