@@ -14,4 +14,5 @@
     <string name="description">Description:</string>
     <string name="add_description">Add a description</string>
     <string name="title">Title:</string>
+    <string name="actor">actor</string>
 </resources>
