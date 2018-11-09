@@ -37,22 +37,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showUsernameNotUniqueError() {
-//        username.setError(getString(R.string.username_taken_error));
+        username.setError(getString(R.string.username_taken_error));
     }
 
     @Override
-    public void showUsernameError() {
-//        username.setError(getString(R.string.username_error));
-    }
-
-    @Override
-    public void showEmailError() {
-
-    }
-
-    @Override
-    public void showPhoneError() {
-
+    public void showUsernameInvalidError() {
+        username.setError(getString(R.string.username_invalid_error));
     }
 
     @Override

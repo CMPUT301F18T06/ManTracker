@@ -9,8 +9,8 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
         this.loginInteractor = loginInteractor;
     }
 
-    public void validateCredentials(String username, String password, String email, String phone) {
-        loginInteractor.login(username, password, email, phone, this);
+    public void validateCredentials(String username) {
+        loginInteractor.login(username, this);
     }
 
     public void onDestroy() {
@@ -18,9 +18,9 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
     }
 
     @Override
-    public void onUsernameError() {
+    public void onUsernameInvalidError() {
         if (loginView != null) {
-            loginView.showUsernameError();
+            loginView.showUsernameInvalidError();
         }
     }
 
@@ -28,27 +28,6 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
     public void onUsernameTakenError() {
         if (loginView != null) {
             loginView.showUsernameNotUniqueError();
-        }
-    }
-
-    @Override
-    public void onPasswordError() {
-        if (loginView != null) {
-            loginView.showPasswordError();
-        }
-    }
-
-    @Override
-    public void onEmailError() {
-        if (loginView != null) {
-            loginView.showEmailError();
-        }
-    }
-
-    @Override
-    public void onPhoneError() {
-        if (loginView != null) {
-            loginView.showPhoneError();
         }
     }
 

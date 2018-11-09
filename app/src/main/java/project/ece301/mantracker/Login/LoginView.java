@@ -4,11 +4,7 @@ public interface LoginView {
 
     void showUsernameNotUniqueError();
 
-    void showUsernameError();
-
-    void showEmailError();
-
-    void showPhoneError();
+    void showUsernameInvalidError();
 
     void navigateToHome();
 }
