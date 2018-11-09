@@ -50,7 +50,8 @@
         <activity
             android:name=".Activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true"></activity>
         <activity
             android:name=".PatientHome.PatientHomeActivity"
             android:label="@string/title_activity_patient_home"
