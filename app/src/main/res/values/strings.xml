@@ -18,9 +18,11 @@
     <string name="titleHeader">Title:</string>
     <string name="commentHeader">Comment:</string>
     <string name="titleInputHint">Add Title Here...</string>
-    <string name="commentInputHint">Add Comment Here...</string>
+    <string name="descriptionInputHint">Add description Here...</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
+    <string name="enterDate">Select Date</string>
+
 
 
 </resources>

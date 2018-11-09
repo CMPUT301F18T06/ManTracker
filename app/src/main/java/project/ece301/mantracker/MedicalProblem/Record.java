@@ -66,11 +66,11 @@ public class Record implements details, Serializable { //implementing serializab
     }
 
     public Date getDate() {
-        return null;
+        return date;
     }
 
-    public void setDate() {
-
+    public void setDate(Date newDate) {
+        date = newDate;
     }
 
     public String getTitle() {
