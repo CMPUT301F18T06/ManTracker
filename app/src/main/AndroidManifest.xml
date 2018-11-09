@@ -30,7 +30,8 @@
         <activity
             android:name=".Activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.ProblemListActivity"></activity>
     </application>
 
 </manifest>
