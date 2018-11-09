@@ -16,7 +16,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.create_account);
 
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
@@ -59,6 +59,6 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
     @Override
     public void navigateToHome() {
-
+        //TODO: Where do I go?
     }
 }
