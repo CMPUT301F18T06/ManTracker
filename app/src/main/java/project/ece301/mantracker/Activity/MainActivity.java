@@ -12,10 +12,19 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.Patient;
+
+import static project.ece301.mantracker.File.StoreData.loadFromFile;
+import static project.ece301.mantracker.File.StoreData.patients;
+import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
+    public static final String EXTRA_MESSAGE = "com.example.aman.aanand_feelsbook.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +33,29 @@ public class MainActivity extends AppCompatActivity {
 
         Button nextButton = findViewById(R.id.nextButton);
 
+        loadFromFile(this);
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
-                Intent problem_list_switch = new Intent(getApplicationContext(), ProblemListActivity.class);
-                startActivity(problem_list_switch);
 
+                int index = -1;
+
+                try{
+                    Patient patient = new Patient();
+                    patient.setUsername(new Username("KaranvirGidda"));
+                    patients.add(patient);
+
+                    index = patients.indexOf(patient);
+                }catch (Exception e){
+                }
+
+                saveInFile(getApplicationContext());
+
+                Intent problem_list_switch = new Intent(getApplicationContext(), ProblemListActivity.class);
+                problem_list_switch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
+                startActivity(problem_list_switch);
             }
         });
         }

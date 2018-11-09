@@ -39,6 +39,11 @@ public class Username {
 
     public class InvalidUsernameException extends Exception {
     }
+
+    @Override
+    public String toString(){
+        return this.username;
+    }
 }
 
 

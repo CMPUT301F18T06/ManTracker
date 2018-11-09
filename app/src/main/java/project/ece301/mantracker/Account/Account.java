@@ -19,7 +19,9 @@ public class Account {
 
     }
 
-    public void setUsername(Username username) {}
+    public void setUsername(Username username) {
+        this.username=username;
+    }
 
     public Email getEmail() {
         return null;
@@ -30,7 +32,7 @@ public class Account {
     }
 
     public Username getUsername() {
-        return null;
+        return username;
     }
 }
 

@@ -9,4 +9,9 @@
     <string name="title_activity_record_list">RecordListActivity</string>
     <string name="username">UserName</string>
     <string name="good_day">Good day,</string>
+    <string name="hi">Hi!</string>
+    <string name="add_title">Add a title...</string>
+    <string name="description">Description:</string>
+    <string name="add_description">Add a description</string>
+    <string name="title">Title:</string>
 </resources>
