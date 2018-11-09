@@ -2,7 +2,7 @@ package project.ece301.mantracker.CreateAccount;
 
 public class CreateAccountInteractor {
 
-    interface OnLoginFinishedListener {
+    interface OnCreateAccountFinishedListener {
         void onUsernameInvalidError();
         void onUsernameTakenError();
 
@@ -14,7 +14,7 @@ public class CreateAccountInteractor {
     }
 
     public void createAccount(final String username, final String email, final String phone,
-                      final OnLoginFinishedListener listener) {
+                      final OnCreateAccountFinishedListener listener) {
         // TODO: handle account creation
     }
 }

@@ -1,6 +1,6 @@
 package project.ece301.mantracker.CreateAccount;
 
-public class CreateAccountPresenter implements CreateAccountInteractor.OnLoginFinishedListener{
+public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateAccountFinishedListener{
     private CreateAccountView createAccountView;
     private CreateAccountInteractor createAccountInteractor;
 
