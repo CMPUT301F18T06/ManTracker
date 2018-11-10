@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private void validateCredentials() {
         presenter.validateCredentials(username.getText().toString());
-        //TODO: implement login (currently a copy of create account)
     }
 
     @Override

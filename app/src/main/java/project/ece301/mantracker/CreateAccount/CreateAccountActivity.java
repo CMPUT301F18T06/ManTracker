@@ -2,6 +2,7 @@ package project.ece301.mantracker.CreateAccount;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 
 import project.ece301.mantracker.R;
