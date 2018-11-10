@@ -16,5 +16,9 @@ public class CreateAccountInteractor {
     public void createAccount(final String username, final String email, final String phone,
                       final OnCreateAccountFinishedListener listener) {
         // TODO: handle account creation
+        if (true){
+
+        }
+        listener.onSuccess();
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -35,17 +36,21 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void showUsernameNotUniqueError() {
-        username.setError(getString(R.string.username_taken_error));
-    }
-
-    @Override
     public void showUsernameInvalidError() {
         username.setError(getString(R.string.username_invalid_error));
     }
 
     @Override
-    public void navigateToHome() {
+    public void navigateToCareProviderHome() { //TODO: go to correct location
+        Intent goToMain = new Intent(this, MainActivity.class);
+        startActivity(goToMain);
+        finish();
+    }
 
+    @Override
+    public void navigateToPatientHome() { //TODO: go to correct location
+        Intent goToMain = new Intent(this, MainActivity.class);
+        startActivity(goToMain);
+        finish();
     }
 }
