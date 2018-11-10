@@ -19,10 +19,10 @@ public class LoginInteractor {
     public void login(final String username, final OnLoginFinishedListener listener) {
         DataManager dataManager = DataManager.getInstance();
         Account account = dataManager.getUser(username);
+
         if (account == null)
             listener.onUsernameInvalidError();
-
-        if (account.getClass() == Patient.class)
+        else if (account.getClass() == Patient.class)
             listener.onPatientLogin();
         else if (account.getClass() == CareProvider.class)
             listener.onCareProviderLogin();
