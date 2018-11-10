@@ -20,6 +20,7 @@
     <string name="commentInputHint">Add Comment Here...</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
+    <string name="username_invalid_error">Invalid Username!</string>
 
 
 </resources>
