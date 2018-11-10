@@ -25,16 +25,16 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
     }
 
     @Override
-    public void onUsernameTakenError() {
+    public void onPatientLogin() {
         if (loginView != null) {
-            loginView.showUsernameNotUniqueError();
+            loginView.navigateToPatientHome();
         }
     }
 
     @Override
-    public void onSuccess() {
+    public void onCareProviderLogin() {
         if (loginView != null) {
-            loginView.navigateToHome();
+            loginView.navigateToCareProviderHome();
         }
     }
 }

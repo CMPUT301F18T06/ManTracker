@@ -1,10 +1,12 @@
 package project.ece301.mantracker.CreateAccount;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.R;
 
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountView {
@@ -59,7 +61,9 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToHome() {
-        //TODO: Where do I go?
+    public void navigateToHome() { //TODO: correct location
+        Intent goToMain = new Intent(this, MainActivity.class);
+        startActivity(goToMain);
+        finish();
     }
 }
