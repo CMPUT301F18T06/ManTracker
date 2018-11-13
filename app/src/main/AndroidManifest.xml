@@ -21,8 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CreateAccount.CreateAccountActivity"
-            android:label="@string/title_activity_create_account"
+            android:name=".Login.LoginActivity"
+            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +35,8 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Login.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:name=".CreateAccount.CreateAccountActivity"
+            android:label="@string/title_activity_create_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.EditProfileActivity"
@@ -49,6 +49,14 @@
         <activity
             android:name=".Activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".PatientHome.PatientHomeActivity"
+            android:label="@string/title_activity_patient_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".CareProviderHome.CareProviderHomeActivity"
+            android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

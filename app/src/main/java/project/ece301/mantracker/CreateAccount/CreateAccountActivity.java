@@ -3,17 +3,22 @@ package project.ece301.mantracker.CreateAccount;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
+import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
 
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountView {
 
     private EditText username;
     private EditText email;
     private EditText phonenumber;
+    private CheckBox isCareProvider;
     private CreateAccountPresenter presenter;
 
     @Override
@@ -24,14 +29,15 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         phonenumber = findViewById(R.id.phone);
+        isCareProvider = findViewById(R.id.cb_care_provider);
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
         presenter = new CreateAccountPresenter(this, new CreateAccountInteractor());
     }
 
     private void validateCredentials() {
-        presenter.validateCredentials(username.getText().toString(),
-                email.getText().toString(), phonenumber.getText().toString());
+        presenter.validateCredentials(username.getText().toString(), email.getText().toString(),
+                phonenumber.getText().toString(), isCareProvider.isChecked());
     }
 
     @Override
@@ -61,8 +67,19 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToHome() { //TODO: correct location
-        Intent goToMain = new Intent(this, MainActivity.class);
+    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
+        Intent goToMain = new Intent(this, PatientHomeActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("user", patient);
+        startActivity(goToMain);
+        finish();
+    }
+
+    @Override
+    public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
+        Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("user", careProvider);
         startActivity(goToMain);
         finish();
     }

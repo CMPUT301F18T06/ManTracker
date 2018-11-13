@@ -1,5 +1,8 @@
 package project.ece301.mantracker.CreateAccount;
 
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
+
 public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateAccountFinishedListener{
     private CreateAccountView createAccountView;
     private CreateAccountInteractor createAccountInteractor;
@@ -9,8 +12,8 @@ public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateA
         this.createAccountInteractor = createAccountInteractor;
     }
 
-    public void validateCredentials(String username, String email, String phone) {
-        createAccountInteractor.createAccount(username, email, phone, this);
+    public void validateCredentials(String username, String email, String phone, boolean isCareProvider) {
+        createAccountInteractor.createAccount(username, email, phone, isCareProvider,this);
     }
 
     public void onDestroy() {
@@ -46,9 +49,16 @@ public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateA
     }
 
     @Override
-    public void onSuccess() {
+    public void onPatientCreated(Patient patient) {
         if (createAccountView != null) {
-            createAccountView.navigateToHome();
+            createAccountView.navigateToPatientHome(patient);
+        }
+    }
+
+    @Override
+    public void onCareProviderCreated(CareProvider careProvider) {
+        if (createAccountView != null) {
+            createAccountView.navigateToCareProviderHome(careProvider);
         }
     }
 }
