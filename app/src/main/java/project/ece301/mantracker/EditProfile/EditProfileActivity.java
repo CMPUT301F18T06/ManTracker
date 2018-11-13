@@ -46,13 +46,13 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         Implement the methods provided by EditProfileContract.View
      */
     @Override
-    public void showUsername(Username username) {
-        this.usernameTextView.setText(username.getUserID());
+    public void showUsername(String username) {
+        this.usernameTextView.setText(username);
     }
 
     @Override
-    public void showEmail(Email email) {
-        this.emailTextView.setText(email.getEmail());
+    public void showEmail(String email) {
+        this.emailTextView.setText(email);
     }
 
     @Override

@@ -5,8 +5,8 @@ import project.ece301.mantracker.Account.Username;
 
 public interface EditProfileContract {
     interface View {
-        void showUsername(Username username);
-        void showEmail(Email email);
+        void showUsername(String username);
+        void showEmail(String email);
         void showPhone(String phone);
     }
     interface Presenter {

@@ -3,6 +3,7 @@ package project.ece301.mantracker.EditProfile;
 import android.support.annotation.NonNull;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -31,16 +32,29 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     @Override
     public void loadUsername() {
-        this.mProfileView.showUsername(this.user.getUsername());
+        try {
+            this.mProfileView.showUsername(this.user.getUsername().getUserID());
+        } catch (NullPointerException e) {
+            this.mProfileView.showUsername("Username");
+        }
+
     }
 
     @Override
     public void loadEmail() {
-        this.mProfileView.showEmail(this.user.getEmail());
+        try {
+            this.mProfileView.showEmail(this.user.getEmail().getEmail());
+        } catch (NullPointerException e) {
+            this.mProfileView.showEmail("Email");
+        }
     }
 
     @Override
     public void loadPhone() {
-        this.mProfileView.showPhone(this.user.getPhone());
+        try {
+            this.mProfileView.showPhone(this.user.getPhone());
+        } catch (NullPointerException e) {
+            this.mProfileView.showPhone("Phone");
+        }
     }
 }
