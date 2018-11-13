@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
 import project.ece301.mantracker.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         username = findViewById(R.id.username);
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
+        findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
 
         presenter = new LoginPresenter(this, new LoginInteractor());
     }
@@ -51,6 +53,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void navigateToPatientHome() { //TODO: go to correct location
         Intent goToMain = new Intent(this, MainActivity.class);
         startActivity(goToMain);
+        finish();
+    }
+
+    @Override
+    public void navigateToCreateAccount() {
+        Intent goToCreateAccount = new Intent(this, CreateAccountActivity.class);
+        startActivity(goToCreateAccount);
         finish();
     }
 }

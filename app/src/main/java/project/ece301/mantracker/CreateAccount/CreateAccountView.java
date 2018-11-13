@@ -1,5 +1,8 @@
 package project.ece301.mantracker.CreateAccount;
 
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
+
 public interface CreateAccountView {
 
     void showUsernameNotUniqueError();
@@ -9,5 +12,6 @@ public interface CreateAccountView {
 
     void showPhoneError();
 
-    void navigateToHome();
+    void navigateToPatientHome(Patient patient);
+    void navigateToCareProviderHome(CareProvider careProvider);
 }

@@ -3,6 +3,8 @@ package project.ece301.mantracker.User;
 import java.util.ArrayList;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
@@ -16,7 +18,11 @@ public class Patient extends Account{
     private ArrayList<Record> records;
 
     public Patient() {
+        super();
+    }
 
+    public Patient(Email email, Username username, String phone) {
+        super(email, username, phone);
     }
 
     public MedicalProblem getProblem(MedicalProblem problem) { return null; }
