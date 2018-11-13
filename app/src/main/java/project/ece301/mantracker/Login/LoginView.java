@@ -7,4 +7,6 @@ public interface LoginView {
     void navigateToCareProviderHome();
 
     void navigateToPatientHome();
+
+    void navigateToCreateAccount();
 }

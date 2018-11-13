@@ -14,7 +14,7 @@ public class Username {
     private String username;
 
     public static boolean isValid(String userID){
-        return Pattern.compile(pattern).matcher(userID).matches() && isUnique(userID);
+        return Pattern.compile(pattern).matcher(userID).matches();
     }
 
     private static boolean isUnique(String s) {
@@ -31,13 +31,17 @@ public class Username {
     }
 
     public void setUserID(String userID) throws InvalidUsernameException {
-        if (isValid(userID))
-            this.username = userID;
-        else
+        if (!isValid(userID))
             throw new InvalidUsernameException();
+        if (!isUnique(userID))
+            throw new TakenUsernameException();
+        else
+            this.username = userID;
     }
 
     public class InvalidUsernameException extends Exception {
+    }
+    public class TakenUsernameException extends InvalidUsernameException {
     }
 }
 

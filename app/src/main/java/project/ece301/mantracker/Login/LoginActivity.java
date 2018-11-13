@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
+import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
+import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
@@ -22,6 +25,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         username = findViewById(R.id.username);
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
+        findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
+      
         presenter = new LoginPresenter(this, new LoginInteractor());
     }
 
@@ -41,16 +46,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void navigateToCareProviderHome() { //TODO: go to correct location
-        Intent goToMain = new Intent(this, MainActivity.class);
+    public void navigateToCareProviderHome() { //TODO: pass in account
+        Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
         startActivity(goToMain);
         finish();
     }
 
     @Override
-    public void navigateToPatientHome() { //TODO: go to correct location
-        Intent goToMain = new Intent(this, MainActivity.class);
+    public void navigateToPatientHome() { //TODO: pass in account
+        Intent goToMain = new Intent(this, PatientHomeActivity.class);
         startActivity(goToMain);
+        finish();
+    }
+
+    @Override
+    public void navigateToCreateAccount() {
+        Intent goToCreateAccount = new Intent(this, CreateAccountActivity.class);
+        startActivity(goToCreateAccount);
         finish();
     }
 }
