@@ -58,5 +58,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(problem_list_switch);
             }
         });
-        }
+
+        Button photosButton = findViewById(R.id.PhotosButton);
+        photosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(),AddRecordActivity.class));
+            }
+        });
+    }
+
+    public void GoToPhotos(View view){
+        startActivity(new Intent(this,AddRecordActivity.class));
+    }
 }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.ece301.mantracker">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,8 +35,9 @@
             android:name=".Activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.ProblemListActivity"></activity>
-        <activity android:name=".Activity.AddProblemActivity"></activity>
+        <activity android:name=".Activity.ProblemListActivity" />
+        <activity android:name=".Activity.AddProblemActivity" />
+        <activity android:name=".Activity.AddRecordActivity"></activity>
     </application>
 
 </manifest>
