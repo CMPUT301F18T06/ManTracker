@@ -42,8 +42,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView9"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/iSkeleton"
         android:layout_width="wrap_content"
         android:layout_height="520dp"
         android:layout_marginTop="8dp"
@@ -53,5 +53,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:srcCompat="@drawable/skeleton" />
+
+    <TextView
+        android:id="@+id/resultsView"
+        android:layout_width="148dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iSkeleton" />
 
 </android.support.constraint.ConstraintLayout>
