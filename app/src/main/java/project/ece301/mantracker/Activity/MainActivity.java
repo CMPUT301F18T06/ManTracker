@@ -33,12 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button nextButton = findViewById(R.id.nextButton);
 
-        loadFromFile(this);
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Hello", Toast.LENGTH_SHORT).show();
 
                 int index = -1;
 
@@ -52,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 saveInFile(getApplicationContext());
+                Toast.makeText(MainActivity.this, "Index =" + index, Toast.LENGTH_SHORT).show();
 
                 Intent problem_list_switch = new Intent(getApplicationContext(), ProblemListActivity.class);
                 problem_list_switch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
@@ -66,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),AddRecordActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        // TODO Auto-generated method stub
+        super.onStart();
+        loadFromFile(this);
     }
 
     public void GoToPhotos(View view){

@@ -15,6 +15,7 @@ import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
+import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 public class AddProblemActivity extends AppCompatActivity {
 
@@ -46,6 +47,8 @@ public class AddProblemActivity extends AppCompatActivity {
         Patient patient = patients.get(index);
         patient.addProblem(new MedicalProblem(problemDescription,problemTitle,date_formatted));
         patients.add(index,patient);
+
+        saveInFile(this);
 
         // Saved
         finish();

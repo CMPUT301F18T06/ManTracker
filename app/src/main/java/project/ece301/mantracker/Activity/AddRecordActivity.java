@@ -1,6 +1,7 @@
 package project.ece301.mantracker.Activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,8 +14,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import project.ece301.mantracker.R;
 
 
@@ -29,10 +33,29 @@ public class AddRecordActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
+
+        ImageView imageView = findViewById(R.id.imageView);
+        final TextView textView = findViewById(R.id.text_coord);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+
+            @SuppressLint("SetTextI18n")
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                {
+                    textView.setText("Touch coordinates : " +
+                            String.valueOf(event.getX()) + "x" + String.valueOf(event.getY()));
+                }
+                return true;
+            }
+        });
 
     }
 

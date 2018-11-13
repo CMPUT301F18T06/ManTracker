@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,8 @@ public class ProblemListActivity extends AppCompatActivity {
         // set the username
         TextView heading_text = findViewById(R.id.userNameTextView);
         heading_text.setText(patients.get(index).getUsername().toString());
+
+        Toast.makeText(ProblemListActivity.this, "Index = "+index, Toast.LENGTH_SHORT).show();
 
         problems = new ArrayList<MedicalProblem>();
         populateUserProblems(index);
