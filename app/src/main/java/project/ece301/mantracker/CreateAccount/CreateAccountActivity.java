@@ -7,6 +7,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
+import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
@@ -65,8 +67,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToPatientHome(Patient patient) { //TODO: correct location
-        Intent goToMain = new Intent(this, MainActivity.class);
+    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
+        Intent goToMain = new Intent(this, PatientHomeActivity.class);
 //        Bundle bundle = new Bundle();
 //        bundle.putParcelable("user", patient);
         startActivity(goToMain);
@@ -74,8 +76,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: correct location
-        Intent goToMain = new Intent(this, MainActivity.class);
+    public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
+        Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
 //        Bundle bundle = new Bundle();
 //        bundle.putParcelable("user", careProvider);
         startActivity(goToMain);

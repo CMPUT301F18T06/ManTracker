@@ -21,7 +21,7 @@
     <string name="add_problem">Add New Problem</string>
     <string name="user_greeting"><b>Hello User!</b></string>
     <string name="medical_problems"><b>Medical Problems: </b></string>
-    <string name="search">Search...</string>
+    <string name="search">Search…</string>
     <string name="profilePicture">Profile Picture</string>
     <string name="contentDescription">Content Description</string>
     <string name="User">User:</string>
@@ -30,8 +30,8 @@
     <string name="countHeader">Number of Records Logged:</string>
     <string name="titleHeader">Title:</string>
     <string name="commentHeader">Comment:</string>
-    <string name="titleInputHint">Add Title Here...</string>
-    <string name="commentInputHint">Add Comment Here...</string>
+    <string name="titleInputHint">Add Title Here…</string>
+    <string name="commentInputHint">Add Comment Here…</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
 

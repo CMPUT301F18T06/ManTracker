@@ -12,7 +12,7 @@ public class PatientHomeActivity extends AppCompatActivity implements PatientHom
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.patient_home);
 
         presenter = new PatientHomePresenter(this);
     }
