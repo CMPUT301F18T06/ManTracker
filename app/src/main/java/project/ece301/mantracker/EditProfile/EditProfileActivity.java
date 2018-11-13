@@ -1,4 +1,4 @@
-package project.ece301.mantracker.Activity;
+package project.ece301.mantracker.EditProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,15 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.R;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity implements EditProfileContract.View{
+
+    private EditProfilePresenter mEditProfilePresenter;
+    private Account account;
 
     private TextView usernameTextView;
     private TextView emailTextView;
     private TextView phoneTextView;
-    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,26 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
-        this.usernameTextView = (TextView) findViewById(R.id.usernameTextView);
-        this.emailTextView = (TextView) findViewById(R.id.emailTextView);
-        this.phoneTextView = (TextView) findViewById(R.id.phoneTextView);
+        this.usernameTextView = findViewById(R.id.usernameTextView);
+        this.emailTextView = findViewById(R.id.emailTextView);
+        this.phoneTextView = findViewById(R.id.phoneTextView);
     }
 
+    /*
+        Implement the methods provided by EditProfileContract.View
+     */
+    @Override
+    public void updateUsername(Username username) {
+        this.usernameTextView.setText(username.getUserID());
+    }
+
+    @Override
+    public void updateEmail(Email email) {
+        this.emailTextView.setText(email.getEmail());
+    }
+
+    @Override
+    public void updatePhone(String phone) {
+        this.phoneTextView.setText(phone);
+    }
 }
