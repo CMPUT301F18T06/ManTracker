@@ -18,6 +18,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private EditText username;
     private EditText email;
     private EditText phonenumber;
+
     private CheckBox isCareProvider;
     private CreateAccountPresenter presenter;
 
@@ -29,7 +30,9 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
         phonenumber = findViewById(R.id.phone);
+
         isCareProvider = findViewById(R.id.cb_care_provider);
+      
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
         presenter = new CreateAccountPresenter(this, new CreateAccountInteractor());

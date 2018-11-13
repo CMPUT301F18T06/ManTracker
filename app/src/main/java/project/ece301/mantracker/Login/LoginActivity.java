@@ -24,8 +24,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         username = findViewById(R.id.username);
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
-        findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
 
+        findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
+      
         presenter = new LoginPresenter(this, new LoginInteractor());
     }
 

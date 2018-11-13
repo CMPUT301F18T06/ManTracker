@@ -39,9 +39,10 @@
             android:label="@string/title_activity_create_account"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.EditProfileActivity"
+            android:name=".EditProfile.EditProfileActivity"
             android:label="@string/title_activity_edit_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="true"/>
         <activity
             android:name=".Activity.PateintListActivity"
             android:label="@string/title_activity_pateint_list"
