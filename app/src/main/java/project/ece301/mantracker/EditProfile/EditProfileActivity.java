@@ -9,17 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.R;
 
 public class EditProfileActivity extends AppCompatActivity implements EditProfileContract.View{
 
     private EditProfilePresenter mEditProfilePresenter;
-    private Account account;
+    private String username;
 
     private TextView usernameTextView;
     private TextView emailTextView;
@@ -41,26 +39,35 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
             }
         });
 
+        // Get the text views.
         this.usernameTextView = findViewById(R.id.usernameTextView);
         this.emailTextView = findViewById(R.id.emailTextView);
         this.phoneTextView = findViewById(R.id.phoneTextView);
+
+        // Get the username
+        Intent intent = getIntent();
+        this.username = intent.getStringExtra("Username");
+
+        // Set up the presenter
+        mEditProfilePresenter = new EditProfilePresenter(DataManager.getInstance(),
+                this, this.username);
     }
 
     /*
         Implement the methods provided by EditProfileContract.View
      */
     @Override
-    public void updateUsername(Username username) {
+    public void showUsername(Username username) {
         this.usernameTextView.setText(username.getUserID());
     }
 
     @Override
-    public void updateEmail(Email email) {
+    public void showEmail(Email email) {
         this.emailTextView.setText(email.getEmail());
     }
 
     @Override
-    public void updatePhone(String phone) {
+    public void showPhone(String phone) {
         this.phoneTextView.setText(phone);
     }
 }
