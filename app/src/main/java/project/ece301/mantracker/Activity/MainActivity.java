@@ -21,7 +21,7 @@ import static project.ece301.mantracker.File.StoreData.patients;
 import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     public static final String EXTRA_MESSAGE = "com.example.aman.aanand_feelsbook.MESSAGE";
@@ -56,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(problem_list_switch);
             }
         });
-
-        Button photosButton = findViewById(R.id.PhotosButton);
-        photosButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                startActivity(new Intent(getApplicationContext(),AddRecordActivity.class));
-            }
-        });
     }
 
     @Override
@@ -74,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void GoToPhotos(View view){
-        startActivity(new Intent(this,AddRecordActivity.class));
+        startActivity(new Intent(this, AddRecordActivity.class));
+    }
+
+    public void GoToSkeleton(View view){
+        startActivity(new Intent(this, BodyLocationActivity.class));
     }
 }

@@ -15,4 +15,5 @@
     <string name="add_description">Add a description</string>
     <string name="title">Title:</string>
     <string name="actor">actor</string>
+    <string name="body_location">Body Location</string>
 </resources>
