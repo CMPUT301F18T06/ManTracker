@@ -51,15 +51,19 @@
             android:name=".Activity.RecordListActivity"
             android:label="@string/title_activity_record_list"
             android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true"></activity>
+            android:exported="true"/>
+        <activity
+            android:name=".Activity.AddRecordActivity"
+            android:label="@string/title_activity_edit_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PatientHome.PatientHomeActivity"
             android:label="@string/title_activity_patient_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
