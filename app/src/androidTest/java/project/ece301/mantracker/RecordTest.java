@@ -1,5 +1,6 @@
 package project.ece301.mantracker;
 
+import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.MedicalProblem.Record;
 import android.test.ActivityInstrumentationTestCase2;
 

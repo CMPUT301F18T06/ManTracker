@@ -42,6 +42,10 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
                 this, this.username);
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     /*
         Implement the methods provided by EditProfileContract.View
      */
