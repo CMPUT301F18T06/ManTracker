@@ -8,7 +8,7 @@
 
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rgFrontOrBack"
         android:layout_width="323dp"
         android:layout_height="31dp"
         android:layout_marginTop="32dp"
@@ -18,14 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/frontRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Front" />
 
         <RadioButton
-            android:id="@+id/radioButton10"
+            android:id="@+id/backRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -33,11 +33,11 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bConfirmLocation"
         android:layout_width="89dp"
         android:layout_height="35dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="9dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -48,10 +48,10 @@
         android:layout_height="520dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/bConfirmLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/rgFrontOrBack"
         app:srcCompat="@drawable/skeleton" />
 
     <TextView

@@ -1,21 +1,19 @@
 package project.ece301.mantracker.Activity;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
 
 import project.ece301.mantracker.R;
 
 public class BodyLocationActivity extends AppCompatActivity {
+    private RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +26,23 @@ public class BodyLocationActivity extends AppCompatActivity {
         super.onStart();
 
         PhotoView photoView = (PhotoView) findViewById(R.id.iSkeleton);
+        Button nextLocationButton = (Button) findViewById(R.id.bConfirmLocation);
+        final RadioGroup frontOrBackRadio = (RadioGroup) findViewById(R.id.rgFrontOrBack);
+
         photoView.setImageResource(R.drawable.skeleton);
 
 //        ImageView imageView = findViewById(R.id.imageView);
-        final TextView textView = findViewById(R.id.text_coord);
+//        final TextView textView = findViewById(R.id.text_coord);
 
+
+        nextLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selected = frontOrBackRadio.getCheckedRadioButtonId();
+                radioButton=(RadioButton)findViewById(selected);
+                Toast.makeText(BodyLocationActivity.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
-
 }
