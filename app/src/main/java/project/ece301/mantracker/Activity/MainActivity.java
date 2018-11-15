@@ -65,9 +65,7 @@ public class MainActivity extends AppCompatActivity{
         loadFromFile(this);
     }
 
-    public void GoToPhotos(View view){
-        startActivity(new Intent(this, AddRecordActivity.class));
-    }
+
 
     public void GoToSkeleton(View view){
         startActivity(new Intent(this, BodyLocationActivity.class));

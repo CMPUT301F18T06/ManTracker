@@ -1,5 +1,7 @@
 package project.ece301.mantracker.Activity;
 
+import android.content.Intent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,15 +36,14 @@ public class BodyLocationActivity extends AppCompatActivity {
 //        ImageView imageView = findViewById(R.id.imageView);
 //        final TextView textView = findViewById(R.id.text_coord);
 
-
         nextLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int selected = frontOrBackRadio.getCheckedRadioButtonId();
                 radioButton=(RadioButton)findViewById(selected);
-                Toast.makeText(BodyLocationActivity.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
+                CharSequence result = radioButton.getText();
+                Toast.makeText(BodyLocationActivity.this, result, Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }
