@@ -10,10 +10,11 @@
     <RadioGroup
         android:id="@+id/rgFrontOrBack"
         android:layout_width="323dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="Front" />
 
         <RadioButton
@@ -36,34 +38,47 @@
         android:id="@+id/bConfirmLocation"
         android:layout_width="89dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="9dp"
-        android:text="Button"
+        android:layout_marginEnd="16dp"
+        android:onClick="SaveButtoonClick"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.github.chrisbanes.photoview.PhotoView
+    <ImageView
         android:id="@+id/iSkeleton"
         android:layout_width="wrap_content"
-        android:layout_height="520dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bConfirmLocation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgFrontOrBack"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/skeleton" />
 
     <TextView
         android:id="@+id/resultsView"
-        android:layout_width="148dp"
+        android:layout_width="236dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/Cursor"
+        android:layout_width="26dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iSkeleton" />
+        app:layout_constraintTop_toBottomOf="@+id/rgFrontOrBack"
+        app:srcCompat="?android:attr/textCursorDrawable" />
 
 </android.support.constraint.ConstraintLayout>
