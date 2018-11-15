@@ -9,13 +9,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import project.ece301.mantracker.R;
 
 public class BodyLocationActivity extends AppCompatActivity {
 
-    // DELTE IT LATER // PLACE HOLDER VARIABLES
+    // TODO : DELETE IT // PLACE HOLDER VARIABLES
     String BodyLocation;
     String Coordinates;
 
@@ -58,6 +57,8 @@ public class BodyLocationActivity extends AppCompatActivity {
 
                     // set coordinates of the final cursor position
                     Coordinates = x + ":" + y ;
+
+                    checkCoordinates(Coordinates);
                 }
                 return true;
             }
@@ -69,7 +70,6 @@ public class BodyLocationActivity extends AppCompatActivity {
         float y = Float.parseFloat(point.split(":")[1]);
 
         TextView textView = findViewById(R.id.resultsView);
-        textView.setText("" + x + ", " + y);
 
         // Upper Body
         if( (x>560.0 && x<880.0) && (y>300.0 && y<600.0) ){
@@ -156,11 +156,41 @@ public class BodyLocationActivity extends AppCompatActivity {
             textView.setText("right foreArm");
             BodyLocation="right forearm";
         }
-        else{
-            BodyLocation="No Match";
+
+        // Face
+        else if( (x>620.0 && x<810.0) && (y>20.00 && y<299.99) ){
+            textView.setText("Face");
+            BodyLocation="face";
         }
 
+        // Left Feet
+        else if( (x>580.0 && x<690.0) && (y>1770.01 && y<1895.0) ){
+            textView.setText("Left Feet");
+            BodyLocation="left feet";
+        }
 
+        // Right Feet
+        else if( (x>730.0 && x<850.0) && (y>1770.01 && y<1895.0) ){
+            textView.setText("Right Feet");
+            BodyLocation="right feet";
+        }
+
+        // Left Hand
+        else if( (x>280.0 && x<430.0) && (y>950.01 && y<1130.0) ){
+            textView.setText("Left Hand");
+            BodyLocation="left hand";
+        }
+
+        // Right Hand
+        else if( (x>1000.0 && x<1140.0) && (y>950.01 && y<1130.0) ){
+            textView.setText("Right Hand");
+            BodyLocation="right hand";
+        }
+
+        else{
+            textView.setText("No Match");
+            BodyLocation="No Match";
+        }
     }
 
     public void SaveButtoonClick(View view){
@@ -171,9 +201,7 @@ public class BodyLocationActivity extends AppCompatActivity {
         int selected = frontOrBackRadio.getCheckedRadioButtonId();
         radioButton = findViewById(selected);
         CharSequence result = radioButton.getText();
-//        Toast.makeText(BodyLocationActivity.this, result, Toast.LENGTH_SHORT).show();
 
-        checkCoordinates(Coordinates);
     }
 
 }
