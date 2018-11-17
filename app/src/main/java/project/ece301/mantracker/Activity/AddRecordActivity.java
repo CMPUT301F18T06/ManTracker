@@ -103,6 +103,7 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
+
         record.setProblemID(problemID);
 
         //post to elasticsearch
@@ -119,4 +120,6 @@ public class AddRecordActivity extends AppCompatActivity {
         finish();
 
     }
+
+
 }
