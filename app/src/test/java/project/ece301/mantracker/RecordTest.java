@@ -1,10 +1,11 @@
 package project.ece301.mantracker;
 
-import project.ece301.mantracker.Activity.MainActivity;
-import project.ece301.mantracker.MedicalProblem.Record;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
+
+import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.MedicalProblem.Record;
 
 public class RecordTest extends ActivityInstrumentationTestCase2 {
 
@@ -59,12 +60,12 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
     public RecordTest(){
         super(MainActivity.class);
     }
-
-    public void getBodylocationpointList(){
-        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
-        assertEquals(bodylocationpointlist,record.getBodyLocationPointsList());
-
-    }
+//
+//    public void getBodylocationpointList(){
+//        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
+//        assertEquals(bodylocationpointlist,Record.getBodyLocationPointsList());
+//
+//    }
 
 
     //    BodyLocationPoint()
@@ -112,11 +113,11 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
 
     }
 
-
-    public void testgetID(){
-        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
-        assertEquals(record.testing_ID , record.getID());
-    }
+//
+//    public void testgetID(){
+//        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
+//        assertEquals(record.testing_ID , record.getID());
+//    }
 
 //    BodyLocation
 
@@ -139,10 +140,10 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
 
 
 
-    public void testgetDate(){
-        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
-        assertEquals(record.testing_date , record.getDate());
-    }
+//    public void testgetDate(){
+//        Record record = new Record("Description 1" , "title_1",geolocation,bdlocation,bodylocationpointlist,photolist,commentlist);
+//        assertEquals(record.testing_date , record.getDate());
+//    }
 
 //    Description
 

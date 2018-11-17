@@ -103,7 +103,7 @@ public class AddRecordActivity extends AppCompatActivity {
 //        addRecordsTask.execute(record);
 
         ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
-        getRecordsTask.execute("title");
+        getRecordsTask.execute("aaple ");
         List<Record> recordList = new ArrayList<Record>();
 
         try {
@@ -117,4 +117,6 @@ public class AddRecordActivity extends AppCompatActivity {
         finish();
 
     }
+
+
 }
