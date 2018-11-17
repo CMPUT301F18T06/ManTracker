@@ -4,15 +4,16 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.Adapter.Reocrd_list_adapter;
 
 public class AddRecordActivity extends AppCompatActivity {
 
@@ -79,6 +81,25 @@ public class AddRecordActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ArrayList<Record> records = getRecord();
+        Reocrd_list_adapter reocrd_list_adapter = new Reocrd_list_adapter(
+               AddRecordActivity.this,R.layout.record_list_adapter,records);
+        ListView listView = (ListView) findViewById(R.id.recordList);
+        listView.setAdapter(reocrd_list_adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                TODO onItemclickListener is requried here
+            }
+        });
+
+    }
+
+
+    @Override
     protected void onResume()
     {
         super.onResume();
@@ -89,6 +110,15 @@ public class AddRecordActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         problemID = extras.getString("PROBLEMID");
     }
+
+
+
+
+
+
+
+
+
 
     public void saveRecord(View view) {
         //Create a new record that will be passed back to the record list activity
@@ -119,6 +149,25 @@ public class AddRecordActivity extends AppCompatActivity {
 
         finish();
 
+    }
+
+    public ArrayList<Record> getRecord(){
+
+        ArrayList<Record> record_list = new ArrayList<Record>();
+
+
+        ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
+        getRecordsTask.execute(problemID);
+
+        try {
+            List<Record> foundRecords = getRecordsTask.get();
+            record_list.addAll(foundRecords);
+
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the records from the async object");
+        }
+
+        return record_list;
     }
 
 
