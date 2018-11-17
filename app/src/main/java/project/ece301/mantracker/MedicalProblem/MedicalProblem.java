@@ -65,4 +65,9 @@ public class MedicalProblem implements details {
         return associatedRecords.contains(record);
     }
 
+    @Override
+    public String toString(){
+        return this.title + " | " + this.description + " | " + this.date;
+    }
+
 }

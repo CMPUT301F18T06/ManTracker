@@ -34,8 +34,9 @@ public class ElasticSearchRecordController {
                 Index index = new Index.Builder(record).index("cmput301f18t06test").type("record").build();
                 Log.i("AddRecordTask", "Title: " + record.getTitle());
                 Log.i("AddRecordTask", "Description: " + record.getDescription());
+                Log.i("AddRecordTask", "Username: " + record.getUser());
                 Log.i("AddRecordTask", index.getURI());
-            Log.i("AddRecordTask", "Date: " + record.getDate());
+             Log.i("AddRecordTask", "Date: " + record.getDate());
 
                 try {
                     // where is the client?
@@ -68,9 +69,9 @@ public class ElasticSearchRecordController {
             // TODO Build the query
 
             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{ \"size\": 3, \n" +
+            String query = "{ \"size\": 5, \n" +
                     "    \"query\" : {\n" +
-                    "        \"term\" : { \"Title\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"term\" : { \"associatedUser\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}" ;
 
