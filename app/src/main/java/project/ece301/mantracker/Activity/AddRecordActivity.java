@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,10 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
+import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
@@ -93,9 +97,24 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
         Toast.makeText(this, dateFormat.format(record.getDate()), Toast.LENGTH_LONG).show();
-        //Now we need to pass the record back to RecordListActivity
 
+        //push to elasticsearch server
+//        ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
+//        addRecordsTask.execute(record);
 
+        ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
+        getRecordsTask.execute("title");
+        List<Record> recordList = new ArrayList<Record>();
+
+        try {
+            List<Record> foundRecords = getRecordsTask.get();
+            recordList.addAll(foundRecords);
+        } catch (Exception e) {
+            Log.i("Error", "Failed to get the tweets from the async object");
+        }
+
+        Log.i("FoundRecord", "Found Record: " + recordList.get(0).getDescription());
         finish();
+
     }
 }
