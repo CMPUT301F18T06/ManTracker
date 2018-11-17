@@ -1,6 +1,7 @@
 package project.ece301.mantracker.User;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
@@ -14,10 +15,13 @@ public class Patient extends Account{
     private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
     private ArrayList<Geolocation> geoLocations = new ArrayList<Geolocation>();
     private ArrayList<Record> records = new ArrayList<Record>();
+    private String patientID;
 
     public Patient() {
-
+        patientID = UUID.randomUUID().toString(); //random ID
     }
+
+    public String getID() {return patientID;}
 
     public MedicalProblem getProblem(MedicalProblem problem) { return null; }
 

@@ -6,10 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
@@ -45,11 +49,26 @@ public class AddProblemActivity extends AppCompatActivity {
 
         // change the patient object
         Patient patient = patients.get(index);
-        patient.addProblem(new MedicalProblem(problemDescription,problemTitle,date_formatted));
+        MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID());
+        patient.addProblem(problem);
         patients.add(index,patient);
 
-        saveInFile(this);
+        saveInFile(this); //save locally
 
+        //post to elasticsearch
+        try {
+            ElasticSearchProblemController.AddProblemTask addProblemsTask = new ElasticSearchProblemController.AddProblemTask();
+            addProblemsTask.execute(problem);
+        } catch (Exception e) {
+            Toast.makeText(this, "No Internet Connectivity", Toast.LENGTH_LONG).show();
+        }
+
+        //wait a few seconds for es to upload
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (Exception e) {
+
+        }
         // Saved
         finish();
     }

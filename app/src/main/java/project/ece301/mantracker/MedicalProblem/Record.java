@@ -12,8 +12,7 @@ public class Record implements details, Serializable { //implementing serializab
     //private Integer ID;
     private String Description;
     private String Title;
-    private MedicalProblem associatedProblem;
-    private String associatedUser;
+    private String associatedProblemID;
 //    public Date testing_date;
 //    public Integer testing_ID;
 //    private String comment;
@@ -67,12 +66,12 @@ public class Record implements details, Serializable { //implementing serializab
 //
 //    }
 //
-    public String getUser() {
-        return this.associatedUser;
+    public String getProblemID() {
+        return this.associatedProblemID;
     }
 
-    public void setUser(String user) {
-        this.associatedUser = user;
+    public void setProblemID(String problemID) {
+        this.associatedProblemID = problemID;
     }
 
     public Date getDate() {
@@ -182,4 +181,9 @@ public class Record implements details, Serializable { //implementing serializab
 //    public ArrayList<String> getCommentlist() {
 //        return null;
 //    }
+
+    @Override
+    public String toString(){
+        return this.Title + " | " + this.Description + " | " + this.date;
+    }
 }

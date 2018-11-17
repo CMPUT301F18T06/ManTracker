@@ -34,8 +34,8 @@ public class ElasticSearchRecordController {
                 Index index = new Index.Builder(record).index("cmput301f18t06test").type("record").build();
                 Log.i("AddRecordTask", "Title: " + record.getTitle());
                 Log.i("AddRecordTask", "Description: " + record.getDescription());
-                Log.i("AddRecordTask", "Username: " + record.getUser());
                 Log.i("AddRecordTask", index.getURI());
+                Log.i("AddRecordTask", "POSTEDID: " + record.getProblemID());
              Log.i("AddRecordTask", "Date: " + record.getDate());
 
                 try {
@@ -69,9 +69,9 @@ public class ElasticSearchRecordController {
             // TODO Build the query
 
             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
-            String query = "{ \"size\": 5, \n" +
+            String query = "{ \"size\": 10, \n" +
                     "    \"query\" : {\n" +
-                    "        \"term\" : { \"associatedUser\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"associatedProblemID\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}" ;
 
@@ -84,11 +84,12 @@ public class ElasticSearchRecordController {
                 // TODO get the results of the query
                 SearchResult result = client.execute(search);
                 if (result.isSucceeded()){
+                    @SuppressWarnings("deprecation")
                     List<Record> foundRecords = result.getSourceAsObjectList(Record.class);
                     records.addAll(foundRecords);
                 }
                 else {
-                    Log.i("Error", "The search query failed to find any records that matched");
+                    Log.i("AddRecordTask", "The search query failed to find any records that matched");
                 }
             }
             catch (Exception e) {

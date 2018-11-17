@@ -39,12 +39,14 @@ public class MainActivity extends AppCompatActivity{
 
                 int index = -1;
 
+
                 try{
                     Patient patient = new Patient();
                     patient.setUsername(new Username("KaranvirGidda"));
                     patients.add(patient);
 
                     index = patients.indexOf(patient);
+
                 }catch (Exception e){
                 }
 

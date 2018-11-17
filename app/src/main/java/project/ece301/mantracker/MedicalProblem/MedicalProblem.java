@@ -1,6 +1,9 @@
 package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
+import java.util.UUID;
+
+import project.ece301.mantracker.User.Patient;
 
 
 public class MedicalProblem implements details {
@@ -8,16 +11,24 @@ public class MedicalProblem implements details {
     private String description;
     private String title;
     private ArrayList<Record> associatedRecords;
+    private String id;  //unique id for problems. Will be used for ES
+    private String associatedPatientID;
 
     public MedicalProblem() {
     }
 
-    public MedicalProblem(String initDescription, String initTitle, String initDate) {
+    public MedicalProblem(String initDescription, String initTitle, String initDate, String patientID) {
         associatedRecords = new ArrayList<Record>();
         description = initDescription;
         title = initTitle;
         date = initDate;
+        id = UUID.randomUUID().toString();
+        associatedPatientID = patientID;
     }
+
+    public String getPatientID() {return associatedPatientID;}
+
+    public String getId() {return id;}
 
     @Override
     public String getDate() {

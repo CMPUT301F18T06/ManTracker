@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
@@ -28,6 +29,7 @@ public class RecordListActivity extends AppCompatActivity {
     private ArrayAdapter<Record> adapter;
     private ArrayList<Record> recordList;
     int index;
+    private String problemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class RecordListActivity extends AppCompatActivity {
         //contains all records associated with problem NOTE this will change when we merge with MEDICAL PROBLEM
         recordList = new ArrayList<Record>();
         //update the record listview
-        adapter = new ArrayAdapter<Record>(this, android.R.layout.simple_list_item_1, recordList);
+        adapter = new ArrayAdapter<Record>(this, R.layout.problem_list_item, recordList);
         recordListView.setAdapter(adapter);
 
         //get the index of the record that was selected
@@ -51,6 +53,7 @@ public class RecordListActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         index = extras.getInt("USERINDEX");
         String title = extras.getString("PROBLEMTITLE");
+        problemID = extras.getString("PROBLEMID");
 
         //set the patient username and problem title header
         TextView username_text = findViewById(R.id.patientUsername);
@@ -61,14 +64,16 @@ public class RecordListActivity extends AppCompatActivity {
         //fetch from elasticsearch and populate the records list
         //Records are queried by the current user's username
         ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
-        getRecordsTask.execute(patients.get(index).getUsername().toString());
+        getRecordsTask.execute(problemID);
         Log.i("AddRecordTask", "Username: " + patients.get(index).getUsername().toString());
+        Log.i("AddRecordTask", "PROBLEMID:  " + problemID);
 
         try {
             List<Record> foundRecords = getRecordsTask.get();
             recordList.addAll(foundRecords);
+            Log.i("AddRecordTask", String.valueOf(recordList.size()));
         } catch (Exception e) {
-            Log.i("AddRecordTask", "Failed to get the tweets from the async object");
+            Log.i("AddRecordTask", "Failed to get the records from the async object");
         }
 
         adapter.notifyDataSetChanged();
@@ -79,9 +84,11 @@ public class RecordListActivity extends AppCompatActivity {
         //Move to add record activity
         Intent intent = new Intent(RecordListActivity.this, AddRecordActivity.class);
         Bundle extras = new Bundle();
-        extras.putString("USERNAME", patients.get(index).getUsername().toString());
+        extras.putString("PROBLEMID", problemID);
         intent.putExtras(extras); //pass the patient username to the add record activity
         startActivity(intent);
     }
+
+
 
 }

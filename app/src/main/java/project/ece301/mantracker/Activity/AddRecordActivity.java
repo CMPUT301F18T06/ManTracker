@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
@@ -38,7 +39,7 @@ public class AddRecordActivity extends AppCompatActivity {
     private int day;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String dateString;
-    private String username;
+    private String problemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        username = extras.getString("USERNAME");
+        problemID = extras.getString("PROBLEMID");
     }
 
     public void saveRecord(View view) {
@@ -102,11 +103,18 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
-        record.setUser(username);
+        record.setProblemID(problemID);
 
         //post to elasticsearch
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
         addRecordsTask.execute(record);
+
+        //wait a few seconds for es to upload
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (Exception e) {
+
+        }
 
         finish();
 
