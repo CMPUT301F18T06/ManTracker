@@ -1,6 +1,7 @@
 package project.ece301.mantracker.Activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class AddRecordActivity extends AppCompatActivity {
     private int day;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String dateString;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,10 @@ public class AddRecordActivity extends AppCompatActivity {
         super.onResume();
         //set the current date as default
         dateTextView.setText(dateFormat.format(new Date()));
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        username = extras.getString("USERNAME");
     }
 
     public void saveRecord(View view) {
@@ -96,6 +102,7 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
+<<<<<<< HEAD
         Toast.makeText(this, dateFormat.format(record.getDate()), Toast.LENGTH_LONG).show();
 
         //push to elasticsearch server
@@ -105,15 +112,14 @@ public class AddRecordActivity extends AppCompatActivity {
         ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
         getRecordsTask.execute("aaple ");
         List<Record> recordList = new ArrayList<Record>();
+=======
+        record.setUser(username);
+>>>>>>> b593bdd7a11ba5b68a04aa995668dc5eac5d6e74
 
-        try {
-            List<Record> foundRecords = getRecordsTask.get();
-            recordList.addAll(foundRecords);
-        } catch (Exception e) {
-            Log.i("Error", "Failed to get the tweets from the async object");
-        }
+        //post to elasticsearch
+        ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
+        addRecordsTask.execute(record);
 
-        Log.i("FoundRecord", "Found Record: " + recordList.get(0).getDescription());
         finish();
 
     }

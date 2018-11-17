@@ -12,6 +12,8 @@ public class Record implements details, Serializable { //implementing serializab
     //private Integer ID;
     private String Description;
     private String Title;
+    private MedicalProblem associatedProblem;
+    private String associatedUser;
 //    public Date testing_date;
 //    public Integer testing_ID;
 //    private String comment;
@@ -61,6 +63,14 @@ public class Record implements details, Serializable { //implementing serializab
 
     }
 //
+    public String getUser() {
+        return this.associatedUser;
+    }
+
+    public void setUser(String user) {
+        this.associatedUser = user;
+    }
+
     public Date getDate() {
         return date;
     }
