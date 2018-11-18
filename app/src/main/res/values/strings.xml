@@ -16,4 +16,7 @@
     <string name="title">Title:</string>
     <string name="actor">actor</string>
     <string name="body_location">Body Location</string>
+    <string name="SaveBLPhoto">Save</string>
+    <string name="camera_BL">Camera</string>
+    <string name="gallery_BL">Gallery</string>
 </resources>
