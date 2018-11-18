@@ -2,15 +2,12 @@ package project.ece301.mantracker.Activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -21,6 +18,9 @@ import android.widget.Toast;
 
 
 import project.ece301.mantracker.R;
+
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
 public class BodyLocationActivity extends AppCompatActivity {
 
@@ -83,27 +83,11 @@ public class BodyLocationActivity extends AppCompatActivity {
     }
 
     public void CameraPhoto(View view){
-
-        REQUEST_CODE = 2;
-
-        CheckPermissionsCamera(this);
-
-        Intent cameraPhoto = new Intent(android.provider.
-                MediaStore.ACTION_IMAGE_CAPTURE);
-
-        startActivityForResult(cameraPhoto, REQUEST_CODE);
+        UploadFromCamera(this);
     }
 
     public void GalleryPhoto(View view){
-
-        REQUEST_CODE = 1;
-
-        CheckPermissionsGallery(this);
-
-        Intent uploadPhoto = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(uploadPhoto, REQUEST_CODE);
+        UploadFromGallery(this);
     }
 
     /*
@@ -180,43 +164,14 @@ public class BodyLocationActivity extends AppCompatActivity {
     }
 
 
-    /*
-    Check if you have the right permissions
-    */
-    private static void CheckPermissionsGallery(Activity activity) {
-        int permission = ActivityCompat.checkSelfPermission(activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        // if we don't have permissions ten ask from the user
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,
-                    GALLERY_PERMISSIONS, REQUEST_CODE);
-        }
-    }
-
-    private static void CheckPermissionsCamera(Activity activity){
-        int permission = ActivityCompat.checkSelfPermission(activity,
-                Manifest.permission.CAMERA);
-
-        // if we don't have permissions ten ask from the user
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,
-                    CAMERA_PERMISSIONS, REQUEST_CODE);
-        }
-    }
-
     public void SaveButtonClick(View view){
 
         // Save the Photo and the point location in the File
         // TODO:
-        SavePhotoInFile();
 
         // Back to the Add Record Screen where User can Add more Photos
         finish();
     }
 
-    private void SavePhotoInFile(){
-
-    }
 
 }
