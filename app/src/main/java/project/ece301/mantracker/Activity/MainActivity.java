@@ -69,4 +69,6 @@ public class MainActivity extends AppCompatActivity{
     public void GoToSkeleton(View view){
         startActivity(new Intent(this, BodyLocationActivity.class));
     }
+
+
 }
