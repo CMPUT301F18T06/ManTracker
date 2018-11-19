@@ -2,23 +2,18 @@ package project.ece301.mantracker.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
-import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
@@ -38,6 +33,21 @@ public class RecordListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medical_records);
         recordListView = findViewById(R.id.recordList);
+
+        recordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override //when user selects a problem from the list
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //go to the patient record list
+                Intent recordDetailsSwitch = new Intent(RecordListActivity.this, RecordDetailsActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString("RECORDTITLE", recordList.get(position).getTitle());
+                extras.putInt("USERINDEX", index);
+                extras.putString("RECORDDESCRIPTION", recordList.get(position).getDescription());
+                extras.putString("PROBLEMDATE", recordList.get(position).getDate());
+                recordDetailsSwitch.putExtras(extras);
+                startActivity(recordDetailsSwitch);
+            }
+        });
 
     }
 

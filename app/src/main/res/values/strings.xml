@@ -35,4 +35,5 @@
     <string name="camera_BL">Camera</string>
     <string name="gallery_BL">Gallery</string>
     <string name="UploadBLPhotos">Upload Body Photos</string>
+    <string name="title_activity_record_details">RecordDetailsActivity</string>
 </resources>
