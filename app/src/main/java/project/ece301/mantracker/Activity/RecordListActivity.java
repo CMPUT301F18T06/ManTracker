@@ -88,7 +88,4 @@ public class RecordListActivity extends AppCompatActivity {
         intent.putExtras(extras); //pass the patient username to the add record activity
         startActivity(intent);
     }
-
-
-
 }

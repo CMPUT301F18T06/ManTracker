@@ -1,22 +1,46 @@
 package project.ece301.mantracker.Activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.nio.charset.Charset;
 
 import project.ece301.mantracker.R;
 
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Decode;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
+
 public class BodyLocationActivity extends AppCompatActivity {
 
-    // TODO : DELETE IT // PLACE HOLDER VARIABLES
-    String BodyLocation;
     String Coordinates;
+//    boolean cameraPermission = false;
+//    boolean galleryPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +54,7 @@ public class BodyLocationActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        final ImageView imageView= findViewById(R.id.iSkeleton);
+        final ImageView imageView= findViewById(R.id.image_BL);
         final TextView textView = findViewById(R.id.resultsView);
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
@@ -44,164 +68,129 @@ public class BodyLocationActivity extends AppCompatActivity {
                             String.valueOf(x + ", y: " + y);
                     textView.setText(location);
 
-
-                    // Fix the spacing between the image and the skeleton
-                    final int SkeletonYstartsAt = 35;
-                    final int SkeletonXstartAt  = 26;
-
                     // set the cursor
-                    ImageView cursor = findViewById(R.id.Cursor);
+                    ImageView cursor = findViewById(R.id.cursor);
                     cursor.setVisibility(View.VISIBLE);
-                    cursor.setX(imageView.getLeft() + x - SkeletonXstartAt);
-                    cursor.setY(imageView.getTop() + y - SkeletonYstartsAt);
+
+                    cursor.setX(imageView.getLeft() + x );
+                    cursor.setY(imageView.getTop() + y );
 
                     // set coordinates of the final cursor position
                     Coordinates = x + ":" + y ;
 
-                    checkCoordinates(Coordinates);
                 }
                 return true;
             }
         });
     }
 
-    private void checkCoordinates(String point){
-        float x = Float.parseFloat(point.split(":")[0]);
-        float y = Float.parseFloat(point.split(":")[1]);
+    public void CameraPhoto(View view){
+        CheckPermissionsCamera(this);
+    }
 
-        TextView textView = findViewById(R.id.resultsView);
+    public void GalleryPhoto(View view){
+        CheckPermissionsGallery(this);
+    }
 
-        // Upper Body
-        if( (x>560.0 && x<880.0) && (y>300.0 && y<600.0) ){
-            textView.setText("Upper Body");
-            BodyLocation="upper body";
-        }
-
-        // Middle Body
-        else if( (x>580.0 && x<890.0) && (y>600.001 && y<900.0) ){
-            textView.setText("middle body");
-            BodyLocation="middle body";
-        }
-
-        // Left Thigh
-        else if( (x>550.0 && x<720.0) && (y>900.001 && y<1260.0) ){
-            textView.setText("left thigh");
-            BodyLocation="left thigh";
-        }
-
-        // Right Thigh
-        else if( (x>740.0 && x<900.0) && (y>900.001 && y<1260.0) ){
-            textView.setText("right thigh");
-            BodyLocation="right thigh";
-        }
-
-        // Left Knee
-        else if( (x>570.0 && x<720.0) && (y>1260.001 && y<1460.0) ){
-            textView.setText("left knee");
-            BodyLocation="left knee";
-        }
-
-        // Right Knee
-        else if( (x>750.0 && x<870.0) && (y>1260.001 && y<1460.0) ){
-            textView.setText("right knee");
-            BodyLocation="right knee";
-        }
-
-        // Left leg
-        else if( (x>570.0 && x<720.0) && (y>1460.001 && y<1770.0) ){
-            textView.setText("left leg");
-            BodyLocation="left leg";
-        }
-
-        // Right leg
-        else if( (x>750.0 && x<870.0) && (y>1460.001 && y<1770.0) ){
-            textView.setText("right leg");
-            BodyLocation="right leg";
-        }
-
-        // Left arm
-        else if( (x>450.0 && x<559.99) && (y>320.0 && y<640.0) ){
-            textView.setText("left arm");
-            BodyLocation="left arm";
-        }
-
-        // Right arm
-        else if( (x>880.01 && x<980.0) && (y>320.00 && y<640.0) ){
-            textView.setText("right arm");
-            BodyLocation="right arm";
-        }
-
-        // Left elbow
-        else if( (x>430.0 && x<530.0) && (y>640.01 && y<740.0) ){
-            textView.setText("left elbow");
-            BodyLocation="left elbow";
-        }
-
-        // Right elbow
-        else if( (x>900.0 && x<1000.0) && (y>640.01 && y<740.0) ){
-            textView.setText("right elbow");
-            BodyLocation="right elbow";
-        }
-
-        // left foreArm
-        else if( ((x>390.0 && x<510.0) && (y>740.01 && y<820.0)) ||
-                    ((x>370.0 && x<470.0) && (y>820.01 && y<950.0)) ){
-            textView.setText("left foreArm");
-            BodyLocation="left forearm";
-        }
-
-        // Right foreArm
-        else if( ((x>920.0 && x<1020.0) && (y>740.01 && y<820.0)) ||
-                ((x>950.0 && x<1050.0) && (y>820.01 && y<950.0)) ){
-            textView.setText("right foreArm");
-            BodyLocation="right forearm";
-        }
-
-        // Face
-        else if( (x>620.0 && x<810.0) && (y>20.00 && y<299.99) ){
-            textView.setText("Face");
-            BodyLocation="face";
-        }
-
-        // Left Feet
-        else if( (x>580.0 && x<690.0) && (y>1770.01 && y<1895.0) ){
-            textView.setText("Left Feet");
-            BodyLocation="left feet";
-        }
-
-        // Right Feet
-        else if( (x>730.0 && x<850.0) && (y>1770.01 && y<1895.0) ){
-            textView.setText("Right Feet");
-            BodyLocation="right feet";
-        }
-
-        // Left Hand
-        else if( (x>280.0 && x<430.0) && (y>950.01 && y<1130.0) ){
-            textView.setText("Left Hand");
-            BodyLocation="left hand";
-        }
-
-        // Right Hand
-        else if( (x>1000.0 && x<1140.0) && (y>950.01 && y<1130.0) ){
-            textView.setText("Right Hand");
-            BodyLocation="right hand";
-        }
-
-        else{
-            textView.setText("No Match");
-            BodyLocation="No Match";
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    UploadFromCamera(this);
+                } else {
+                    // user denied the message
+                    Button cameraButton = findViewById(R.id.camera_BL);
+                    cameraButton.setEnabled(false);
+                }
+                break;
+            case 2:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    UploadFromGallery(this);
+                } else {
+                    // user denied the message
+                    Button galleryButton = findViewById(R.id.gallery_BL);
+                    galleryButton.setEnabled(false);
+                }
+                break;
         }
     }
 
-    public void SaveButtoonClick(View view){
-        RadioGroup frontOrBackRadio = findViewById(R.id.rgFrontOrBack);
+    /*
+    Action Upload Image
+    */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        RadioButton radioButton;
+        super.onActivityResult(requestCode, resultCode, data);
 
-        int selected = frontOrBackRadio.getCheckedRadioButtonId();
-        radioButton = findViewById(selected);
-        CharSequence result = radioButton.getText();
+        ImageView imageView_BL = findViewById(R.id.image_BL);
+        ImageView CursorImage = findViewById(R.id.cursor);
 
+        CursorImage.setX(imageView_BL.getLeft() );
+        CursorImage.setY(imageView_BL.getTop() );
+
+        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+
+            try {
+                Bitmap image = (Bitmap) data.getExtras().get("data");
+                imageView_BL.setImageBitmap(image);
+                imageView_BL.setVisibility(View.VISIBLE);
+
+                // make the cursor visible
+                CursorImage.setVisibility(View.VISIBLE);
+            }
+            catch(NullPointerException ex){
+                Toast.makeText(this, "Unable to show photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
+
+            Uri imageSelected = data.getData();
+
+            try{
+
+                Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(imageSelected));
+
+                /* For encoding and decoding //
+
+                String Base64Image = Encode(bitmap, Bitmap.CompressFormat.JPEG, 100);
+                Bitmap decodedImage = Decode(Base64Image);
+                imageView_BL.setImageBitmap(decodedImage);
+
+                */
+
+                // set the image
+                imageView_BL.setImageBitmap(bitmap);
+                imageView_BL.setVisibility(View.VISIBLE);
+
+//              make the cursor visible
+                CursorImage.setVisibility(View.VISIBLE);
+
+            }
+            catch (NullPointerException ex){
+                Toast.makeText(this, "Unable to show photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            catch(FileNotFoundException ex){
+                Toast.makeText(this, "Unable to show photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+
+    public void SaveButtonClick(View view){
+
+        // Save the Photo and the point location in the File
+        // TODO:
+
+        // Back to the Add Record Screen where User can Add more Photos
+        finish();
+    }
+
 
 }

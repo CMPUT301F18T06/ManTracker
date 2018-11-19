@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity{
                 }
 
                 saveInFile(getApplicationContext());
-                Toast.makeText(MainActivity.this, "Index =" + index, Toast.LENGTH_SHORT).show();
 
                 Intent problem_list_switch = new Intent(getApplicationContext(), ProblemListActivity.class);
                 problem_list_switch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
@@ -72,4 +71,6 @@ public class MainActivity extends AppCompatActivity{
     public void GoToSkeleton(View view){
         startActivity(new Intent(this, BodyLocationActivity.class));
     }
+
+
 }

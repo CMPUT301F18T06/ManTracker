@@ -121,5 +121,8 @@ public class AddRecordActivity extends AppCompatActivity {
 
     }
 
+    public void BodyLocationPhotos(View view){
+        startActivity(new Intent(this, BodyLocationActivity.class));
+    }
 
 }

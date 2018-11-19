@@ -7,56 +7,15 @@
     tools:context=".Activity.BodyLocationActivity">
 
 
-    <RadioGroup
-        android:id="@+id/rgFrontOrBack"
-        android:layout_width="323dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RadioButton
-            android:id="@+id/frontRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="Front" />
-
-        <RadioButton
-            android:id="@+id/backRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Back" />
-    </RadioGroup>
-
     <Button
         android:id="@+id/bConfirmLocation"
-        android:layout_width="89dp"
-        android:layout_height="35dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
-        android:onClick="SaveButtoonClick"
-        android:text="Save"
+        android:onClick="SaveButtonClick"
+        android:text="@string/SaveBLPhoto"
         app:layout_constraintBaseline_toBaselineOf="@+id/resultsView"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/iSkeleton"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bConfirmLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgFrontOrBack"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/skeleton" />
 
     <TextView
         android:id="@+id/resultsView"
@@ -69,15 +28,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/Cursor"
-        android:layout_width="26dp"
-        android:layout_height="23dp"
+    <Button
+        android:id="@+id/camera_BL"
+        android:layout_width="124dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:onClick="CameraPhoto"
+        android:text="@string/camera_BL"
+        app:layout_constraintEnd_toStartOf="@+id/gallery_BL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/gallery_BL"
+        android:layout_width="124dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:onClick="GalleryPhoto"
+        android:text="@string/gallery_BL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/camera_BL"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_BL"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rgFrontOrBack"
+        app:layout_constraintTop_toBottomOf="@+id/camera_BL"
+        app:srcCompat="@drawable/avatar" />
+
+    <ImageView
+        android:id="@+id/cursor"
+        android:layout_width="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_BL"
         app:srcCompat="?android:attr/textCursorDrawable" />
 
 </android.support.constraint.ConstraintLayout>
