@@ -72,11 +72,6 @@
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Geolocation.GoogleMapActivity"
-            android:label="@string/title_activity_google_map"
-            android:theme="@style/AppTheme"
-            android:exported="true"/>
     </application>
 
 </manifest>
