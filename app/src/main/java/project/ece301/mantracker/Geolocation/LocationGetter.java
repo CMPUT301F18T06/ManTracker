@@ -8,7 +8,7 @@ public interface LocationGetter {
 
     int PLACE_PICKER_REQUEST = 1;
 
-    public abstract Place getLocation();
+    public abstract void goToGooglePlaces();
 
     void onActivityResult(int requestCode, int resultCode, Intent data);
 }

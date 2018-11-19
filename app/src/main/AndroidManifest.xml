@@ -75,7 +75,8 @@
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.RecordListActivity" />
+        <activity android:name=".Activity.RecordListActivity"
+            android:exported="true"/>
         <activity android:name=".Activity.AddProblemActivity" />
         <activity android:name=".Activity.BodyLocationActivity"></activity>
     </application>

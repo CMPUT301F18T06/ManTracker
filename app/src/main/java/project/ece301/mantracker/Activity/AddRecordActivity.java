@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,11 +26,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.Geolocation.LocationGetter;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
-public class AddRecordActivity extends AppCompatActivity {
+public class AddRecordActivity extends AppCompatActivity  implements LocationGetter {
 
     //variables to be used
     private DatePickerDialog.OnDateSetListener dateSetListener;
@@ -41,12 +46,17 @@ public class AddRecordActivity extends AppCompatActivity {
     private String dateString;
     private String problemID;
 
+    private Button locationButton;
+    private LatLng latlng;
+    private final int PLACE_PICKER_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
         dateTextView = findViewById(R.id.date);
         dateButton = findViewById(R.id.dateButton);
+        locationButton = findViewById(R.id.addLocationButton);
 
         //set click listener. We want to launch a popup when the user taps on the date button
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +86,13 @@ public class AddRecordActivity extends AppCompatActivity {
                 dateTextView.setText(dateString);
             }
         };
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToGooglePlaces();
+            }
+        });
     }
 
     @Override
@@ -125,4 +142,27 @@ public class AddRecordActivity extends AppCompatActivity {
         startActivity(new Intent(this, BodyLocationActivity.class));
     }
 
+    @Override
+    public void goToGooglePlaces() {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (Exception e) {
+            Log.d("Place", "Error starting Google Places Activity");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+                String nameMsg = String.format("Place: %s", place.getName());
+                String latlngMsg = String.format("Place: %s", place.getLatLng());
+                Toast.makeText(this, nameMsg + "\n" + latlngMsg, Toast.LENGTH_LONG).show();
+                latlng = place.getLatLng();
+            }
+        }
+    }
 }
