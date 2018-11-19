@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
@@ -48,6 +49,8 @@ public class AddRecordActivity extends AppCompatActivity {
     private String dateString;
     private String problemID;
     private String newDate;
+
+    public static BodyLocation bodyLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,23 +101,6 @@ public class AddRecordActivity extends AppCompatActivity {
         second = cal.get(Calendar.SECOND);
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        ArrayList<Record> records = getRecord();
-//        Reocrd_list_adapter reocrd_list_adapter = new Reocrd_list_adapter(
-//               AddRecordActivity.this,R.layout.record_list_adapter,records);
-//        ListView listView = (ListView) findViewById(R.id.recordList);
-//        listView.setAdapter(reocrd_list_adapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                TODO onItemclickListener is requried here
-//            }
-//        });
-//
-//    }
     @Override
     protected void onResume()
     {
@@ -132,6 +118,11 @@ public class AddRecordActivity extends AppCompatActivity {
     public void saveRecord(View view) {
         //Create a new record that will be passed back to the record list activity
         Record record = new Record();
+
+        if(bodyLocation!=null) {
+            record.addBodyLocation(bodyLocation);
+        }
+
         //store the entered title and description in the record
         enteredTitle = findViewById(R.id.titleInputBox);
         enteredComment = findViewById(R.id.commentInputBox);

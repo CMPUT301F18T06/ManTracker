@@ -27,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.nio.charset.Charset;
 
+import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
@@ -38,9 +39,8 @@ import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGal
 
 public class BodyLocationActivity extends AppCompatActivity {
 
-    String Coordinates;
-//    boolean cameraPermission = false;
-//    boolean galleryPermission = false;
+    String Coordinates = null;
+    String encodedImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +135,9 @@ public class BodyLocationActivity extends AppCompatActivity {
 
             try {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
+
+                encodedImage = Encode(image, Bitmap.CompressFormat.JPEG, 100);
+
                 imageView_BL.setImageBitmap(image);
                 imageView_BL.setVisibility(View.VISIBLE);
 
@@ -154,6 +157,8 @@ public class BodyLocationActivity extends AppCompatActivity {
             try{
 
                 Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(imageSelected));
+
+                encodedImage = Encode(bitmap, Bitmap.CompressFormat.JPEG, 100);
 
                 /* For encoding and decoding //
 
@@ -186,7 +191,7 @@ public class BodyLocationActivity extends AppCompatActivity {
     public void SaveButtonClick(View view){
 
         // Save the Photo and the point location in the File
-        // TODO:
+        AddRecordActivity.bodyLocation = new BodyLocation(encodedImage,Coordinates);
 
         // Back to the Add Record Screen where User can Add more Photos
         finish();
