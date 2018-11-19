@@ -36,7 +36,6 @@ public class RecordListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medical_records);
         recordListView = findViewById(R.id.recordList);
-
     }
 
     @Override

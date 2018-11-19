@@ -13,8 +13,8 @@ public class Record implements details, Serializable { //implementing serializab
     private String Description;
     private String Title;
     private String associatedProblemID;
-//    public Date testing_date;
-//    public Integer testing_ID;
+    public Date testing_date;
+    public Integer testing_ID;
 //    private String comment;
     private ArrayList<String> commentlist;
 //
