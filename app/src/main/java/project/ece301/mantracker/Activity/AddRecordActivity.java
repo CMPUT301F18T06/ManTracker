@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.Geolocation.LocationGetter;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
+import project.ece301.mantracker.MedicalProblem.Geolocation;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
@@ -120,6 +123,12 @@ public class AddRecordActivity extends AppCompatActivity  implements LocationGet
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
+
+        // Set geolocation
+        Location temp = new Location(LocationManager.GPS_PROVIDER);
+        temp.setLatitude(latlng.latitude);
+        temp.setLongitude(latlng.longitude);
+        record.setGeoLocation(new Geolocation(temp));
 
         record.setProblemID(problemID);
 
