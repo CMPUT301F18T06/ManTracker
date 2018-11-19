@@ -1,21 +1,23 @@
 package project.ece301.mantracker.MedicalProblem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
 import project.ece301.mantracker.details;
 
-public class Record implements details {
+public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
     private Date date;
-    private Integer ID;
+    //private Integer ID;
     private String Description;
     private String Title;
+    private String associatedProblemID;
     public Date testing_date;
     public Integer testing_ID;
-    private String comment;
+//    private String comment;
     private ArrayList<String> commentlist;
-
+//
     private Object geolocation;
     private Object bdlocation;
     private ArrayList<Object> bodylocationpointlist;
@@ -27,9 +29,7 @@ public class Record implements details {
         Random rand = new Random();
         int  n = rand.nextInt(1000000);
         this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
+
         this.Description = Description;
         this.Title = title;
         this.geolocation = geolocation;
@@ -39,23 +39,21 @@ public class Record implements details {
         this.commentlist = commentlist;
 
     }
-
+//
     public Record(){
 
     }
-
+//
     public Record(String Description , String title ){
         Random rand = new Random();
         int  n = rand.nextInt(1000000);
         this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
+
         this.Description = Description;
         this.Title = title;
 
     }
-
+//
     public Integer getID() {
         return null;
     }
@@ -63,39 +61,46 @@ public class Record implements details {
     public void setID() {
 
     }
+//
+    public String getProblemID() {
+        return this.associatedProblemID;
+    }
+
+    public void setProblemID(String problemID) {
+        this.associatedProblemID = problemID;
+    }
 
     public Date getDate() {
         return date;
     }
-
+//
     public void setDate(Date newDate) {
         date = newDate;
     }
 
     public String getTitle() {
-        return null;
+        return Title;
     }
-
+//
     public void setTitle(String title) {
-
-
+        Title = title;
 
     }
 
     public String getDescription() {
-        return null;
+        return Description;
     }
-
+//
     public void setDescription(String description) {
-
+        Description = description;
     }
-
-
+//
+//
 //  addBodyLocationPoint(BodyLocationPoint): void
 //  deleteBodyLocationPoint(BodyLocationPoint):void
 //  getNumOfBodyLocationPoints()
-
-    //    Input a BodyLocationpoint class
+//
+//    //    Input a BodyLocationpoint class
     public void addBodyLocationPoint(Object bdlocationpoint){
 
     }
@@ -109,10 +114,10 @@ public class Record implements details {
     public Object getBodyLocationPointsList(){
         return null;
     }
+////
+//// getBodyLocation():BodyLocation;
+//// setBodyLocation(Bodylocation):
 //
-// getBodyLocation():BodyLocation;
-// setBodyLocation(Bodylocation):
-
     //    Input a bodylocation class
     public void setBodyLocation(Object bdlocation){
 
@@ -122,10 +127,10 @@ public class Record implements details {
         return null;
     }
 
-    //addPhoto(Photo):void
-//deletePhoto(Photo):void
-//getNumOfPhotots():Integer
-//    Input a photo class
+//    //addPhoto(Photo):void
+////deletePhoto(Photo):void
+////getNumOfPhotots():Integer
+////    Input a photo class
     public void addPhoto(Object photo){
 
     }
@@ -140,10 +145,10 @@ public class Record implements details {
         return null;
 
     }
-
-//    + getGeoLocation():Geolocation
-//+ setGeoLocation(Geolocation):void
-
+//
+////    + getGeoLocation():Geolocation
+////+ setGeoLocation(Geolocation):void
+//
     //    Input a geolocation class
     public void setGeoLocation(Object geolocation){
 
@@ -151,12 +156,18 @@ public class Record implements details {
     public Object getGeoLocation(){
         return null;
     }
+//
+//
+////    addComment()
+////    deleteComment()
+////    getNumOfComment()
+//
 
 
-//    addComment()
-//    deleteComment()
-//    getNumOfComment()
-
+    @Override
+    public String toString() {
+        return this.Title + " | " + this.Description + " | " + this.date;
+    }
     //    Input a commnet class
     public void addComment(String comment){
 
@@ -171,5 +182,6 @@ public class Record implements details {
 
     public ArrayList<String> getCommentlist() {
         return null;
+
     }
 }

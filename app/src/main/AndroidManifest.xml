@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.ece301.mantracker">
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -56,10 +62,7 @@
             android:label="@string/title_activity_pateint_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Activity.RecordListActivity"
-            android:exported="true"
-            android:label="@string/title_activity_record_list"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Activity.ProblemListActivity" />
         <activity
             android:name=".Activity.AddRecordActivity"
             android:label="@string/title_activity_edit_profile"
@@ -72,6 +75,9 @@
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.RecordListActivity" />
+        <activity android:name=".Activity.AddProblemActivity" />
+        <activity android:name=".Activity.BodyLocationActivity"></activity>
     </application>
 
 </manifest>

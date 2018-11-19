@@ -43,6 +43,11 @@ public class Username {
     }
     public class TakenUsernameException extends InvalidUsernameException {
     }
+
+    @Override
+    public String toString(){
+        return this.username;
+    }
 }
 
 

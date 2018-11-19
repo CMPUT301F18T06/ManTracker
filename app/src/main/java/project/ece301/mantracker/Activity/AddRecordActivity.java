@@ -1,10 +1,12 @@
 package project.ece301.mantracker.Activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -13,10 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
@@ -33,6 +39,7 @@ public class AddRecordActivity extends AppCompatActivity {
     private int day;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String dateString;
+    private String problemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +84,10 @@ public class AddRecordActivity extends AppCompatActivity {
         super.onResume();
         //set the current date as default
         dateTextView.setText(dateFormat.format(new Date()));
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        problemID = extras.getString("PROBLEMID");
     }
 
     public void saveRecord(View view) {
@@ -92,10 +103,26 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
-        Toast.makeText(this, dateFormat.format(record.getDate()), Toast.LENGTH_LONG).show();
-        //Now we need to pass the record back to RecordListActivity
 
+        record.setProblemID(problemID);
+
+        //post to elasticsearch
+        ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
+        addRecordsTask.execute(record);
+
+        //wait a few seconds for es to upload
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (Exception e) {
+
+        }
 
         finish();
+
     }
+
+    public void BodyLocationPhotos(View view){
+        startActivity(new Intent(this, BodyLocationActivity.class));
+    }
+
 }
