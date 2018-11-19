@@ -43,6 +43,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 extras.putString("PROBLEMTITLE", problems.get(position).getTitle());
                 extras.putInt("USERINDEX", index);
                 extras.putString("PROBLEMID", problems.get(position).getId());
+                extras.putString("PROBLEMDESCRIPTION", problems.get(position).getDescription());
+                extras.putString("PROBLEMDATE", problems.get(position).getDate());
                 recordListSwitch.putExtras(extras);
                 startActivity(recordListSwitch);
             }

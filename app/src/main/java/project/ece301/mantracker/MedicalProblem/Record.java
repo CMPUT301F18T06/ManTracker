@@ -7,8 +7,8 @@ import java.util.Random;
 
 import project.ece301.mantracker.details;
 
-public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
-    private Date date;
+public class Record implements details { //implementing serializable allows us to pass an instance of record across activities
+    private String date;
     //private Integer ID;
     private String Description;
     private String Title;
@@ -23,37 +23,20 @@ public class Record implements details, Serializable { //implementing serializab
     private ArrayList<Object> bodylocationpointlist;
     private ArrayList<Object> photolist;
 
-    public Record(String Description , String title ,   Object geolocation,Object bdlocation,
-                  ArrayList<Object> bodylocationpointlist, ArrayList<Object> photolist, ArrayList<String> commentlist){
-
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-
-        this.Description = Description;
-        this.Title = title;
-        this.geolocation = geolocation;
-        this.bdlocation = bdlocation;
-        this.bodylocationpointlist = bodylocationpointlist;
-        this.photolist = photolist;
-        this.commentlist = commentlist;
-
-    }
-//
     public Record(){
 
     }
+//I DONT THINK WE NEED THIS?
+//    public Record(String Description , String title ){
+//        Random rand = new Random();
+//        int  n = rand.nextInt(1000000);
+//        this.date = new Date();
 //
-    public Record(String Description , String title ){
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-
-        this.Description = Description;
-        this.Title = title;
-
-    }
+//        this.Description = Description;
+//        this.Title = title;
 //
+//    }
+
     public Integer getID() {
         return null;
     }
@@ -70,11 +53,11 @@ public class Record implements details, Serializable { //implementing serializab
         this.associatedProblemID = problemID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 //
-    public void setDate(Date newDate) {
+    public void setDate(String newDate) {
         date = newDate;
     }
 

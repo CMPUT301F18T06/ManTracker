@@ -30,6 +30,8 @@ public class RecordListActivity extends AppCompatActivity {
     private ArrayList<Record> recordList;
     int index;
     private String problemID;
+    private String problemDescription;
+    private String problemDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +56,8 @@ public class RecordListActivity extends AppCompatActivity {
         index = extras.getInt("USERINDEX");
         String title = extras.getString("PROBLEMTITLE");
         problemID = extras.getString("PROBLEMID");
-
-        //set the patient username and problem title header
-        TextView username_text = findViewById(R.id.patientUsername);
-        username_text.setText(patients.get(index).getUsername().toString());
-        TextView title_text = findViewById(R.id.recordTitleTextView);
-        title_text.setText(title);
+        problemDescription = extras.getString("PROBLEMDESCRIPTION");
+        problemDate = extras.getString("PROBLEMDATE");
 
         //fetch from elasticsearch and populate the records list
         //Records are queried by the current user's username
@@ -77,6 +75,19 @@ public class RecordListActivity extends AppCompatActivity {
         }
 
         adapter.notifyDataSetChanged();
+        //set the patient username and problem title header
+        TextView username_text = findViewById(R.id.patientUsername);
+        username_text.setText(patients.get(index).getUsername().toString());
+        TextView title_text = findViewById(R.id.recordTitleTextView);
+        title_text.setText(title);
+
+        //set the problem description, title, date and total record count
+        TextView description_text = findViewById(R.id.userRecordDescription);
+        description_text.setText(problemDescription);
+        TextView recordCount = findViewById(R.id.userRecordCount);
+        recordCount.setText(String.valueOf(recordList.size()));
+        TextView date_text = findViewById(R.id.recordDate);
+        date_text.setText(problemDate);
 
     }
 

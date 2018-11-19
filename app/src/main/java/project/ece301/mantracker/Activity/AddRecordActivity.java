@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,9 +39,13 @@ public class AddRecordActivity extends AppCompatActivity {
     private int year;
     private int month;
     private int day;
+    private int hour;
+    private int minute;
+    private int second;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String dateString;
     private String problemID;
+    private String newDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,18 @@ public class AddRecordActivity extends AppCompatActivity {
                 dateTextView.setText(dateString);
             }
         };
+
+        //set the date for the record as current date by default
+        //https://www.baeldung.com/java-year-month-day
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH) + 1;
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        hour = cal.get(Calendar.HOUR_OF_DAY);
+        minute = cal.get(Calendar.MINUTE);
+        second = cal.get(Calendar.SECOND);
     }
 
     @Override
@@ -96,7 +114,7 @@ public class AddRecordActivity extends AppCompatActivity {
         //store the entered title and description in the record
         enteredTitle = findViewById(R.id.titleInputBox);
         enteredComment = findViewById(R.id.commentInputBox);
-        Date newDate = new GregorianCalendar(year, month - 1, day).getTime();
+        newDate = year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
 
 
         //will need to update this as other functionality is required
