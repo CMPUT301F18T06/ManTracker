@@ -1,6 +1,7 @@
 package project.ece301.mantracker.Geolocation;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +43,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     private Location mLastKnownLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    int PLACE_PICKER_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,15 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         .setAction("Action", null).show();
             }
         });
+
+        try {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (Exception e) {
+            Log.e("Location", "Exception when starting place picker");
+        }
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.g_map);
@@ -168,6 +182,18 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             }
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                toastMsg = String.format("Place: %s", place.getLatLng());
+                Toast.makeText(this, toastMsg.toString(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
