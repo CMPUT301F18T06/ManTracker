@@ -43,6 +43,7 @@
     <string name="phone_invalid_error">Phone not valid</string>
     <string name="username_invalid_error">Username not valid</string>
     <string name="username_taken_error">Username already taken</string>
+    <string name="title_activity_google_map">GoogleMapActivity</string>
 
 
 </resources>
