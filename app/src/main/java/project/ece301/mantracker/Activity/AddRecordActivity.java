@@ -45,7 +45,7 @@ import project.ece301.mantracker.MedicalProblem.Photo;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.MedicalProblem.UploadPhoto;
 import project.ece301.mantracker.R;
-import project.ece301.mantracker.Adapter.Reocrd_list_adapter;
+
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;

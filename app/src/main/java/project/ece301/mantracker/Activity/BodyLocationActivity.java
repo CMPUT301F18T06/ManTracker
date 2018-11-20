@@ -23,6 +23,7 @@ import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
