@@ -14,9 +14,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
@@ -57,10 +60,31 @@ public class ProblemListActivity extends AppCompatActivity {
         super.onResume();
 
         Intent intent = getIntent();
-        index = Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_MESSAGE));
+        index = intent.getIntExtra(CreateAccountActivity.USERNAME_EXTRA, -1);
+        Log.i("PatientQuery", "index: " + index);
 
         // set the username
         TextView heading_text = findViewById(R.id.userNameTextView);
+
+//        TODO: GET ELASTIC SEARCH WORKING
+//          *********************************************
+//        String patientName;
+//        try {
+//            //fetch from elasticsearch and get the patient name
+//            //Patients are queried by the current user's username
+//            ElasticSearchPatientController.GetPatientTask getPatientTask =
+//                    new ElasticSearchPatientController.GetPatientTask();
+//            getPatientTask.execute(username);
+//            List<Patient> foundPatients = getPatientTask.get();
+//            for (Patient patient: foundPatients) {
+//                Log.i("PatientQuery", "Username: " + patient.getUsername().toString());
+//            }
+//            Log.i("PatientQuery", String.valueOf(foundPatients.size()));
+//        } catch (Exception e) {
+//            Log.i("AddRecordTask", "Failed to get the records from the async object");
+//        }
+//        ****************************************************
+
         heading_text.setText(patients.get(index).getUsername().toString());
         Log.i("AddProblemTask", "index: "+ String.valueOf(index));
 
@@ -98,9 +122,6 @@ public class ProblemListActivity extends AppCompatActivity {
     }
 
     public void AddProblem(View view){
-        Intent intent = getIntent();
-        int index = Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_MESSAGE));
-
         Intent addProblemSwitch = new Intent(ProblemListActivity.this, AddProblemActivity.class);
         addProblemSwitch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
         startActivity(addProblemSwitch);
