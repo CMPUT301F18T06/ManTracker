@@ -1,12 +1,26 @@
 <resources>
+    <!--App and Activities-->
     <string name="app_name">ManTracker</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_pateint_list">PateintListActivity</string>
+    <string name="title_activity_record_list">RecordListActivity</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_create_account">Create Account</string>
+    <string name="title_activity_patient_home">Patient Home</string>
+    <string name="title_activity_care_provider">Care Provider Home</string>
+
+    <!--General-->
+    <string name="signup">Sign Up</string>
+    <string name="user">Username</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone number</string>
+    <string name="care_provider">Care provider</string>
+    <string name="patient">Patient</string>
+
     <string name="action_settings">Settings</string>
     <string name="add_problem">Add New Problem</string>
     <string name="user_greeting"><b>Hello User!</b></string>
     <string name="medical_problems"><b>Medical Problems: </b></string>
-    <string name="title_activity_edit_profile">EditProfileActivity</string>
-    <string name="title_activity_pateint_list">PateintListActivity</string>
-    <string name="title_activity_record_list">RecordListActivity</string>
     <string name="title_activity_add_record">AddRecordActivity</string>
     <string name="search">Search...</string>
     <string name="profilePicture">Profile Picture</string>
@@ -17,11 +31,20 @@
     <string name="countHeader">Number of Records Logged:</string>
     <string name="titleHeader">Title:</string>
     <string name="commentHeader">Comment:</string>
-    <string name="titleInputHint">Add Title Here...</string>
+    <string name="titleInputHint">Add Title Here…</string>
+    <string name="commentInputHint">Add Comment Here…</string>
     <string name="descriptionInputHint">Add description Here...</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
     <string name="enterDate">Select Date</string>
+
+    <!--Error Messages-->
+    <string name="email_invalid_error">Email not valid</string>
+    <string name="phone_invalid_error">Phone not valid</string>
+    <string name="username_invalid_error">Username not valid</string>
+    <string name="username_taken_error">Username already taken</string>
+    <string name="title_activity_google_map">GoogleMapActivity</string>
+
     <string name="username">UserName</string>
     <string name="good_day">Good day,</string>
     <string name="hi">Hi!</string>
@@ -35,6 +58,7 @@
     <string name="camera_BL">Camera</string>
     <string name="gallery_BL">Gallery</string>
     <string name="UploadBLPhotos">Upload Body Photos</string>
+    <string name="add_location">Add Location</string>
     <string name="title_activity_record_details">RecordDetailsActivity</string>
     <string name="UploadPhotos">Upload Photos</string>
     <string name="upload_photo_count">Upload Photo Count: </string>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
@@ -18,6 +20,11 @@ public class Patient extends Account{
     private String patientID;
 
     public Patient() {
+        patientID = UUID.randomUUID().toString(); //random ID
+    }
+
+    public Patient(Email email, Username username, String phone) {
+        super(email, username, phone);
         patientID = UUID.randomUUID().toString(); //random ID
     }
 

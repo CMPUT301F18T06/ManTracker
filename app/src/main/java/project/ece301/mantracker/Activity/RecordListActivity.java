@@ -49,7 +49,6 @@ public class RecordListActivity extends AppCompatActivity {
                 startActivity(recordDetailsSwitch);
             }
         });
-
     }
 
     @Override
@@ -61,25 +60,38 @@ public class RecordListActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<Record>(this, R.layout.problem_list_item, recordList);
         recordListView.setAdapter(adapter);
 
-        //get the index of the record that was selected
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        index = extras.getInt("USERINDEX");
-        problemIndex = extras.getInt("ProblemIndex");
-        String title = extras.getString("PROBLEMTITLE");
-        problemID = extras.getString("PROBLEMID");
-        problemDescription = extras.getString("PROBLEMDESCRIPTION");
-        problemDate = extras.getString("PROBLEMDATE");
-
-
-        //fetch from elasticsearch and populate the records list
-        //Records are queried by the current user's username
-        ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
-        getRecordsTask.execute(problemID);
-        Log.i("AddRecordTask", "Username: " + patients.get(index).getUsername().toString());
-        Log.i("AddRecordTask", "PROBLEMID:  " + problemID);
+        String title = "Record Title";
+        try {
+            //get the index of the record that was selected
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
+            index = extras.getInt("USERINDEX");
+            problemIndex = extras.getInt("ProblemIndex");
+            title = extras.getString("PROBLEMTITLE");
+            problemID = extras.getString("PROBLEMID");
+            problemDescription = extras.getString("PROBLEMDESCRIPTION");
+            problemDate = extras.getString("PROBLEMDATE");
+        } catch (Exception e) {
+            Log.d("RecordList", "onResume: Error getting record");
+        }
 
         try {
+            //set the patient username and problem title header
+            TextView username_text = findViewById(R.id.patientUsername);
+            username_text.setText(patients.get(index).getUsername().toString());
+            TextView title_text = findViewById(R.id.recordTitleTextView);
+            title_text.setText(title);
+        } catch (Exception e) {
+            Log.d("RecordList", "onResume: Error loading user data");
+        }
+
+        try {
+            //fetch from elasticsearch and populate the records list
+            //Records are queried by the current user's username
+            ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
+            getRecordsTask.execute(problemID);
+            Log.i("AddRecordTask", "Username: " + patients.get(index).getUsername().toString());
+            Log.i("AddRecordTask", "PROBLEMID:  " + problemID);
             List<Record> foundRecords = getRecordsTask.get();
             recordList.addAll(foundRecords);
             Log.i("AddRecordTask", String.valueOf(recordList.size()));
@@ -87,13 +99,16 @@ public class RecordListActivity extends AppCompatActivity {
             Log.i("AddRecordTask", "Failed to get the records from the async object");
         }
 
-        adapter.notifyDataSetChanged();
-        //set the patient username and problem title header
-        TextView username_text = findViewById(R.id.patientUsername);
-        username_text.setText(patients.get(index).getUsername().toString());
-        TextView title_text = findViewById(R.id.recordTitleTextView);
-        title_text.setText(title);
-
+        try {
+            adapter.notifyDataSetChanged();
+            //set the patient username and problem title header
+            TextView username_text = findViewById(R.id.patientUsername);
+            username_text.setText(patients.get(index).getUsername().toString());
+            TextView title_text = findViewById(R.id.recordTitleTextView);
+            title_text.setText(title);
+        } catch (Exception e) {
+            Log.d("AddRecordTask", "Failed to set patient username and problem title.");
+        }
         //set the problem description, title, date and total record count
         TextView description_text = findViewById(R.id.userRecordDescription);
         description_text.setText(problemDescription);

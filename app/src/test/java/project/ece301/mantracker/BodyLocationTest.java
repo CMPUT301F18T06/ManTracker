@@ -9,19 +9,6 @@ import static junit.framework.Assert.assertEquals;
 public class BodyLocationTest {
 
     @Test
-    public void TestgetBodyPart() {
-        BodyLocation bodyLocation = new BodyLocation("0,1,2","Hands");
-        assertEquals("Hands", bodyLocation.getBodyPart());
-    }
-
-    @Test
-    public void TestsetBodyPart() {
-        BodyLocation bodyLocation = new BodyLocation("0,1,2","Hands");
-        bodyLocation.setBodyPart("Hands");
-        assertEquals("Hands", bodyLocation.getBodyPart());
-    }
-
-    @Test
     public void TestsetPhoto() {
         BodyLocation bodyLocation = new BodyLocation("6,72,3,8","Legs");
         bodyLocation.setPhoto("Legs.jpeg");
