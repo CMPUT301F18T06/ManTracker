@@ -4,6 +4,8 @@ import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
@@ -37,11 +39,17 @@ public class CreateAccountInteractor {
                 account = careProvider;
             } else {
                 Patient patient = new Patient(email1, username1, phone);
+                StoreData.patients.add(patient); // TODO: Get rid of this when elastic search works.
                 listener.onPatientCreated(patient);
                 account = patient;
             }
 
             dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
+
+            // TODO: Get elastic search working!
+            ElasticSearchPatientController.AddPatientTask addPatientTask =
+                    new ElasticSearchPatientController.AddPatientTask();
+            addPatientTask.execute((Patient) account);
 
         } catch (Username.TakenUsernameException e) {
             listener.onUsernameTakenError();

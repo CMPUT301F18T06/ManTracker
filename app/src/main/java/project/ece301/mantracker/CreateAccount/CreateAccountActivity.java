@@ -3,11 +3,14 @@ package project.ece301.mantracker.CreateAccount;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
@@ -21,6 +24,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
     private CheckBox isCareProvider;
     private CreateAccountPresenter presenter;
+
+    public static final String USERNAME_EXTRA = "USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +76,10 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
     @Override
     public void navigateToPatientHome(Patient patient) { //TODO: pass in account
-        Intent goToMain = new Intent(this, PatientHomeActivity.class);
+        Intent goToMain = new Intent(this, ProblemListActivity.class);
+        int index = StoreData.getIndexOf(patient);
+        Log.i("Index", Integer.toString(index));
+        goToMain.putExtra(CreateAccountActivity.USERNAME_EXTRA, StoreData.getIndexOf(patient));
 //        Bundle bundle = new Bundle();
 //        bundle.putParcelable("user", patient);
         startActivity(goToMain);

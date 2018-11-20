@@ -197,12 +197,13 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         record.setDate(newDate);
         record.setProblemID(problemID);
 
-        // Set geolocation
-        Location temp = new Location(LocationManager.GPS_PROVIDER);
-        temp.setLatitude(latlng.latitude);
-        temp.setLongitude(latlng.longitude);
-        record.setGeoLocation(new Geolocation(temp));
-
+        if (latlng != null) {
+            // Set geolocation
+            Location temp = new Location(LocationManager.GPS_PROVIDER);
+            temp.setLatitude(latlng.latitude);
+            temp.setLongitude(latlng.longitude);
+            record.setGeoLocation(new Geolocation(temp));
+        }
 
         // add record in the offline file
 //        Patient patient = patients.get(index);

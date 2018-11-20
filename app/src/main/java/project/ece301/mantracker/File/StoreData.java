@@ -59,4 +59,8 @@ public class StoreData {
             e.printStackTrace();
         }
     }
+
+    public static int getIndexOf(Patient patient) {
+        return patients.indexOf(patient);
+    }
 }
