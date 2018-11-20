@@ -14,17 +14,17 @@ public class Record implements details { //implementing serializable allows us t
     private String Title;
     private String associatedProblemID;
 
-
     private ArrayList<BodyLocation> bodyLocations;
 
     private ArrayList<String> commentlist;
 
     private Object geolocation;
 
-    private ArrayList<Object> photolist;
+    private ArrayList<String> photos;
 
     public Record(){
          bodyLocations = new ArrayList<BodyLocation>();
+         photos = new ArrayList<String>();
     }
 
     public Integer getID() {
@@ -68,8 +68,6 @@ public class Record implements details { //implementing serializable allows us t
         Description = description;
     }
 //
-//
-//    //    Input a BodyLocationpoint class
 
     //    Input a BodyLocationPoint class
     public void deleteBodyLocationPoint(Object bdlocationpoint){
@@ -94,17 +92,12 @@ public class Record implements details { //implementing serializable allows us t
         return null;
     }
 
-//    //addPhoto(Photo):void
-////deletePhoto(Photo):void
-////getNumOfPhotots():Integer
-////    Input a photo class
-    public void addPhoto(Object photo){
 
+    public void addPhoto(String photo){
+        photos.add(photo);
     }
-    //    Input a photo class
-    public void deletePhoto(Object photo){
 
-    }
+
     public int getNumOfPhotos(){
         return 0;
     }
@@ -112,10 +105,7 @@ public class Record implements details { //implementing serializable allows us t
         return null;
 
     }
-//
-////    + getGeoLocation():Geolocation
-////+ setGeoLocation(Geolocation):void
-//
+
     //    Input a geolocation class
     public void setGeoLocation(Object geolocation){
 
@@ -123,13 +113,6 @@ public class Record implements details { //implementing serializable allows us t
     public Object getGeoLocation(){
         return null;
     }
-//
-//
-////    addComment()
-////    deleteComment()
-////    getNumOfComment()
-//
-
 
     @Override
     public String toString() {

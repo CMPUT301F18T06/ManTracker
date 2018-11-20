@@ -8,8 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
+import android.widget.Button;
 
 import java.io.ByteArrayOutputStream;
+
+import project.ece301.mantracker.R;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 
@@ -76,6 +79,7 @@ public class UploadPhoto {
             UploadFromCamera(activity);
         }
     }
+
 
     // credit Roman Truba from Stack Overflow
     // https://stackoverflow.com/questions/9768611/encode-and-decode-bitmap-object-in-base64-string-in-android

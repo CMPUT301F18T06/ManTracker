@@ -36,4 +36,6 @@
     <string name="gallery_BL">Gallery</string>
     <string name="UploadBLPhotos">Upload Body Photos</string>
     <string name="title_activity_record_details">RecordDetailsActivity</string>
+    <string name="UploadPhotos">Upload Photos</string>
+    <string name="upload_photo_count">Upload Photo Count: </string>
 </resources>

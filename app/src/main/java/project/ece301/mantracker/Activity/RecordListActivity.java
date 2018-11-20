@@ -24,6 +24,7 @@ public class RecordListActivity extends AppCompatActivity {
     private ArrayAdapter<Record> adapter;
     private ArrayList<Record> recordList;
     int index;
+    int problemIndex;
     private String problemID;
     private String problemDescription;
     private String problemDate;
@@ -64,6 +65,7 @@ public class RecordListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         index = extras.getInt("USERINDEX");
+        problemIndex = extras.getInt("ProblemIndex");
         String title = extras.getString("PROBLEMTITLE");
         problemID = extras.getString("PROBLEMID");
         problemDescription = extras.getString("PROBLEMDESCRIPTION");
@@ -106,6 +108,8 @@ public class RecordListActivity extends AppCompatActivity {
         Intent intent = new Intent(RecordListActivity.this, AddRecordActivity.class);
         Bundle extras = new Bundle();
         extras.putString("PROBLEMID", problemID);
+        extras.putInt("ProblemIndex", problemIndex);
+        extras.putInt("USERINDEX", index);
         intent.putExtras(extras); //pass the patient username to the add record activity
         startActivity(intent);
     }

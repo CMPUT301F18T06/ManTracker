@@ -1,10 +1,17 @@
 package project.ece301.mantracker.Activity;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,9 +19,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,11 +37,22 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.MedicalProblem.Body;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
+import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.MedicalProblem.Photo;
 import project.ece301.mantracker.MedicalProblem.Record;
+import project.ece301.mantracker.MedicalProblem.UploadPhoto;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.Adapter.Reocrd_list_adapter;
+import project.ece301.mantracker.User.Patient;
+
+import static project.ece301.mantracker.File.StoreData.patients;
+import static project.ece301.mantracker.File.StoreData.saveInFile;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
 public class AddRecordActivity extends AppCompatActivity {
 
@@ -50,7 +73,12 @@ public class AddRecordActivity extends AppCompatActivity {
     private String problemID;
     private String newDate;
 
-    public static BodyLocation bodyLocation = null;
+    private int index,ProblemIndex;
+
+    String encodedImage = null;
+
+    public static ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
+    private ArrayList<String> photos = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +139,16 @@ public class AddRecordActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         problemID = extras.getString("PROBLEMID");
+        ProblemIndex = extras.getInt("ProblemIndex");
+        index = extras.getInt("USERINDEX");
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        TextView uploadPhotoCount = (TextView) findViewById(R.id.uploadPhotoCount1);
+        uploadPhotoCount.setText(Integer.toString(photos.size()));
     }
 
 
@@ -119,8 +157,12 @@ public class AddRecordActivity extends AppCompatActivity {
         //Create a new record that will be passed back to the record list activity
         Record record = new Record();
 
-        if(bodyLocation!=null) {
-            record.addBodyLocation(bodyLocation);
+        for(int i =0; i<bodyLocations.size();i++){
+            record.addBodyLocation(bodyLocations.get(i));
+        }
+
+        for(int i =0; i<photos.size();i++){
+            record.addPhoto(photos.get(i));
         }
 
         //store the entered title and description in the record
@@ -135,6 +177,18 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDate(newDate);
 
         record.setProblemID(problemID);
+
+
+        // add record in the offline file
+//        Patient patient = patients.get(index);
+//        MedicalProblem problem = patient.getProblem(ProblemIndex);
+//        problem.addRecord(record);
+//
+//        patient.setProblem(problem,ProblemIndex);
+//
+//        patients.add(index,patient);
+//        saveInFile(this); //save locally
+
 
         //post to elasticsearch
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
@@ -155,5 +209,83 @@ public class AddRecordActivity extends AppCompatActivity {
         startActivity(new Intent(this, BodyLocationActivity.class));
     }
 
+    public void UploadPhotos(View view){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Do you want to upload an existing photo or take a camera picture?");
+        alertDialogBuilder.setNegativeButton("Camera", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                UploadPhoto.CheckPermissionsCamera(AddRecordActivity.this);
 
+
+            }
+        });
+        alertDialogBuilder.setPositiveButton("Gallery", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                UploadPhoto.CheckPermissionsGallery(AddRecordActivity.this);
+            }
+        });
+        alertDialogBuilder.create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+
+            try {
+                Bitmap image = (Bitmap) data.getExtras().get("data");
+                encodedImage = Encode(image, Bitmap.CompressFormat.JPEG, 100);
+                photos.add(encodedImage);
+            }
+            catch(NullPointerException ex){
+                Toast.makeText(this, "Unable to upload photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        else if (requestCode == 2 && resultCode == RESULT_OK && null != data) {
+
+            Uri imageSelected = data.getData();
+
+            try{
+                Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(imageSelected));
+                encodedImage = Encode(bitmap, Bitmap.CompressFormat.JPEG, 100);
+                photos.add(encodedImage);
+            }
+            catch (NullPointerException ex){
+                Toast.makeText(this, "Unable to upload photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+            catch(FileNotFoundException ex){
+                Toast.makeText(this, "Unable to upload photo. Please try again.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    UploadFromCamera(this);
+                }
+                else {
+                    // User denied the message do Nothing
+                }
+                break;
+            case 2:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    UploadFromGallery(this);
+                } else {
+                    // User denied the message do Nothing
+                }
+                break;
+        }
+    }
 }

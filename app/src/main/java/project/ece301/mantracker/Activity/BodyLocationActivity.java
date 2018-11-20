@@ -172,7 +172,7 @@ public class BodyLocationActivity extends AppCompatActivity {
                 imageView_BL.setImageBitmap(bitmap);
                 imageView_BL.setVisibility(View.VISIBLE);
 
-//              make the cursor visible
+                // make the cursor visible
                 CursorImage.setVisibility(View.VISIBLE);
 
             }
@@ -191,7 +191,7 @@ public class BodyLocationActivity extends AppCompatActivity {
     public void SaveButtonClick(View view){
 
         // Save the Photo and the point location in the File
-        AddRecordActivity.bodyLocation = new BodyLocation(encodedImage,Coordinates);
+        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates));
 
         // Back to the Add Record Screen where User can Add more Photos
         finish();
