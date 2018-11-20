@@ -1,20 +1,14 @@
 package project.ece301.mantracker.Activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,18 +16,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
 
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
-import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Decode;
-import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
@@ -92,6 +81,7 @@ public class BodyLocationActivity extends AppCompatActivity {
         CheckPermissionsGallery(this);
     }
 
+    
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
     {
