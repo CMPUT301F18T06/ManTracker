@@ -2,6 +2,8 @@ package project.ece301.mantracker.MedicalProblem;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Geolocation extends Location {
 
     public Geolocation(String provider) {
@@ -30,6 +32,11 @@ final class LatAndLong {
     public LatAndLong(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public LatAndLong(LatLng latlng) {
+        this.latitude = latlng.latitude;
+        this.longitude = latlng.longitude;
     }
 
     public double getLat() {

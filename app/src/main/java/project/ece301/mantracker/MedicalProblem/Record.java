@@ -1,138 +1,103 @@
 package project.ece301.mantracker.MedicalProblem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 import project.ece301.mantracker.details;
 
-public class Record implements details {
-    private Date date;
-    private Integer ID;
+public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
+    private String date;
+
+    private String ID;
     private String Description;
     private String Title;
-    public Date testing_date;
-    public Integer testing_ID;
-    private String comment;
+    private String associatedProblemID;
+
+    private ArrayList<BodyLocation> bodyLocations;
+
     private ArrayList<String> commentlist;
 
     private Object geolocation;
-    private Object bdlocation;
-    private ArrayList<Object> bodylocationpointlist;
-    private ArrayList<Object> photolist;
 
-    public Record(String Description , String title ,   Object geolocation,Object bdlocation,
-                  ArrayList<Object> bodylocationpointlist, ArrayList<Object> photolist, ArrayList<String> commentlist){
-
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
-        this.Description = Description;
-        this.Title = title;
-        this.geolocation = geolocation;
-        this.bdlocation = bdlocation;
-        this.bodylocationpointlist = bodylocationpointlist;
-        this.photolist = photolist;
-        this.commentlist = commentlist;
-
-    }
+    private ArrayList<String> photos;
 
     public Record(){
 
+         bodyLocations = new ArrayList<BodyLocation>();
+         photos = new ArrayList<String>();
+        ID = UUID.randomUUID().toString();
     }
 
-    public Record(String Description , String title ){
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-        this.ID = n;
-        this.testing_date = this.date;
-        this.testing_ID = this.ID;
-        this.Description = Description;
-        this.Title = title;
 
+    public String getID() {
+        return ID;
     }
 
-    public Integer getID() {
-        return null;
+//
+    public String getProblemID() {
+        return this.associatedProblemID;
     }
 
-    public void setID() {
-
+    public void setProblemID(String problemID) {
+        this.associatedProblemID = problemID;
     }
 
-    public Date getDate() {
-        return null;
+    public String getDate() {
+        return date;
     }
-
-    public void setDate() {
-
+//
+    public void setDate(String newDate) {
+        date = newDate;
     }
 
     public String getTitle() {
-        return null;
+        return Title;
     }
-
+//
     public void setTitle(String title) {
-
-
+        Title = title;
 
     }
 
     public String getDescription() {
-        return null;
+        return Description;
     }
-
+//
     public void setDescription(String description) {
-
+        Description = description;
     }
+//
 
-
-//  addBodyLocationPoint(BodyLocationPoint): void
-//  deleteBodyLocationPoint(BodyLocationPoint):void
-//  getNumOfBodyLocationPoints()
-
-    //    Input a BodyLocationpoint class
-    public void addBodyLocationPoint(Object bdlocationpoint){
-
-    }
     //    Input a BodyLocationPoint class
     public void deleteBodyLocationPoint(Object bdlocationpoint){
 
     }
-    public int getNumOfBodyLocationPoints(){
-        return 0;
-    }
-    public Object getBodyLocationPointsList(){
-        return null;
-    }
-//
-// getBodyLocation():BodyLocation;
-// setBodyLocation(Bodylocation):
 
-    //    Input a bodylocation class
-    public void setBodyLocation(Object bdlocation){
-
+    public ArrayList<BodyLocation> getBodyLocationList(){
+        return bodyLocations;
     }
+
+
+    // Input a bodylocation class
+    public void addBodyLocation(BodyLocation bdlocation){
+        bodyLocations.add(bdlocation);
+    }
+
+
 
     public Object getBodyLocation(){
         return null;
     }
 
-    //addPhoto(Photo):void
-//deletePhoto(Photo):void
-//getNumOfPhotots():Integer
-//    Input a photo class
-    public void addPhoto(Object photo){
 
+    public void addPhoto(String photo){
+        photos.add(photo);
     }
-    //    Input a photo class
-    public void deletePhoto(Object photo){
 
-    }
+
     public int getNumOfPhotos(){
         return 0;
     }
@@ -140,9 +105,6 @@ public class Record implements details {
         return null;
 
     }
-
-//    + getGeoLocation():Geolocation
-//+ setGeoLocation(Geolocation):void
 
     //    Input a geolocation class
     public void setGeoLocation(Object geolocation){
@@ -152,11 +114,10 @@ public class Record implements details {
         return null;
     }
 
-
-//    addComment()
-//    deleteComment()
-//    getNumOfComment()
-
+    @Override
+    public String toString() {
+        return this.Title + " | " + this.Description + " | " + this.date;
+    }
     //    Input a commnet class
     public void addComment(String comment){
 
@@ -171,5 +132,6 @@ public class Record implements details {
 
     public ArrayList<String> getCommentlist() {
         return null;
+
     }
 }

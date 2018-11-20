@@ -3,28 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </LinearLayout>
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
     <ImageButton
         android:id="@+id/addRecordButton"
         android:layout_width="41dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_weight="1"
         android:background="@color/buttonColor"
         android:contentDescription="@string/contentDescription"
+        android:onClick="toAddRecordActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
@@ -35,23 +26,25 @@
         android:layout_height="332dp"
         android:layout_marginTop="172dp"
         android:background="@color/darkBlue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.218">
 
     </ListView>
 
     <TextView
         android:id="@+id/recordTitleTextView"
-        android:layout_width="153dp"
+        android:layout_width="304dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center"
-        android:text="Title "
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +66,6 @@
         android:layout_height="25dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="136dp"
-        android:text="Username goes here"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -96,7 +88,6 @@
         android:layout_marginTop="72dp"
         android:layout_marginEnd="12dp"
         android:background="@color/descriptionBox"
-        android:text="description goes here"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +98,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="144dp"
-        android:text="Date will go here"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/recordDateHeader"
         app:layout_constraintTop_toTopOf="parent" />
@@ -139,7 +129,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="count here"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/recordCountHeader"
         app:layout_constraintTop_toTopOf="@+id/recordCountHeader" />

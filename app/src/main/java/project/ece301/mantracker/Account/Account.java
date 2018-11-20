@@ -22,7 +22,7 @@ public class Account {
     }
 
     public void setUsername(Username username) {
-        this.username = username;
+        this.username=username;
     }
 
     public Email getEmail() {
@@ -34,7 +34,7 @@ public class Account {
     }
 
     public Username getUsername() {
-        return this.username;
+        return username;
     }
 }
 

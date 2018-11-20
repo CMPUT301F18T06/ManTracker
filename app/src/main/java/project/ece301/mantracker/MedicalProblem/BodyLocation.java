@@ -5,25 +5,14 @@ import java.util.ArrayList;
 public class BodyLocation implements Photo {
 
     protected String bodyImage;
-    protected ArrayList<Integer> ImageCordinates = new ArrayList<Integer>();
-    protected String bodyPart;
+    protected String ImageCordinates;
 
 
-    public BodyLocation() {
-    }
-
-    public BodyLocation(String bodyImage, String bodyPart){
+    public BodyLocation(String bodyImage, String Coordinates){
         this.bodyImage=bodyImage;
-        this.bodyPart=bodyPart;
+        this.ImageCordinates=Coordinates;
     }
 
-    public String getBodyPart(){
-        return bodyPart;
-    }
-
-    public void setBodyPart(String bodyPart){
-        this.bodyPart=bodyPart;
-    }
 
     @Override
     public void setPhoto(String image) {
@@ -37,6 +26,10 @@ public class BodyLocation implements Photo {
 
     @Override
     public void showPhoto(String image) {
+    }
+
+    public String getBodyImage(){
+        return bodyImage;
     }
 
 }

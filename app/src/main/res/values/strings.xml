@@ -21,7 +21,8 @@
     <string name="add_problem">Add New Problem</string>
     <string name="user_greeting"><b>Hello User!</b></string>
     <string name="medical_problems"><b>Medical Problems: </b></string>
-    <string name="search">Search…</string>
+    <string name="title_activity_add_record">AddRecordActivity</string>
+    <string name="search">Search...</string>
     <string name="profilePicture">Profile Picture</string>
     <string name="contentDescription">Content Description</string>
     <string name="User">User:</string>
@@ -32,8 +33,10 @@
     <string name="commentHeader">Comment:</string>
     <string name="titleInputHint">Add Title Here…</string>
     <string name="commentInputHint">Add Comment Here…</string>
+    <string name="descriptionInputHint">Add description Here...</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
+    <string name="enterDate">Select Date</string>
     <string name="add_patient_prompt">Enter Patient User ID</string>
     <string name="add_patient_title">Add a Patient</string>
     <string name="not_added">Not Added</string>
@@ -44,7 +47,24 @@
     <string name="phone_invalid_error">Phone not valid</string>
     <string name="username_invalid_error">Username not valid</string>
     <string name="username_taken_error">Username already taken</string>
+    <string name="title_activity_google_map">GoogleMapActivity</string>
     <string name="no_username_error">No User With Username</string>
 
-
+    <string name="username">UserName</string>
+    <string name="good_day">Good day,</string>
+    <string name="hi">Hi!</string>
+    <string name="add_title">Add a title...</string>
+    <string name="description">Description:</string>
+    <string name="add_description">Add a description</string>
+    <string name="title">Title:</string>
+    <string name="actor">actor</string>
+    <string name="body_location">Body Location</string>
+    <string name="SaveBLPhoto">Save</string>
+    <string name="camera_BL">Camera</string>
+    <string name="gallery_BL">Gallery</string>
+    <string name="UploadBLPhotos">Upload Body Photos</string>
+    <string name="add_location">Add Location</string>
+    <string name="title_activity_record_details">RecordDetailsActivity</string>
+    <string name="UploadPhotos">Upload Photos</string>
+    <string name="upload_photo_count">Upload Photo Count: </string>
 </resources>
