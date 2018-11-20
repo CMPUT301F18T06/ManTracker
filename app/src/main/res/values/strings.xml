@@ -34,12 +34,17 @@
     <string name="commentInputHint">Add Comment Here…</string>
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
+    <string name="add_patient_prompt">Enter Patient User ID</string>
+    <string name="add_patient_title">Add a Patient</string>
+    <string name="not_added">Not Added</string>
+    <string name="added">Added</string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>
     <string name="phone_invalid_error">Phone not valid</string>
     <string name="username_invalid_error">Username not valid</string>
     <string name="username_taken_error">Username already taken</string>
+    <string name="no_username_error">No User With Username</string>
 
 
 </resources>

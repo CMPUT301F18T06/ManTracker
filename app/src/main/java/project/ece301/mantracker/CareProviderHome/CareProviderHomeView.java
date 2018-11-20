@@ -1,12 +1,15 @@
 package project.ece301.mantracker.CareProviderHome;
 
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.User.Patient;
 
 public interface CareProviderHomeView {
 
     void update();
 
     void showNoSearchResults();
+    void showNoPatientToast(String username);
+    void showAddedPatientToast(String username);
 
-    void navigateToProblem(MedicalProblem problem);
+    void navigateToPatient(Patient patient);
 }

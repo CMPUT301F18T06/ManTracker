@@ -2,6 +2,7 @@ package project.ece301.mantracker.CareProviderHome;
 
 import java.util.ArrayList;
 
+import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.User.Patient;
@@ -17,17 +18,15 @@ public class CareProviderHomePresenter {
         patients = dataManager.getPatients();
         if (patients==null)
             patients = new ArrayList<>();
-        Patient patient = new Patient(); //test
-        Patient patient2 = new Patient();
-        try {
-            patient.setUsername(new Username("rfurrer1"));
-            patient2.setUsername(new Username("thename8"));
-        } catch (Username.InvalidUsernameException e) {
-        } finally {
-            patients.add(patient);
-            patients.add(patient2);
+        else {
+            try {
+                Patient patient = new Patient();
+                patient.setUsername(new Username("rfurrer1"));
+                patients.add(patient);
+//                careProviderHomeView.update();
+            } catch (Username.InvalidUsernameException e) {
+            }
         }
-        careProviderHomeView.update();
     }
 
     public void onDestroy() {
@@ -38,7 +37,21 @@ public class CareProviderHomePresenter {
         return (null != patients ? patients.size() : 0);
     }
 
-    public String getPatientIdByPosition(int i) {
-        return patients.get(i).getUsername().getUserID();
+
+    public void addPatient(String username) {
+        Account account = dataManager.getUser(username);
+        if (!(account==null)){
+            Patient patient = (Patient) account;
+            careProviderHomeView.showAddedPatientToast(username);
+            patients.add(patient);
+            careProviderHomeView.update();
+        } else {
+            careProviderHomeView.showNoPatientToast(username);
+        }
+
+    }
+
+    public Patient getPatientAt(int i) {
+        return patients.get(i);
     }
 }

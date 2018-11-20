@@ -47,5 +47,7 @@ public class Patient extends Account{
 
     public Record getRecord(Integer rID) { return null; }
 
+    public int getNumberOfProblems() {return problemList.size();}
+
     public void removeRecord(Integer rID) {}
 }
