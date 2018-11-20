@@ -69,7 +69,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
 
     @Override
     public void update() {
-        this.adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

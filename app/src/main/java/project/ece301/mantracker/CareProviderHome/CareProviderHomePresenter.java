@@ -16,17 +16,17 @@ public class CareProviderHomePresenter {
         this.careProviderHomeView = careProviderHomeView;
         dataManager = DataManager.getInstance();
         patients = dataManager.getPatients();
-        if (patients==null)
+        if (patients == null) {
             patients = new ArrayList<>();
-        else {
             try {
                 Patient patient = new Patient();
                 patient.setUsername(new Username("rfurrer1"));
                 patients.add(patient);
-//                careProviderHomeView.update();
             } catch (Username.InvalidUsernameException e) {
             }
+        } else {
         }
+        careProviderHomeView.update();
     }
 
     public void onDestroy() {
@@ -40,7 +40,7 @@ public class CareProviderHomePresenter {
 
     public void addPatient(String username) {
         Account account = dataManager.getUser(username);
-        if (!(account==null)){
+        if (!(account == null)) {
             Patient patient = (Patient) account;
             careProviderHomeView.showAddedPatientToast(username);
             patients.add(patient);
