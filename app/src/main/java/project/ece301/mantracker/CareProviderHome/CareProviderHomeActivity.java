@@ -29,12 +29,13 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.care_provider_home);
 
-        presenter = new CareProviderHomePresenter(this);
         drawerLayout = findViewById(R.id.drawer_layout);
         RecyclerView patientRecyclerView = findViewById(R.id.patient_list);
         adapter = new PatientListAdapter();
         patientRecyclerView.setAdapter(adapter);
         patientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        presenter = new CareProviderHomePresenter(this);
 
         searchBar = findViewById(R.id.search_bar);
         findViewById(R.id.add_patient).setOnClickListener(v -> onOpenAddPatientDialog());
