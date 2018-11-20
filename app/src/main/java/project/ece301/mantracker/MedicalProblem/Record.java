@@ -13,29 +13,19 @@ public class Record implements details { //implementing serializable allows us t
     private String Description;
     private String Title;
     private String associatedProblemID;
-//    public Date testing_date;
-//    public Integer testing_ID;
-//    private String comment;
+
+
+    private ArrayList<BodyLocation> bodyLocations;
+
     private ArrayList<String> commentlist;
-//
+
     private Object geolocation;
-    private Object bdlocation;
-    private ArrayList<Object> bodylocationpointlist;
+
     private ArrayList<Object> photolist;
 
     public Record(){
-
+         bodyLocations = new ArrayList<BodyLocation>();
     }
-//I DONT THINK WE NEED THIS?
-//    public Record(String Description , String title ){
-//        Random rand = new Random();
-//        int  n = rand.nextInt(1000000);
-//        this.date = new Date();
-//
-//        this.Description = Description;
-//        this.Title = title;
-//
-//    }
 
     public Integer getID() {
         return null;
@@ -79,14 +69,8 @@ public class Record implements details { //implementing serializable allows us t
     }
 //
 //
-//  addBodyLocationPoint(BodyLocationPoint): void
-//  deleteBodyLocationPoint(BodyLocationPoint):void
-//  getNumOfBodyLocationPoints()
-//
 //    //    Input a BodyLocationpoint class
-    public void addBodyLocationPoint(Object bdlocationpoint){
 
-    }
     //    Input a BodyLocationPoint class
     public void deleteBodyLocationPoint(Object bdlocationpoint){
 
@@ -97,14 +81,14 @@ public class Record implements details { //implementing serializable allows us t
     public Object getBodyLocationPointsList(){
         return null;
     }
-////
-//// getBodyLocation():BodyLocation;
-//// setBodyLocation(Bodylocation):
-//
-    //    Input a bodylocation class
-    public void setBodyLocation(Object bdlocation){
 
+
+    // Input a bodylocation class
+    public void addBodyLocation(BodyLocation bdlocation){
+        bodyLocations.add(bdlocation);
     }
+
+
 
     public Object getBodyLocation(){
         return null;
