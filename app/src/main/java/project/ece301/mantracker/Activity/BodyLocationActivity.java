@@ -1,20 +1,14 @@
 package project.ece301.mantracker.Activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -22,25 +16,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
 
+import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
-import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Decode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
 public class BodyLocationActivity extends AppCompatActivity {
 
-    String Coordinates;
-//    boolean cameraPermission = false;
-//    boolean galleryPermission = false;
+    String Coordinates = null;
+    String encodedImage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +82,7 @@ public class BodyLocationActivity extends AppCompatActivity {
         CheckPermissionsGallery(this);
     }
 
+    
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
     {
@@ -135,6 +126,9 @@ public class BodyLocationActivity extends AppCompatActivity {
 
             try {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
+
+                encodedImage = Encode(image, Bitmap.CompressFormat.JPEG, 100);
+
                 imageView_BL.setImageBitmap(image);
                 imageView_BL.setVisibility(View.VISIBLE);
 
@@ -155,6 +149,8 @@ public class BodyLocationActivity extends AppCompatActivity {
 
                 Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(imageSelected));
 
+                encodedImage = Encode(bitmap, Bitmap.CompressFormat.JPEG, 100);
+
                 /* For encoding and decoding //
 
                 String Base64Image = Encode(bitmap, Bitmap.CompressFormat.JPEG, 100);
@@ -167,7 +163,7 @@ public class BodyLocationActivity extends AppCompatActivity {
                 imageView_BL.setImageBitmap(bitmap);
                 imageView_BL.setVisibility(View.VISIBLE);
 
-//              make the cursor visible
+                // make the cursor visible
                 CursorImage.setVisibility(View.VISIBLE);
 
             }
@@ -186,7 +182,7 @@ public class BodyLocationActivity extends AppCompatActivity {
     public void SaveButtonClick(View view){
 
         // Save the Photo and the point location in the File
-        // TODO:
+        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates));
 
         // Back to the Add Record Screen where User can Add more Photos
         finish();

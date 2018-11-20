@@ -131,11 +131,55 @@
     <Button
         android:id="@+id/addLocationButton"
         android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:onClick="BodyLocationPhotos"
+        android:background="@color/buttonColor"
         android:text="@string/add_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/uploadPhotoCount" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/buttonColor"
+        android:onClick="BodyLocationPhotos"
+        android:text="@string/UploadBLPhotos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateHeader" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/buttonColor"
+        android:onClick="UploadPhotos"
+        android:text="@string/UploadPhotos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/uploadPhotoCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/upload_photo_count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+    <TextView
+        android:id="@+id/uploadPhotoCount1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
+
 </android.support.constraint.ConstraintLayout>

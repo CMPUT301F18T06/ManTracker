@@ -10,5 +10,4 @@ public interface LocationGetter {
 
     public abstract void goToGooglePlaces();
 
-    void onActivityResult(int requestCode, int resultCode, Intent data);
 }

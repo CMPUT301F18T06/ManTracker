@@ -81,4 +81,6 @@ public class MedicalProblem implements details {
         return this.title + " | " + this.description + " | " + this.date;
     }
 
+    public int getRecordCount() { return associatedRecords.size();}
+
 }

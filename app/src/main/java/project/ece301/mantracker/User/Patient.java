@@ -30,10 +30,16 @@ public class Patient extends Account{
 
     public String getID() {return patientID;}
 
-    public MedicalProblem getProblem(MedicalProblem problem) { return null; }
+    public MedicalProblem getProblem(int index) {
+        return problemList.get(index);
+    }
 
     public void addProblem(MedicalProblem problem) {
         problemList.add(problem);
+    }
+
+    public void setProblem(MedicalProblem problem, int index) {
+        problemList.set(index,problem);
     }
 
     public void deleteProblem(MedicalProblem problem) {}
@@ -47,12 +53,4 @@ public class Patient extends Account{
     public void addBodyLocation(BodyLocation bodyLocation) {}
 
     public void deleteBodyLocation(BodyLocation bodyLocation) {}
-
-    public ArrayList<Record> getAllRecords() { return null; }
-
-    public void addRecord(Record record) {}
-
-    public Record getRecord(Integer rID) { return null; }
-
-    public void removeRecord(Integer rID) {}
 }

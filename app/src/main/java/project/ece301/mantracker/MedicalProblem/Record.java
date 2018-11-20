@@ -4,63 +4,38 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 import project.ece301.mantracker.details;
 
 public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
-    private Date date;
-    //private Integer ID;
+    private String date;
+
+    private String ID;
     private String Description;
     private String Title;
     private String associatedProblemID;
-    public Date testing_date;
-    public Integer testing_ID;
-//    private String comment;
+
+    private ArrayList<BodyLocation> bodyLocations;
+
     private ArrayList<String> commentlist;
-//
+
     private Object geolocation;
-    private Object bdlocation;
-    private ArrayList<Object> bodylocationpointlist;
-    private ArrayList<Object> photolist;
 
-    public Record(String Description , String title ,   Object geolocation,Object bdlocation,
-                  ArrayList<Object> bodylocationpointlist, ArrayList<Object> photolist, ArrayList<String> commentlist){
+    private ArrayList<String> photos;
 
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-
-        this.Description = Description;
-        this.Title = title;
-        this.geolocation = geolocation;
-        this.bdlocation = bdlocation;
-        this.bodylocationpointlist = bodylocationpointlist;
-        this.photolist = photolist;
-        this.commentlist = commentlist;
-
-    }
-//
     public Record(){
 
-    }
-//
-    public Record(String Description , String title ){
-        Random rand = new Random();
-        int  n = rand.nextInt(1000000);
-        this.date = new Date();
-
-        this.Description = Description;
-        this.Title = title;
-
-    }
-//
-    public Integer getID() {
-        return null;
+         bodyLocations = new ArrayList<BodyLocation>();
+         photos = new ArrayList<String>();
+        ID = UUID.randomUUID().toString();
     }
 
-    public void setID() {
 
+    public String getID() {
+        return ID;
     }
+
 //
     public String getProblemID() {
         return this.associatedProblemID;
@@ -70,11 +45,11 @@ public class Record implements details, Serializable { //implementing serializab
         this.associatedProblemID = problemID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 //
-    public void setDate(Date newDate) {
+    public void setDate(String newDate) {
         date = newDate;
     }
 
@@ -95,49 +70,34 @@ public class Record implements details, Serializable { //implementing serializab
         Description = description;
     }
 //
-//
-//  addBodyLocationPoint(BodyLocationPoint): void
-//  deleteBodyLocationPoint(BodyLocationPoint):void
-//  getNumOfBodyLocationPoints()
-//
-//    //    Input a BodyLocationpoint class
-    public void addBodyLocationPoint(Object bdlocationpoint){
 
-    }
     //    Input a BodyLocationPoint class
     public void deleteBodyLocationPoint(Object bdlocationpoint){
 
     }
-    public int getNumOfBodyLocationPoints(){
-        return 0;
-    }
-    public Object getBodyLocationPointsList(){
-        return null;
-    }
-////
-//// getBodyLocation():BodyLocation;
-//// setBodyLocation(Bodylocation):
-//
-    //    Input a bodylocation class
-    public void setBodyLocation(Object bdlocation){
 
+    public ArrayList<BodyLocation> getBodyLocationList(){
+        return bodyLocations;
     }
+
+
+    // Input a bodylocation class
+    public void addBodyLocation(BodyLocation bdlocation){
+        bodyLocations.add(bdlocation);
+    }
+
+
 
     public Object getBodyLocation(){
         return null;
     }
 
-//    //addPhoto(Photo):void
-////deletePhoto(Photo):void
-////getNumOfPhotots():Integer
-////    Input a photo class
-    public void addPhoto(Object photo){
 
+    public void addPhoto(String photo){
+        photos.add(photo);
     }
-    //    Input a photo class
-    public void deletePhoto(Object photo){
 
-    }
+
     public int getNumOfPhotos(){
         return 0;
     }
@@ -145,10 +105,7 @@ public class Record implements details, Serializable { //implementing serializab
         return null;
 
     }
-//
-////    + getGeoLocation():Geolocation
-////+ setGeoLocation(Geolocation):void
-//
+
     //    Input a geolocation class
     public void setGeoLocation(Object geolocation){
 
@@ -156,13 +113,6 @@ public class Record implements details, Serializable { //implementing serializab
     public Object getGeoLocation(){
         return null;
     }
-//
-//
-////    addComment()
-////    deleteComment()
-////    getNumOfComment()
-//
-
 
     @Override
     public String toString() {

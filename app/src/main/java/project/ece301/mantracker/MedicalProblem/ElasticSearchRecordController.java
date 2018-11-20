@@ -101,6 +101,48 @@ public class ElasticSearchRecordController {
     }
 
 
+    public static class GetRecordsWithID extends AsyncTask<String, Void, ArrayList<Record>> {
+        @Override
+        protected ArrayList<Record> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Record> records = new ArrayList<Record>();
+
+            // TODO Build the query
+
+            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{ \"size\": 10, \n" +
+                    "    \"query\" : {\n" +
+                    "        \"match\" : { \"ID\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t06test")
+                    .addType("record")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    @SuppressWarnings("deprecation")
+                    List<Record> foundRecords = result.getSourceAsObjectList(Record.class);
+                    records.addAll(foundRecords);
+                }
+                else {
+                    Log.i("AddRecordTask", "The search query failed to find any records that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+
+            }
+
+            return records;
+        }
+    }
+
 
 
     public static void verifySettings() {
