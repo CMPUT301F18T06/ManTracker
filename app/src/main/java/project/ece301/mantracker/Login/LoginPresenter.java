@@ -1,5 +1,8 @@
 package project.ece301.mantracker.Login;
 
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
+
 public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
     private LoginView loginView;
     private LoginInteractor loginInteractor;
@@ -25,16 +28,16 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener{
     }
 
     @Override
-    public void onPatientLogin() {
+    public void onPatientLogin(Patient patient) {
         if (loginView != null) {
-            loginView.navigateToPatientHome();
+            loginView.navigateToPatientHome(patient);
         }
     }
 
     @Override
-    public void onCareProviderLogin() {
+    public void onCareProviderLogin(CareProvider careProvider) {
         if (loginView != null) {
-            loginView.navigateToCareProviderHome();
+            loginView.navigateToCareProviderHome(careProvider);
         }
     }
 }

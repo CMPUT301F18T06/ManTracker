@@ -67,7 +67,7 @@ public class ElasticSearchPatientController {
             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{ \"size\": 10, \n" +
                     "    \"query\" : {\n" +
-                    "        \"match\" : { \"Username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}" ;
 

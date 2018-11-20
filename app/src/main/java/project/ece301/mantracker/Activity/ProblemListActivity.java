@@ -60,38 +60,19 @@ public class ProblemListActivity extends AppCompatActivity {
         super.onResume();
 
         Intent intent = getIntent();
-        index = intent.getIntExtra(CreateAccountActivity.USERNAME_EXTRA, -1);
+        index = intent.getIntExtra("PATIENTINDEX", -1);
         Log.i("PatientQuery", "index: " + index);
 
         // set the username
         TextView heading_text = findViewById(R.id.userNameTextView);
 
-//        TODO: GET ELASTIC SEARCH WORKING
-//          *********************************************
-//        String patientName;
-//        try {
-//            //fetch from elasticsearch and get the patient name
-//            //Patients are queried by the current user's username
-//            ElasticSearchPatientController.GetPatientTask getPatientTask =
-//                    new ElasticSearchPatientController.GetPatientTask();
-//            getPatientTask.execute(username);
-//            List<Patient> foundPatients = getPatientTask.get();
-//            for (Patient patient: foundPatients) {
-//                Log.i("PatientQuery", "Username: " + patient.getUsername().toString());
-//            }
-//            Log.i("PatientQuery", String.valueOf(foundPatients.size()));
-//        } catch (Exception e) {
-//            Log.i("AddRecordTask", "Failed to get the records from the async object");
-//        }
-//        ****************************************************
-
         heading_text.setText(patients.get(index).getUsername().toString());
         Log.i("AddProblemTask", "index: "+ String.valueOf(index));
 
         problems = new ArrayList<MedicalProblem>();
-        populateUserProblems(index);
         adapter = new ArrayAdapter<MedicalProblem>(this,
                 R.layout.problem_list_item, problems);
+        populateUserProblems(index);
         oldProblems.setAdapter(adapter);
     }
 
@@ -105,16 +86,17 @@ public class ProblemListActivity extends AppCompatActivity {
             try {
                 List<MedicalProblem> foundProblems = getProblemsTask.get();
                 problems.addAll(foundProblems);
+                Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
 
             } catch (Exception e) {
                 Log.i("AddProblemTask", "Failed to get the records from the async object");
             }
             adapter.notifyDataSetChanged();
-
+            Log.i("PATIENTHOME", "NOTIFIED");
         } catch (Exception e) {
             ArrayList<MedicalProblem> med_problem = new ArrayList<MedicalProblem>();
             med_problem=patients.get(index).getAllProblems();
-
+            Log.i("PATIENTHOME", "SHOULDNOTREACH");
             for(int i=0;i<med_problem.size();i++){
                 problems.add(med_problem.get(i));
             }

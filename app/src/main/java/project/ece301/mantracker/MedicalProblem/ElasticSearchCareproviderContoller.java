@@ -29,8 +29,9 @@ public class ElasticSearchCareproviderContoller{
         @Override
         protected Void doInBackground(CareProvider... careProviders) {
             verifySettings();
+            CareProvider careprovider = careProviders[0];
 
-            Index index = new Index.Builder(careProviders).index("cmput301f18t06test").type("careprovider").build();
+            Index index = new Index.Builder(careprovider).index("cmput301f18t06test").type("careprovider").build();
 
             try {
                 // where is the client?
@@ -64,7 +65,7 @@ public class ElasticSearchCareproviderContoller{
             //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
             String query = "{ \"size\": 10, \n" +
                     "    \"query\" : {\n" +
-                    "        \"match\" : { \"Username\" : \"" + search_parameters[0] + "\" }\n" +
+                    "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
                     "}" ;
 

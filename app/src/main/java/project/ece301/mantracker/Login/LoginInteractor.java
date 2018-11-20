@@ -12,8 +12,8 @@ public class LoginInteractor {
 
         void onUsernameInvalidError();
 
-        void onPatientLogin();
-        void onCareProviderLogin();
+        void onPatientLogin(Patient patient);
+        void onCareProviderLogin(CareProvider careProvider);
     }
 
     public void login(final String username, final OnLoginFinishedListener listener) {
@@ -23,9 +23,9 @@ public class LoginInteractor {
         if (account == null)
             listener.onUsernameInvalidError();
         else if (account.getClass() == Patient.class)
-            listener.onPatientLogin();
+            listener.onPatientLogin((Patient) account);
         else if (account.getClass() == CareProvider.class)
-            listener.onCareProviderLogin();
+            listener.onCareProviderLogin((CareProvider) account);
         else
             listener.onUsernameInvalidError();
     }

@@ -11,10 +11,13 @@ import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
 import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchCareproviderContoller;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
+import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountView {
 
@@ -46,6 +49,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private void validateCredentials() {
         presenter.validateCredentials(username.getText().toString(), email.getText().toString(),
                 phonenumber.getText().toString(), isCareProvider.isChecked());
+
     }
 
     @Override
@@ -75,13 +79,18 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
+    public void navigateToPatientHome(Patient patient) {
         Intent goToMain = new Intent(this, ProblemListActivity.class);
         int index = StoreData.getIndexOf(patient);
-        Log.i("Index", Integer.toString(index));
-        goToMain.putExtra(CreateAccountActivity.USERNAME_EXTRA, StoreData.getIndexOf(patient));
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("user", patient);
+        patient.setIndex(index); //set the local index for the patient
+        Log.i("PATIENTHOME", "Patient index: " + String.valueOf(index));
+        goToMain.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
+        //post to elasticsearch
+        ElasticSearchPatientController.AddPatientTask addPatientTask = new ElasticSearchPatientController.AddPatientTask();
+        addPatientTask.execute(patient);
+
+        saveInFile(getApplicationContext());
+
         startActivity(goToMain);
         finish();
     }
@@ -89,8 +98,10 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     @Override
     public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
         Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("user", careProvider);
+
+        //post to elasticsearch
+        ElasticSearchCareproviderContoller.AddCareProviderTask addCareProviderTask = new ElasticSearchCareproviderContoller.AddCareProviderTask();
+        addCareProviderTask.execute(careProvider);
         startActivity(goToMain);
         finish();
     }
