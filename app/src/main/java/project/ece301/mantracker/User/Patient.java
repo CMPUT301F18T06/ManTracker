@@ -53,4 +53,14 @@ public class Patient extends Account{
     public void addBodyLocation(BodyLocation bodyLocation) {}
 
     public void deleteBodyLocation(BodyLocation bodyLocation) {}
+
+    public ArrayList<Record> getAllRecords() { return null; }
+
+    public void addRecord(Record record) {}
+
+    public Record getRecord(Integer rID) { return null; }
+
+    public int getNumberOfProblems() {return problemList.size();}
+
+    public void removeRecord(Integer rID) {}
 }

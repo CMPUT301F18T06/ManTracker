@@ -8,4 +8,7 @@
     <color name="buttonColor">#329fda</color>
     <color name="descriptionBox">#6fa7eb</color>
     <color name="grey">#c5c7cb</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="green">#00ff00</color>
 </resources>

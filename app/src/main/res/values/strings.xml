@@ -37,6 +37,10 @@
     <string name="selectDate">Set Date</string>
     <string name="save">Save</string>
     <string name="enterDate">Select Date</string>
+    <string name="add_patient_prompt">Enter Patient User ID</string>
+    <string name="add_patient_title">Add a Patient</string>
+    <string name="not_added">Not Added</string>
+    <string name="added">Added</string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>
@@ -44,6 +48,7 @@
     <string name="username_invalid_error">Username not valid</string>
     <string name="username_taken_error">Username already taken</string>
     <string name="title_activity_google_map">GoogleMapActivity</string>
+    <string name="no_username_error">No User With Username</string>
 
     <string name="username">UserName</string>
     <string name="good_day">Good day,</string>

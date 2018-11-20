@@ -31,7 +31,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     private void validateCredentials() {
-        presenter.validateCredentials(username.getText().toString());
+        navigateToCareProviderHome();
+        //presenter.validateCredentials(username.getText().toString());
     }
 
     @Override
