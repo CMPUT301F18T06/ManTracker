@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
@@ -28,6 +29,7 @@ public class RecordListActivity extends AppCompatActivity {
     private String problemID;
     private String problemDescription;
     private String problemDate;
+    private ArrayList<String> photoStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,8 @@ public class RecordListActivity extends AppCompatActivity {
                 //go to the patient record list
                 Intent recordDetailsSwitch = new Intent(RecordListActivity.this, RecordDetailsActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("RECORDTITLE", recordList.get(position).getTitle());
-                extras.putInt("USERINDEX", index);
-                extras.putString("RECORDDESCRIPTION", recordList.get(position).getDescription());
-                extras.putString("PROBLEMDATE", recordList.get(position).getDate());
+                extras.putString("RECORDID", recordList.get(position).getID());
+
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);
             }
@@ -70,6 +70,7 @@ public class RecordListActivity extends AppCompatActivity {
         problemID = extras.getString("PROBLEMID");
         problemDescription = extras.getString("PROBLEMDESCRIPTION");
         problemDate = extras.getString("PROBLEMDATE");
+
 
         //fetch from elasticsearch and populate the records list
         //Records are queried by the current user's username

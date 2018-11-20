@@ -7,16 +7,16 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/recordDetailTitleHeader"
+        android:id="@+id/recordDetailsTitleHeader"
         android:layout_width="291dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,14 +27,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="60dp"
+        android:text="@string/descriptionHeader"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/descriptionHeader" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="394dp"
-        android:layout_height="500dp"
+        android:layout_height="371dp"
         android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,9 +62,39 @@
         android:id="@+id/recordDetailsDateHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
         android:text="@string/dateHeader"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="144dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recordDetailsDescription"
+        android:layout_width="248dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/recordDetailsDescriptionHeader"
+        app:layout_constraintTop_toBottomOf="@+id/recordDetailsTitleHeader" />
+
+    <TextView
+        android:id="@+id/recordDetailsDate"
+        android:layout_width="192dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/recordDetailsDateHeader"
+        app:layout_constraintTop_toBottomOf="@+id/recordDetailsDescription" />
+
+    <ImageView
+        android:id="@+id/BodyLocation1"
+        android:layout_width="150dp"
+        android:layout_height="149dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordDetailsDate"
+        app:srcCompat="@android:color/background_light" />
 
 </android.support.constraint.ConstraintLayout>

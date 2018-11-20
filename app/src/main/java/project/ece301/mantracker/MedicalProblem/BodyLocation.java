@@ -28,4 +28,8 @@ public class BodyLocation implements Photo {
     public void showPhoto(String image) {
     }
 
+    public String getBodyImage(){
+        return bodyImage;
+    }
+
 }

@@ -175,7 +175,6 @@ public class AddRecordActivity extends AppCompatActivity {
         record.setDescription(enteredComment.getText().toString());
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
-
         record.setProblemID(problemID);
 
 
@@ -194,7 +193,7 @@ public class AddRecordActivity extends AppCompatActivity {
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
         addRecordsTask.execute(record);
 
-        //wait a few seconds for es to upload
+        //wait a few seconds for es to upload. dunno if this is necessary
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (Exception e) {

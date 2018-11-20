@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 import project.ece301.mantracker.details;
 
-public class Record implements details { //implementing serializable allows us to pass an instance of record across activities
+public class Record implements details, Serializable { //implementing serializable allows us to pass an instance of record across activities
     private String date;
-    //private Integer ID;
+
+    private String ID;
     private String Description;
     private String Title;
     private String associatedProblemID;
@@ -23,17 +25,17 @@ public class Record implements details { //implementing serializable allows us t
     private ArrayList<String> photos;
 
     public Record(){
+
          bodyLocations = new ArrayList<BodyLocation>();
          photos = new ArrayList<String>();
+        ID = UUID.randomUUID().toString();
     }
 
-    public Integer getID() {
-        return null;
+
+    public String getID() {
+        return ID;
     }
 
-    public void setID() {
-
-    }
 //
     public String getProblemID() {
         return this.associatedProblemID;
@@ -73,11 +75,9 @@ public class Record implements details { //implementing serializable allows us t
     public void deleteBodyLocationPoint(Object bdlocationpoint){
 
     }
-    public int getNumOfBodyLocationPoints(){
-        return 0;
-    }
-    public Object getBodyLocationPointsList(){
-        return null;
+
+    public ArrayList<BodyLocation> getBodyLocationList(){
+        return bodyLocations;
     }
 
 
