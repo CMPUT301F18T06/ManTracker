@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -63,9 +62,9 @@
         <activity android:name=".Activity.ProblemListActivity" />
         <activity
             android:name=".Activity.AddRecordActivity"
+            android:exported="true"
             android:label="@string/title_activity_edit_profile"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PatientHome.PatientHomeActivity"
             android:label="@string/title_activity_patient_home"
@@ -74,14 +73,19 @@
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.RecordListActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".Activity.RecordListActivity"
+            android:exported="true" />
         <activity android:name=".Activity.AddProblemActivity" />
-        <activity android:name=".Activity.BodyLocationActivity"></activity>
+        <activity android:name=".Activity.BodyLocationActivity" />
         <activity
             android:name=".Activity.RecordDetailsActivity"
             android:label="@string/title_activity_record_details"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.img_slideshow">
+
+        </activity>
+        <activity android:name=".Activity.clickedimg"></activity>
     </application>
 
 </manifest>
