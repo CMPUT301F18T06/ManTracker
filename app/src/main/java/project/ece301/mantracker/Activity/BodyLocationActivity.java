@@ -23,6 +23,7 @@ import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Decode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
@@ -62,8 +63,12 @@ public class BodyLocationActivity extends AppCompatActivity {
                     ImageView cursor = findViewById(R.id.cursor);
                     cursor.setVisibility(View.VISIBLE);
 
+
                     cursor.setX(imageView.getLeft() + x );
                     cursor.setY(imageView.getTop() + y );
+
+                    Toast.makeText(BodyLocationActivity.this, "" + imageView.getMeasuredHeight()
+                            +"," + imageView.getMeasuredWidth(), Toast.LENGTH_SHORT).show();
 
                     // set coordinates of the final cursor position
                     Coordinates = x + ":" + y ;
