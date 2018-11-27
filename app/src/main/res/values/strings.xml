@@ -67,4 +67,6 @@
     <string name="title_activity_record_details">RecordDetailsActivity</string>
     <string name="UploadPhotos">Upload Photos</string>
     <string name="upload_photo_count">Upload Photo Count: </string>
+    <string name="label_hint">Label</string>
+    <string name="oldBodyPhotos">Select</string>
 </resources>

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,52 +48,44 @@ public class BodyLocationActivity extends AppCompatActivity {
         super.onStart();
 
         final ImageView imageView= findViewById(R.id.image_BL);
-        final TextView textView = findViewById(R.id.resultsView);
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
                 {
+
+                    // image View coordinates
                     float x = Float.parseFloat(String.valueOf(event.getX()));
                     float y = Float.parseFloat(String.valueOf(event.getY()));
-//                    String location = "x: " +
-//                            String.valueOf(x + ", y: " + y);
-//                    textView.setText(location);
 
                     // set the cursor
                     ImageView cursor = findViewById(R.id.cursor);
                     cursor.setVisibility(View.VISIBLE);
-
-
                     cursor.setX(imageView.getLeft() + x );
                     cursor.setY(imageView.getTop() + y );
 
-
-
+                    // image width and height of drawable image
                     float ImageWidth = imageView.getMeasuredWidth();
                     float ImageHeight = imageView.getMeasuredHeight();
 
+                    // bitmap width and height
                     float BitmapWidth = Decode(encodedImage).getWidth();
                     float BitmapHeight = Decode(encodedImage).getHeight();
 
+                    // actual coordinates of the pixel
                     float WidthRatio = BitmapWidth / ImageWidth;
                     float HeightRatio = BitmapHeight / ImageHeight;
 
                     float xCoordinate = (imageView.getLeft() + x) * WidthRatio ;
                     float yCoordinate = (imageView.getTop() + y ) * HeightRatio ;
 
-                    Log.i("bitmap x",String.valueOf(BitmapWidth));
-                    Log.i("bitmap y",String.valueOf(BitmapHeight));
-
-                    String location = "x: " + ImageWidth + ", y: " + ImageHeight;
-                    textView.setText(location);
 
                     Toast.makeText(BodyLocationActivity.this, "" + yCoordinate
                             +"," + xCoordinate, Toast.LENGTH_SHORT).show();
 
                     // set coordinates of the final cursor position
-                    Coordinates = x + ":" + y ;
+                    Coordinates = xCoordinate + ":" + yCoordinate ;
 
                 }
                 return true;
@@ -204,15 +197,20 @@ public class BodyLocationActivity extends AppCompatActivity {
         }
     }
 
+    public void selectOldBodyPhoto(View view){
+
+    }
+
 
     public void SaveButtonClick(View view){
 
+        EditText labelButton = findViewById(R.id.body_label);
+        String label = labelButton.getText().toString();
+
         // Save the Photo and the point location in the File
-        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates));
+        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates,label));
 
         // Back to the Add Record Screen where User can Add more Photos
         finish();
     }
-
-
 }
