@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -55,9 +56,9 @@ public class BodyLocationActivity extends AppCompatActivity {
                 {
                     float x = Float.parseFloat(String.valueOf(event.getX()));
                     float y = Float.parseFloat(String.valueOf(event.getY()));
-                    String location = "x: " +
-                            String.valueOf(x + ", y: " + y);
-                    textView.setText(location);
+//                    String location = "x: " +
+//                            String.valueOf(x + ", y: " + y);
+//                    textView.setText(location);
 
                     // set the cursor
                     ImageView cursor = findViewById(R.id.cursor);
@@ -67,8 +68,28 @@ public class BodyLocationActivity extends AppCompatActivity {
                     cursor.setX(imageView.getLeft() + x );
                     cursor.setY(imageView.getTop() + y );
 
-                    Toast.makeText(BodyLocationActivity.this, "" + imageView.getMeasuredHeight()
-                            +"," + imageView.getMeasuredWidth(), Toast.LENGTH_SHORT).show();
+
+
+                    float ImageWidth = imageView.getMeasuredWidth();
+                    float ImageHeight = imageView.getMeasuredHeight();
+
+                    float BitmapWidth = Decode(encodedImage).getWidth();
+                    float BitmapHeight = Decode(encodedImage).getHeight();
+
+                    float WidthRatio = BitmapWidth / ImageWidth;
+                    float HeightRatio = BitmapHeight / ImageHeight;
+
+                    float xCoordinate = (imageView.getLeft() + x) * WidthRatio ;
+                    float yCoordinate = (imageView.getTop() + y ) * HeightRatio ;
+
+                    Log.i("bitmap x",String.valueOf(BitmapWidth));
+                    Log.i("bitmap y",String.valueOf(BitmapHeight));
+
+                    String location = "x: " + ImageWidth + ", y: " + ImageHeight;
+                    textView.setText(location);
+
+                    Toast.makeText(BodyLocationActivity.this, "" + yCoordinate
+                            +"," + xCoordinate, Toast.LENGTH_SHORT).show();
 
                     // set coordinates of the final cursor position
                     Coordinates = x + ":" + y ;
