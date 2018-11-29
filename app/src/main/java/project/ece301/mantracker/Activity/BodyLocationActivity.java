@@ -34,11 +34,16 @@ public class BodyLocationActivity extends AppCompatActivity {
 
     String Coordinates = null;
     String encodedImage = null;
+    int index, problemIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location);
+
+        Intent intent = getIntent();
+        index = intent.getExtras().getInt("USERINDEX");
+        problemIndex = intent.getExtras().getInt("ProblemIndex");
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -198,9 +203,16 @@ public class BodyLocationActivity extends AppCompatActivity {
     }
 
     public void selectOldBodyPhoto(View view){
+        Intent intent = new Intent(this, AvailableBodyLocationPhotos.class);
+        Bundle extras = new Bundle();
 
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", problemIndex);
+
+        intent.putExtras(extras);
+
+        startActivity(intent);
     }
-
 
     public void SaveButtonClick(View view){
 

@@ -44,8 +44,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 Intent recordListSwitch = new Intent(ProblemListActivity.this, RecordListActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("PROBLEMTITLE", problems.get(position).getTitle());
-                extras.putInt("USERINDEX", index);
-                extras.putInt("ProblemIndex", position);
+                extras.putInt("USERINDEX", index); // offline patient index
+                extras.putInt("ProblemIndex", position); // offline problem ID
                 extras.putString("PROBLEMID", problems.get(position).getId());
                 extras.putString("PROBLEMDESCRIPTION", problems.get(position).getDescription());
                 extras.putString("PROBLEMDATE", problems.get(position).getDate());
