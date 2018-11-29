@@ -1,9 +1,13 @@
 package project.ece301.mantracker.Account;
 
+import java.util.UUID;
+
 public class Account {
     private Username username;
     private Email email;
     private String phone;
+    private String ID;
+    private int localIndex;
 
     public Account() {}
 
@@ -11,6 +15,7 @@ public class Account {
         this.username = username;
         this.email = email;
         this.phone = phone;
+        ID = UUID.randomUUID().toString(); //random ID
     }
 
     public void setEmail(Email email) {
@@ -36,5 +41,9 @@ public class Account {
     public Username getUsername() {
         return username;
     }
+
+    public void setIndex(int index) { localIndex = index;}
+
+    public int getIndex() {return localIndex;}
 }
 

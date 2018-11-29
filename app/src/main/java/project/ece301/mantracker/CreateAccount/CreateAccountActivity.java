@@ -13,7 +13,6 @@ import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
 import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchCareproviderContoller;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
-import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
@@ -98,6 +97,10 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     @Override
     public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
         Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
+        int index = StoreData.getIndexOf(careProvider);
+        careProvider.setIndex(index); //set the local index for the patient
+        Log.i("CP_HOME", "CP index: " + String.valueOf(index));
+        goToMain.putExtra("CP_INDEX", StoreData.getIndexOf(careProvider));
 
         //post to elasticsearch
         ElasticSearchCareproviderContoller.AddCareProviderTask addCareProviderTask = new ElasticSearchCareproviderContoller.AddCareProviderTask();

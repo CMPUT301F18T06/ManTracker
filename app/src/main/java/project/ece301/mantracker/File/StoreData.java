@@ -16,12 +16,16 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
+// TODO: covert to Saving Accounts -- see rfurrer Feelsbook
 
 public class StoreData {
 
     public static final String FILENAME = "ManTracker.sav";
     public static ArrayList<Patient> patients = new ArrayList<Patient>();
+    public static ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
 
     /* loads the objects from the file to the emotion list */
 
@@ -60,7 +64,17 @@ public class StoreData {
         }
     }
 
-    public static int getIndexOf(Patient patient) {
+    public static int getIndexOf(Account account) {
+        if (account.getClass().isInstance(CareProvider.class))
+            return getIndexOfCareProvider((CareProvider) account);
+        return getIndexOfPatient((Patient) account);
+    }
+
+    public static int getIndexOfPatient(Patient patient) {
         return patients.indexOf(patient);
+    }
+
+    public static int getIndexOfCareProvider(CareProvider careProvider) {
+        return careProviders.indexOf(careProvider);
     }
 }
