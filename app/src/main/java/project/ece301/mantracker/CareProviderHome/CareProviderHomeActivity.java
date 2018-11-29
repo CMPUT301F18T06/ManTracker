@@ -1,5 +1,8 @@
 package project.ece301.mantracker.CareProviderHome;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +14,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import io.searchbox.core.Search;
+import project.ece301.mantracker.Activity.SearchableActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
@@ -22,7 +28,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     private CareProviderHomePresenter presenter;
     private PatientListAdapter adapter;
     private DrawerLayout drawerLayout;
-    private EditText searchBar;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +42,11 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         patientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         presenter = new CareProviderHomePresenter(this);
-
+        //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchBar = findViewById(R.id.search_bar);
+        searchBar.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this,
+                SearchableActivity.class)));
         findViewById(R.id.add_patient).setOnClickListener(v -> onOpenAddPatientDialog());
     }
 
@@ -75,7 +84,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
 
     @Override
     public void showNoSearchResults() {
-        searchBar.setError("No search results");
+
     }
 
     @Override

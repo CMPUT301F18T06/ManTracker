@@ -161,6 +161,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         problemID = extras.getString("PROBLEMID");
         ProblemIndex = extras.getInt("ProblemIndex");
         index = extras.getInt("USERINDEX");
+
     }
 
     @Override
@@ -196,6 +197,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
         record.setProblemID(problemID);
+        record.setAssociatedPatient(patients.get(index).getUsername().toString());
 
         if (latlng != null) {
             // Set geolocation

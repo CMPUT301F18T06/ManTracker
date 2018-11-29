@@ -49,7 +49,8 @@ public class AddProblemActivity extends AppCompatActivity {
 
         // change the patient object
         Patient patient = patients.get(index);
-        MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID());
+        String patientUsername = patients.get(index).getUsername().toString();
+        MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID(), patientUsername);
         patient.addProblem(problem);
         patients.add(index,patient);
 

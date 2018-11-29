@@ -44,6 +44,7 @@ public class RecordListActivity extends AppCompatActivity {
                 Intent recordDetailsSwitch = new Intent(RecordListActivity.this, RecordDetailsActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
+                extras.putInt("USERINDEX", index);
 
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);
@@ -65,12 +66,13 @@ public class RecordListActivity extends AppCompatActivity {
             //get the index of the record that was selected
             Intent intent = getIntent();
             Bundle extras = intent.getExtras();
-            index = extras.getInt("USERINDEX");
             problemIndex = extras.getInt("ProblemIndex");
             title = extras.getString("PROBLEMTITLE");
             problemID = extras.getString("PROBLEMID");
             problemDescription = extras.getString("PROBLEMDESCRIPTION");
             problemDate = extras.getString("PROBLEMDATE");
+            index = extras.getInt("USERINDEX");
+
         } catch (Exception e) {
             Log.d("RecordList", "onResume: Error getting record");
         }

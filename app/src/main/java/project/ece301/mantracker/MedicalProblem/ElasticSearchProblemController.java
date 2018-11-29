@@ -96,6 +96,50 @@ public class ElasticSearchProblemController {
         }
     }
 
+    // TODO we need a function which gets tweets from elastic search
+    public static class UserQuery extends AsyncTask<String, Void, ArrayList<MedicalProblem>> {
+        /* Will be used when searching */
+        @Override
+        protected ArrayList<MedicalProblem> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<MedicalProblem> problems = new ArrayList<MedicalProblem>();
+
+            // TODO Build the query
+
+            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{ \"size\": 100, \n" +
+                    "    \"query\" : {\n" +
+                    "        \"multi_match\": { \"query\" : \"" + search_parameters[0] + "\",\n " +
+                    "\"fields\": [ \"title\", \"description\"] }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t06test")
+                    .addType("problem")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    @SuppressWarnings("deprecation")
+                    List<MedicalProblem> foundProblems = result.getSourceAsObjectList(MedicalProblem.class);
+                    problems.addAll(foundProblems);
+                }
+                else {
+                    Log.i("AddProblemsTask", "The search query failed to find any records that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return problems;
+        }
+    }
+
 
 
 

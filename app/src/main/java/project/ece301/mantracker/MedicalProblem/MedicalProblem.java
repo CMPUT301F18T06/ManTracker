@@ -13,17 +13,20 @@ public class MedicalProblem implements details {
     private ArrayList<Record> associatedRecords;
     private String id;  //unique id for problems. Will be used for ES
     private String associatedPatientID;
+    private String patientUsername;
 
     public MedicalProblem() {
     }
 
-    public MedicalProblem(String initDescription, String initTitle, String initDate, String patientID) {
+    public MedicalProblem(String initDescription, String initTitle, String initDate, String patientID,
+                          String username) {
         associatedRecords = new ArrayList<Record>();
         description = initDescription;
         title = initTitle;
         date = initDate;
         id = UUID.randomUUID().toString();
         associatedPatientID = patientID;
+        patientUsername = username;
     }
 
     public String getPatientID() {return associatedPatientID;}
@@ -78,7 +81,8 @@ public class MedicalProblem implements details {
 
     @Override
     public String toString(){
-        return this.title + " | " + this.description + " | " + this.date;
+        return "Patient: " + this.patientUsername + " | "+ this.title + " | " +
+                this.description + " | " + this.date;
     }
 
     public int getRecordCount() { return associatedRecords.size();}

@@ -15,6 +15,7 @@ public class Record implements details, Serializable { //implementing serializab
     private String Description;
     private String Title;
     private String associatedProblemID;
+    private String associatedPatient;
 
     private ArrayList<BodyLocation> bodyLocations;
 
@@ -31,6 +32,9 @@ public class Record implements details, Serializable { //implementing serializab
         ID = UUID.randomUUID().toString();
     }
 
+    public void setAssociatedPatient(String username) {
+        associatedPatient = username;
+    }
 
     public String getID() {
         return ID;
@@ -116,7 +120,7 @@ public class Record implements details, Serializable { //implementing serializab
 
     @Override
     public String toString() {
-        return this.Title + " | " + this.Description + " | " + this.date;
+        return "Patient: " + associatedPatient + " | " + this.Title + " | " + this.Description + " | " + this.date;
     }
     //    Input a commnet class
     public void addComment(String comment){
