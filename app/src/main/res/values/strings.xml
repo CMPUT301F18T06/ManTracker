@@ -44,6 +44,8 @@
     <string name="Results">Search Results</string>
     <string name="Problems">Problems</string>
     <string name="Records">Records</string>
+    <string name="Username">Username: </string>
+    <string name="AddRecord">Add New Record</string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>

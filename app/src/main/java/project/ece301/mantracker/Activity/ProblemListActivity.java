@@ -1,5 +1,8 @@
 package project.ece301.mantracker.Activity;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +34,19 @@ public class ProblemListActivity extends AppCompatActivity {
     private ArrayAdapter<MedicalProblem> adapter;
     public static final String EXTRA_MESSAGE = "com.example.aman.aanand_feelsbook.MESSAGE";
     private int index;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
         oldProblems = (ListView) findViewById(R.id.problem_list);
+
+        //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchBar = findViewById(R.id.problemListSearch);
+        searchBar.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this,
+                SearchableActivity.class)));
 
         oldProblems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override //when user selects a problem from the list

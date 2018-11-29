@@ -54,6 +54,7 @@ public class SearchableActivity extends AppCompatActivity {
                 Intent recordDetailsSwitch = new Intent(SearchableActivity.this, RecordDetailsActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
+                extras.putString("USERNAME", recordList.get(position).getAssociatedPatient());
 
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);

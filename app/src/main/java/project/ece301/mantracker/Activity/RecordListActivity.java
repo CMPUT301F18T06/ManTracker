@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
@@ -45,6 +44,7 @@ public class RecordListActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
                 extras.putInt("USERINDEX", index);
+                extras.putString("USERNAME", recordList.get(position).getAssociatedPatient());
 
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);
@@ -79,7 +79,7 @@ public class RecordListActivity extends AppCompatActivity {
 
         try {
             //set the patient username and problem title header
-            TextView username_text = findViewById(R.id.patientUsername);
+            TextView username_text = findViewById(R.id.addNewRecordHeader);
             username_text.setText(patients.get(index).getUsername().toString());
             TextView title_text = findViewById(R.id.recordTitleTextView);
             title_text.setText(title);
@@ -104,7 +104,7 @@ public class RecordListActivity extends AppCompatActivity {
         try {
             adapter.notifyDataSetChanged();
             //set the patient username and problem title header
-            TextView username_text = findViewById(R.id.patientUsername);
+            TextView username_text = findViewById(R.id.addNewRecordHeader);
             username_text.setText(patients.get(index).getUsername().toString());
             TextView title_text = findViewById(R.id.recordTitleTextView);
             title_text.setText(title);

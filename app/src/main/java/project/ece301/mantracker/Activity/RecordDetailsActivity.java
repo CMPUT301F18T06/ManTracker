@@ -34,6 +34,7 @@ public class RecordDetailsActivity extends AppCompatActivity {
     private String recordTitle;
     private String recordDescription;
     private String recordID; //used for elasticsearch
+    private String associatedUsername;
     Record chosenRecord;
 
     @Override
@@ -45,7 +46,7 @@ public class RecordDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         recordID = extras.getString("RECORDID");
-
+        associatedUsername = extras.getString("USERNAME");
 
     }
 
@@ -79,6 +80,8 @@ public class RecordDetailsActivity extends AppCompatActivity {
         description_text.setText(chosenRecord.getDescription());
         TextView date = findViewById(R.id.recordDetailsDate);
         date.setText(chosenRecord.getDate());
+        TextView username = findViewById(R.id.recordDetailUsername);
+        username.setText(associatedUsername);
 
 
         Log.i("REACHED", "REACHEDHERE");

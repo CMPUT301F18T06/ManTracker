@@ -36,6 +36,10 @@ public class Record implements details, Serializable { //implementing serializab
         associatedPatient = username;
     }
 
+    public String getAssociatedPatient() {
+        return associatedPatient;
+    }
+
     public String getID() {
         return ID;
     }
