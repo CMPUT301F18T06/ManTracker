@@ -69,4 +69,8 @@
     <string name="upload_photo_count">Upload Photo Count: </string>
     <string name="label_hint">Label</string>
     <string name="oldBodyPhotos">Select</string>
+    <string name="ChooseBodyImage">Select</string>
+    <string name="BodyLabel">Label</string>
+    <string name="BodyLocationImages">Body Location Images</string>
+    <string name="DeleteImageButton">Delete</string>
 </resources>

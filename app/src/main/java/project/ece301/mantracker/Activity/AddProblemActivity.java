@@ -51,7 +51,7 @@ public class AddProblemActivity extends AppCompatActivity {
         Patient patient = patients.get(index);
         MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID());
         patient.addProblem(problem);
-        patients.add(index,patient);
+        patients.set(index,patient);
 
         saveInFile(this); //save locally
 

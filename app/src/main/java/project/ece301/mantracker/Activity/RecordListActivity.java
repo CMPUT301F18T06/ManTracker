@@ -45,7 +45,7 @@ public class RecordListActivity extends AppCompatActivity {
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
                 extras.putInt("USERINDEX", index); // offline patient index
-                extras.putInt("ProblemIndex", problemIndex); // offline problem ID
+                extras.putInt("ProblemIndex", problemIndex); // offline problem index
                 extras.putInt("RECORDINDEX", position); // offline record index
 
                 recordDetailsSwitch.putExtras(extras);

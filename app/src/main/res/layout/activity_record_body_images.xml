@@ -18,7 +18,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/BodyLabel"
+        android:id="@+id/RecordImageLabel"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -34,8 +34,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:onClick="ChooseImage"
-        android:text="@string/ChooseBodyImage"
+        android:onClick="DeleteImage"
+        android:text="@string/DeleteImageButton"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

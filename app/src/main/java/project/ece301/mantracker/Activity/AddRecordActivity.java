@@ -180,6 +180,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         for(int i =0; i<bodyLocations.size();i++){
             record.addBodyLocation(bodyLocations.get(i));
         }
+        bodyLocations.clear();
 
         for(int i =0; i<photos.size();i++){
             record.addPhoto(photos.get(i));
@@ -212,7 +213,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
 
         patient.setProblem(problem,ProblemIndex);
 
-        patients.add(index,patient);
+        patients.set(index,patient);
         saveInFile(this); //save locally
 
         //post to elasticsearch

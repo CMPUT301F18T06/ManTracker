@@ -33,7 +33,7 @@ import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGal
 public class BodyLocationActivity extends AppCompatActivity {
 
     String Coordinates = null;
-    String encodedImage = null;
+    public static String encodedImage = null;
     int index, problemIndex;
 
     @Override
@@ -53,6 +53,10 @@ public class BodyLocationActivity extends AppCompatActivity {
         super.onStart();
 
         final ImageView imageView= findViewById(R.id.image_BL);
+        if(encodedImage!=null){
+            imageView.setImageBitmap(Decode(encodedImage));
+            imageView.setVisibility(View.VISIBLE);
+        }
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -220,8 +224,9 @@ public class BodyLocationActivity extends AppCompatActivity {
         String label = labelButton.getText().toString();
 
         // Save the Photo and the point location in the File
-        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates,label));
-
+        if(encodedImage!=null)
+            AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates,label));
+        encodedImage = null;
         // Back to the Add Record Screen where User can Add more Photos
         finish();
     }
