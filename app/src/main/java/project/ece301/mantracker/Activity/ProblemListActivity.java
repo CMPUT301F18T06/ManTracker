@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
+import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
@@ -110,4 +111,9 @@ public class ProblemListActivity extends AppCompatActivity {
     }
 
 
+    public void LogOut(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("LOGOUT","0");
+        startActivity(intent);
+    }
 }
