@@ -78,4 +78,5 @@
     <string name="BodyLabel">Label</string>
     <string name="BodyLocationImages">Body Location Images</string>
     <string name="DeleteImageButton">Delete</string>
+    <string name="LogOut">Sign Out</string>
 </resources>
