@@ -80,6 +80,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     private String dateString;
     private String problemID;
     private String newDate;
+    private String nameMsg;
 
     private int index,ProblemIndex;
 
@@ -206,6 +207,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
             temp.setLatitude(latlng.latitude);
             temp.setLongitude(latlng.longitude);
             record.setGeoLocation(new Geolocation(temp));
+            record.setLocationName(nameMsg);
         }
 
         // add record in the offline file
@@ -302,7 +304,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         else if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
-                String nameMsg = String.format("Place: %s", place.getName());
+                nameMsg = String.format("Place: %s", place.getName());
                 String latlngMsg = String.format("Place: %s", place.getLatLng());
                 Toast.makeText(this, nameMsg + "\n" + latlngMsg, Toast.LENGTH_LONG).show();
                 latlng = place.getLatLng();

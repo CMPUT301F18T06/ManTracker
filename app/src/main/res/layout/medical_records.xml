@@ -67,6 +67,9 @@
         android:layout_marginTop="48dp"
         android:layout_marginEnd="136dp"
         android:textSize="18sp"
+        android:textColor="@color/darkBlue"
+        android:clickable="true"
+        android:onClick="toUserProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

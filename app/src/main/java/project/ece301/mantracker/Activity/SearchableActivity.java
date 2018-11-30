@@ -20,6 +20,8 @@ import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 
+import static project.ece301.mantracker.File.StoreData.patients;
+
 public class SearchableActivity extends AppCompatActivity {
     /*This activity is what popups up the user when they execute a search
     * it will display all problems and/or records that match the indicated keywords*/
@@ -30,6 +32,7 @@ public class SearchableActivity extends AppCompatActivity {
     private ArrayAdapter<MedicalProblem> problemAdapter;
     private ArrayList<MedicalProblem> problemList;
     private String query;
+    private int patientindex;
 
 
     @Override
@@ -56,6 +59,16 @@ public class SearchableActivity extends AppCompatActivity {
                 extras.putString("RECORDID", recordList.get(position).getID());
                 extras.putString("USERNAME", recordList.get(position).getAssociatedPatient());
 
+                for(int i = 0; i < patients.size(); i ++)
+                {   //get the index of the patient that matches the username
+                    if(patients.get(i).getUsername().toString().equals(recordList.get(position)
+                            .getAssociatedPatient())) {
+                        patientindex = i;
+                        break;
+                    }
+                }
+                extras.putInt("USERINDEX", patientindex);
+
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);
             }
@@ -72,6 +85,17 @@ public class SearchableActivity extends AppCompatActivity {
                 extras.putString("PROBLEMID", problemList.get(position).getId());
                 extras.putString("PROBLEMDESCRIPTION", problemList.get(position).getDescription());
                 extras.putString("PROBLEMDATE", problemList.get(position).getDate());
+
+                for(int i = 0; i < patients.size(); i ++)
+                {   //get the index of the patient that matches the username
+                    if(patients.get(i).getUsername().toString().equals(problemList.get(position)
+                            .getPatientUsername())) {
+                        patientindex = i;
+                        break;
+                    }
+                }
+                extras.putInt("USERINDEX", patientindex);
+
                 recordListSwitch.putExtras(extras);
                 startActivity(recordListSwitch);
             }

@@ -137,4 +137,11 @@ public class RecordListActivity extends AppCompatActivity {
         intent.putExtras(extras); //pass the patient username to the add record activity
         startActivity(intent);
     }
+
+    public void toUserProfile(View view) {
+        //send the patient information to the user profile activity
+        Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
+        userProfileIntent.putExtra("USERINDEX", index);
+        startActivity(userProfileIntent);
+    }
 }

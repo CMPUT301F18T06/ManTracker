@@ -82,21 +82,20 @@
             android:name=".Activity.RecordDetailsActivity"
             android:label="@string/title_activity_record_details"
             android:theme="@style/AppTheme" />
-
-        <activity android:name=".Activity.img_slideshow"></activity>
+        <activity android:name=".Activity.img_slideshow" />
         <activity android:name=".Activity.clickedimg" />
         <activity android:name=".Activity.SearchableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
+
+            <meta-data
+                android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
-
         <activity android:name=".Activity.AvailableBodyLocationPhotos" />
-        <activity android:name=".Activity.RecordBodyImages"></activity>
-
+        <activity android:name=".Activity.RecordBodyImages" />
+        <activity android:name=".Activity.UserProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -36,6 +36,10 @@
         android:layout_marginTop="8dp"
         android:text="@string/username"
         android:textSize="24sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="toUserProfile"
+        android:textColor="@color/darkBlue"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/goodDayTextView" />
 

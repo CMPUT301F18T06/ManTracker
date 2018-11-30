@@ -28,6 +28,7 @@ public class MedicalProblem implements details {
         associatedPatientID = patientID;
         patientUsername = username;
     }
+    public String getPatientUsername () {return patientUsername;}
 
     public String getPatientID() {return associatedPatientID;}
 

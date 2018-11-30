@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,12 +37,14 @@ public class ProblemListActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.aman.aanand_feelsbook.MESSAGE";
     private int index;
     private SearchView searchBar;
+    private TextView heading_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_problem_list);
         oldProblems = (ListView) findViewById(R.id.problem_list);
+        heading_text = findViewById(R.id.userNameTextView);
 
         //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -76,7 +79,6 @@ public class ProblemListActivity extends AppCompatActivity {
         Log.i("PatientQuery", "index: " + index);
 
         // set the username
-        TextView heading_text = findViewById(R.id.userNameTextView);
 
         heading_text.setText(patients.get(index).getUsername().toString());
         Log.i("AddProblemTask", "index: "+ String.valueOf(index));
@@ -119,6 +121,13 @@ public class ProblemListActivity extends AppCompatActivity {
         Intent addProblemSwitch = new Intent(ProblemListActivity.this, AddProblemActivity.class);
         addProblemSwitch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
         startActivity(addProblemSwitch);
+    }
+
+    public void toUserProfile(View view) {
+        //send the patient information to the user profile activity
+        Intent userProfileIntent = new Intent(ProblemListActivity.this, UserProfileActivity.class );
+        userProfileIntent.putExtra("USERINDEX", index);
+        startActivity(userProfileIntent);
     }
 
 
