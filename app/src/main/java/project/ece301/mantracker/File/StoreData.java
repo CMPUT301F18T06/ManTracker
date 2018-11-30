@@ -24,6 +24,7 @@ import project.ece301.mantracker.User.Patient;
 public class StoreData {
 
     public static final String FILENAME = "ManTracker.sav";
+    public static final String CP_FILENAME = "ManTrackerCareProvidors.sav";
     public static ArrayList<Patient> patients = new ArrayList<Patient>();
     public static ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
 
@@ -41,6 +42,20 @@ public class StoreData {
         }catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             patients = new ArrayList<Patient>();
+        }
+    }
+
+    public static void loadCareProvidersFromFile(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput(CP_FILENAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<CareProvider>>(){}.getType();
+            careProviders = gson.fromJson(reader, listType);
+        }catch (FileNotFoundException e) {
+            careProviders = new ArrayList<CareProvider>();
         }
     }
 
@@ -64,10 +79,30 @@ public class StoreData {
         }
     }
 
+    public static void saveCareProvidersInFile(Context context){
+        try {
+            FileOutputStream fos = context.openFileOutput(CP_FILENAME,0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
+
+            Gson gson =new Gson();
+            gson.toJson(careProviders ,writer);
+
+            writer.flush();
+            fos.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public static int getIndexOf(Account account) {
-        if (account.getClass().isInstance(CareProvider.class))
+        if (account instanceof CareProvider)
             return getIndexOfCareProvider((CareProvider) account);
-        return getIndexOfPatient((Patient) account);
+        if (account instanceof Patient)
+            return getIndexOfPatient((Patient) account);
+        throw new IllegalArgumentException();
     }
 
     public static int getIndexOfPatient(Patient patient) {

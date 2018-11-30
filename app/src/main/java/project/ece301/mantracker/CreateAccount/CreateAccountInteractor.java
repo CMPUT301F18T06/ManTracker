@@ -48,6 +48,7 @@ public class CreateAccountInteractor {
             }
 
             dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
+            dataManager.setLoggedInUser(account);
 
 
         } catch (Username.TakenUsernameException e) {

@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     }
 
     @Override
-    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
+    public void navigateToPatientHome(Patient patient) {
         Intent goToMain = new Intent(this, ProblemListActivity.class);
         goToMain.putExtra("PATIENTINDEX", patient.getIndex());
         Log.i("PATIENTHOME", String.valueOf(patient.getIndex()));

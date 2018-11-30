@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -20,8 +21,11 @@ import android.widget.Toast;
 
 import io.searchbox.core.Search;
 import project.ece301.mantracker.Activity.SearchableActivity;
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
+
+import static project.ece301.mantracker.File.StoreData.patients;
 
 public class CareProviderHomeActivity extends AppCompatActivity implements CareProviderHomeView {
 
@@ -48,6 +52,14 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         searchBar.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this,
                 SearchableActivity.class)));
         findViewById(R.id.add_patient).setOnClickListener(v -> onOpenAddPatientDialog());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ((TextView) findViewById(R.id.userNameTextView)).setText(DataManager.getInstance().
+                getLoggedInUser().getUsernameText());;
     }
 
     private void onOpenAddPatientDialog() {
@@ -109,7 +121,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         public void onBindViewHolder(@NonNull final PatientViewHolder viewHolder, int i) {
             Patient patient = presenter.getPatientAt(i);
             viewHolder.setPatientNameText(patient.getUsername().getUserID());
-            viewHolder.setPatientNumberOfProblemsText(presenter.getPatientCount());
+            viewHolder.setPatientNumberOfProblemsText(presenter.getPatientProblemCount(i));
 
             viewHolder.cardView.setOnClickListener(v -> navigateToPatient(patient));
         }

@@ -1,5 +1,6 @@
 package project.ece301.mantracker.CareProviderHome;
 
+import java.io.InvalidClassException;
 import java.util.ArrayList;
 
 import project.ece301.mantracker.Account.Account;
@@ -15,16 +16,11 @@ public class CareProviderHomePresenter {
     public CareProviderHomePresenter(CareProviderHomeView careProviderHomeView) {
         this.careProviderHomeView = careProviderHomeView;
         dataManager = DataManager.getInstance();
-        patients = dataManager.getPatients();
-        if (patients == null) {
+        try {
+            patients = dataManager.getPatients();
+        } catch (InvalidClassException e) {
+            e.printStackTrace(); // will never happen
             patients = new ArrayList<>();
-            try {
-                Patient patient = new Patient();
-                patient.setUsername(new Username("rfurrer1"));
-                patients.add(patient);
-            } catch (Username.InvalidUsernameException e) {
-            }
-        } else {
         }
         careProviderHomeView.update();
     }
@@ -53,5 +49,10 @@ public class CareProviderHomePresenter {
 
     public Patient getPatientAt(int i) {
         return patients.get(i);
+    }
+
+    public int getPatientProblemCount(int index) {
+        return (null != patients ? (null != patients.get(index).getAllProblems()
+                ? patients.get(index).getAllProblems().size() : 0) : 0);
     }
 }

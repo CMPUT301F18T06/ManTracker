@@ -2,6 +2,7 @@ package project.ece301.mantracker.DataManagment;
 
 import android.util.Log;
 
+import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import project.ece301.mantracker.User.Patient;
 public class DataManager {
     private static DataManager instance;
 
+    private static Account loggedInUser;
+
     public static DataManager getInstance() {
         if (instance == null)
             instance = new DataManager();
@@ -23,6 +26,20 @@ public class DataManager {
     }
 
     public DataManager() {
+    }
+
+    public static void setLoggedInUser(Account loggedInUser) {
+        DataManager.loggedInUser = loggedInUser;
+    }
+
+    public Account getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public Account logIn(String username) {
+        Account account = getUser(username);
+        loggedInUser = account;
+        return account;
     }
 
     public Account getUser(String username) {
@@ -63,11 +80,14 @@ public class DataManager {
         return true;
     }
 
-    public ArrayList<Patient> getPatients() {
-        return null;
+    public ArrayList<Patient> getPatients() throws InvalidClassException {
+        if (loggedInUser instanceof CareProvider)
+            return ((CareProvider) loggedInUser).getPatientsList();
+        throw new InvalidClassException("Must be a care provider to get patients!");
     }
 
     public boolean addPatient(Patient patient) {
+        ((CareProvider)loggedInUser).addPatient(patient);
         return true;
     }
 

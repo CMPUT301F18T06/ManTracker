@@ -9,7 +9,9 @@ public class Account {
     private String ID;
     private int localIndex;
 
-    public Account() {}
+    public Account() {
+        ID = UUID.randomUUID().toString();
+    }
 
     public Account(Email email, Username username, String phone) {
         this.username = username;
@@ -42,8 +44,14 @@ public class Account {
         return username;
     }
 
+    public String getUsernameText() {
+        return username.getUserID();
+    }
+
     public void setIndex(int index) { localIndex = index;}
 
     public int getIndex() {return localIndex;}
+
+    public String getID() {return ID;}
 }
 
