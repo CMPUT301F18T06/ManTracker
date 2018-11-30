@@ -43,8 +43,12 @@ public class RecordListActivity extends AppCompatActivity {
                 Intent recordDetailsSwitch = new Intent(RecordListActivity.this, RecordDetailsActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
-                extras.putInt("USERINDEX", index);
                 extras.putString("USERNAME", recordList.get(position).getAssociatedPatient());
+
+                extras.putInt("USERINDEX", index); // offline patient index
+                extras.putInt("ProblemIndex", problemIndex); // offline problem index
+                extras.putInt("RECORDINDEX", position); // offline record index
+
 
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);

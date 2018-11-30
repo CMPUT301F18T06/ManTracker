@@ -67,9 +67,19 @@ public class MedicalProblem implements details {
         associatedRecords.add(newRecord);
     }
 
+    public void setRecord(int index, Record record) {
+        associatedRecords.set(index,record);
+    }
+
+
+    public ArrayList<Record> getAllRecords() {
+        return associatedRecords;
+    }
+
     public Record getRecord(int index) {
         return associatedRecords.get(index);
     }
+
 
     public void deleteRecord(Record record) {
         associatedRecords.remove(record);

@@ -52,7 +52,7 @@ public class AddProblemActivity extends AppCompatActivity {
         String patientUsername = patients.get(index).getUsername().toString();
         MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID(), patientUsername);
         patient.addProblem(problem);
-        patients.add(index,patient);
+        patients.set(index,patient);
 
         saveInFile(this); //save locally
 

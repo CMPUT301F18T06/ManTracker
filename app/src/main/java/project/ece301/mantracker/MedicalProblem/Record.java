@@ -29,7 +29,7 @@ public class Record implements details, Serializable { //implementing serializab
 
          bodyLocations = new ArrayList<BodyLocation>();
          photos = new ArrayList<String>();
-        ID = UUID.randomUUID().toString();
+         ID = UUID.randomUUID().toString();
     }
 
     public void setAssociatedPatient(String username) {
@@ -79,11 +79,6 @@ public class Record implements details, Serializable { //implementing serializab
     }
 //
 
-    //    Input a BodyLocationPoint class
-    public void deleteBodyLocationPoint(Object bdlocationpoint){
-
-    }
-
     public ArrayList<BodyLocation> getBodyLocationList(){
         return bodyLocations;
     }
@@ -94,6 +89,9 @@ public class Record implements details, Serializable { //implementing serializab
         bodyLocations.add(bdlocation);
     }
 
+    public void deleteBodyLocation(int index){
+        bodyLocations.remove(index);
+    }
 
 
     public Object getBodyLocation(){

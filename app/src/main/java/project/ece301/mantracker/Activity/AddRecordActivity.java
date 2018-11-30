@@ -181,6 +181,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         for(int i =0; i<bodyLocations.size();i++){
             record.addBodyLocation(bodyLocations.get(i));
         }
+        bodyLocations.clear();
 
         for(int i =0; i<photos.size();i++){
             record.addPhoto(photos.get(i));
@@ -208,15 +209,14 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         }
 
         // add record in the offline file
-//        Patient patient = patients.get(index);
-//        MedicalProblem problem = patient.getProblem(ProblemIndex);
-//        problem.addRecord(record);
-//
-//        patient.setProblem(problem,ProblemIndex);
-//
-//        patients.add(index,patient);
-//        saveInFile(this); //save locally
+        Patient patient = patients.get(index);
+        MedicalProblem problem = patient.getProblem(ProblemIndex);
+        problem.addRecord(record);
 
+        patient.setProblem(problem,ProblemIndex);
+
+        patients.set(index,patient);
+        saveInFile(this); //save locally
 
         //post to elasticsearch
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
@@ -234,7 +234,12 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     }
 
     public void BodyLocationPhotos(View view){
-        startActivity(new Intent(this, BodyLocationActivity.class));
+        Intent intent = new Intent(this, BodyLocationActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", ProblemIndex);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
     public void UploadPhotos(View view){
