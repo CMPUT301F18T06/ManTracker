@@ -41,6 +41,7 @@ public class RecordBodyImages extends AppCompatActivity {
         recordIndex = intent.getExtras().getInt("RecordIndex");
 
         current_image = 0;
+        images.clear();
 
         Record record = patients.get(index).getProblem(problemIndex).getRecord(recordIndex);
         ArrayList<BodyLocation> bodyLocations = record.getBodyLocationList();
@@ -99,6 +100,7 @@ public class RecordBodyImages extends AppCompatActivity {
     private void DefaultState(){
 
         current_image = 0;
+        images.clear();
 
         Record record = patients.get(index).getProblem(problemIndex).getRecord(recordIndex);
         ArrayList<BodyLocation> bodyLocations = record.getBodyLocationList();
@@ -107,16 +109,17 @@ public class RecordBodyImages extends AppCompatActivity {
             labels.add(bodyLocations.get(i).getLabel());
         }
 
-        if(images.size()==0){
+        if(images.size()!=0){
+            ImageView imageView = findViewById(R.id.RecordBodyImage);
+            TextView textview = findViewById(R.id.RecordImageLabel);
+
+            imageView.setImageBitmap(Decode(images.get(current_image)));
+            textview.setText(labels.get(current_image));
+        }
+        else{
             Toast.makeText(this, "No Images to Show", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-        ImageView imageView = findViewById(R.id.RecordBodyImage);
-        TextView textview = findViewById(R.id.RecordImageLabel);
-
-        imageView.setImageBitmap(Decode(images.get(current_image)));
-        textview.setText(labels.get(current_image));
     }
 
     public void DeleteImage(View view){
@@ -135,8 +138,9 @@ public class RecordBodyImages extends AppCompatActivity {
         record.deleteBodyLocation(current_image);
 
         int size = record.getBodyLocationList().size();
-
-        Toast.makeText(this, "sizeimage:" + images.size() + "size:" + size , Toast.LENGTH_SHORT).show();
+//
+//        Toast.makeText(this, "" + images.size() + " " + size +
+//                " " + current_image, Toast.LENGTH_SHORT).show();
 
         problem.setRecord(recordIndex,record);
         patient.setProblem(problem,problemIndex);
@@ -146,7 +150,7 @@ public class RecordBodyImages extends AppCompatActivity {
         // save in file
         saveInFile(this);
 
-        if(images.size()!=0){
+        if(size!=0){
             DefaultState();
         }
         else{
@@ -154,5 +158,4 @@ public class RecordBodyImages extends AppCompatActivity {
             finish();
         }
     }
-
 }
