@@ -14,6 +14,8 @@ import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
+import static project.ece301.mantracker.File.StoreData.patients;
+
 public class DataManager {
     private static DataManager instance;
 
@@ -29,6 +31,7 @@ public class DataManager {
     }
 
     public static void setLoggedInUser(Account loggedInUser) {
+        Log.d("LOGIN", "Setting loggin session");
         DataManager.loggedInUser = loggedInUser;
     }
 
@@ -77,7 +80,20 @@ public class DataManager {
     }
 
     public boolean addUser(Account account) {
-        return true;
+        if (account instanceof CareProvider) {
+            CareProvider careProvider = (CareProvider) account;
+            //post to elasticsearch
+            ElasticSearchCareproviderContoller.AddCareProviderTask addCareProviderTask = new ElasticSearchCareproviderContoller.AddCareProviderTask();
+            addCareProviderTask.execute(careProvider);
+            return true;
+        } else if (account instanceof Patient) {
+            Patient patient = (Patient) account;
+            //post to elasticsearch
+            ElasticSearchPatientController.AddPatientTask addPatientTask = new ElasticSearchPatientController.AddPatientTask();
+            addPatientTask.execute(patient);
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<Patient> getPatients() throws InvalidClassException {
@@ -88,7 +104,26 @@ public class DataManager {
 
     public boolean addPatient(Patient patient) {
         ((CareProvider)loggedInUser).addPatient(patient);
+        updateStores();
+        Log.d("UPDATE", "Careprovider added patient");
         return true;
+    }
+
+    private void updateStores() {
+        addUser(loggedInUser);
+    }
+
+    public Patient getPatientAt(int i) {
+        try {
+            return getPatients().get(i);
+        } catch (InvalidClassException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getPatientProblemCount(int index) {
+        return ((CareProvider)loggedInUser).getPatientProblemCount(index);
     }
 
     public boolean deletePatient(Patient patient) {
@@ -117,5 +152,9 @@ public class DataManager {
 
     public boolean deleteRecord(Record record) {
         return true;
+    }
+
+    public int getPatientCount() {
+        return ((CareProvider)loggedInUser).getPatientCount();
     }
 }

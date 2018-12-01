@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import io.searchbox.core.Search;
 import project.ece301.mantracker.Activity.SearchableActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.EditProfile.EditProfileActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
@@ -57,13 +59,21 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     @Override
     protected void onResume() {
         super.onResume();
+        String name = DataManager.getInstance().
+                getLoggedInUser().getUsernameText();
 
-        ((TextView) findViewById(R.id.userNameTextView)).setText(DataManager.getInstance().
-                getLoggedInUser().getUsernameText());;
+        ((Button) findViewById(R.id.userNameTextView)).setText(name);
+        (findViewById(R.id.userNameTextView)).setOnClickListener(view -> navagateToProfile(name));
     }
 
     private void onOpenAddPatientDialog() {
         new AddPatientDialogFragment().show(getSupportFragmentManager(), "add_patient");
+    }
+
+    private void navagateToProfile(String username) {
+        Intent goToProfile = new Intent(this, EditProfileActivity.class);
+        goToProfile.putExtra("Username", username);
+        startActivity(goToProfile);
     }
 
     protected void addPatient(String username) {
@@ -100,10 +110,9 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
-    public void navigateToPatient(Patient patient) { //TODO: pass whatever and go to different class
+    public void navigateToPatient(Patient patient) { //TODO: where to?
         Intent goToProblem = new Intent(this, CareProviderHomeActivity.class);
         startActivity(goToProblem);
-        finish();
     }
 
 
@@ -120,10 +129,11 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         @Override
         public void onBindViewHolder(@NonNull final PatientViewHolder viewHolder, int i) {
             Patient patient = presenter.getPatientAt(i);
-            viewHolder.setPatientNameText(patient.getUsername().getUserID());
+            viewHolder.setPatientNameText(patient.getUsernameText());
             viewHolder.setPatientNumberOfProblemsText(presenter.getPatientProblemCount(i));
 
             viewHolder.cardView.setOnClickListener(v -> navigateToPatient(patient));
+            viewHolder.getTitleView().setOnClickListener(view -> navagateToProfile(patient.getUsernameText()));
         }
 
         @Override
@@ -135,7 +145,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     private class PatientViewHolder extends RecyclerView.ViewHolder implements PatientCard {
 
         private CardView cardView;
-        private TextView titleView;
+        private Button titleView;
         private TextView descriptionView;
 
         private PatientViewHolder(CardView card) {
@@ -143,6 +153,10 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
             cardView = card;
             titleView = card.findViewById(R.id.patient_id);
             descriptionView = card.findViewById(R.id.num_problems);
+        }
+
+        public Button getTitleView() {
+            return titleView;
         }
 
         @Override

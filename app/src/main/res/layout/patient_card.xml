@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/standard"
     app:cardCornerRadius="0dp"
     app:cardElevation="@dimen/elevation">
 
@@ -16,7 +17,7 @@
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:layout_marginStart="@dimen/standard"
             android:layout_marginTop="@dimen/standard"
             android:contentDescription="@string/actor"
@@ -29,12 +30,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <Button
                 android:id="@+id/patient_id"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/standard"
+                android:layout_marginTop="@dimen/standard"
+                android:layout_marginBottom="@dimen/standard"
+                android:layout_marginLeft="0dp"
                 android:text="example"
+                android:textAlignment="viewStart"
                 android:textAllCaps="true"
                 android:textSize="18sp" />
             <LinearLayout

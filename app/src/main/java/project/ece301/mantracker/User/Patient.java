@@ -59,7 +59,7 @@ public class Patient extends Account{
 
     public void addRecord(Record record) {}
 
-    public Record getRecord(Integer rID) { return null; }
+    public Record getRecord(int problemId, int recordID) { return getProblem(problemId).getRecord(recordID); }
 
     public int getNumberOfProblems() {return problemList.size();}
 

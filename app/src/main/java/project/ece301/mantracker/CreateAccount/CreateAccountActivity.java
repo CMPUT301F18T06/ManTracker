@@ -84,9 +84,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         patient.setIndex(index); //set the local index for the patient
         Log.i("PATIENTHOME", "Patient index: " + String.valueOf(index));
         goToMain.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
-        //post to elasticsearch
-        ElasticSearchPatientController.AddPatientTask addPatientTask = new ElasticSearchPatientController.AddPatientTask();
-        addPatientTask.execute(patient);
+
 
         saveInFile(getApplicationContext());
 
@@ -102,9 +100,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         Log.i("CP_HOME", "CP index: " + String.valueOf(index));
         goToMain.putExtra("CP_INDEX", StoreData.getIndexOf(careProvider));
 
-        //post to elasticsearch
-        ElasticSearchCareproviderContoller.AddCareProviderTask addCareProviderTask = new ElasticSearchCareproviderContoller.AddCareProviderTask();
-        addCareProviderTask.execute(careProvider);
+
         startActivity(goToMain);
         finish();
     }
