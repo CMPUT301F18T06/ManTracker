@@ -99,8 +99,8 @@ public class Record implements details, Serializable { //implementing serializab
     public int getNumOfPhotos(){
         return 0;
     }
-    public ArrayList<Object> getPhotoList(){
-        return null;
+    public ArrayList<String> getPhotoList(){
+        return photos;
 
     }
 

@@ -74,4 +74,5 @@
     <string name="BodyLocationImages">Body Location Images</string>
     <string name="DeleteImageButton">Delete</string>
     <string name="LogOut">Sign Out</string>
+    <string name="RecordPhotos">Photos</string>
 </resources>

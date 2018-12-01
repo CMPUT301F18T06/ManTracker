@@ -83,7 +83,8 @@
             android:label="@string/title_activity_record_details"
             android:theme="@style/AppTheme" />
         <activity android:name=".Activity.AvailableBodyLocationPhotos" />
-        <activity android:name=".Activity.RecordBodyImages"></activity>
+        <activity android:name=".Activity.RecordBodyImages" />
+        <activity android:name=".Activity.RecordPhotos"></activity>
     </application>
 
 </manifest>
