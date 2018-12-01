@@ -114,7 +114,7 @@ public class ElasticSearchRecordController {
             String query = "{ \"size\": 100, \n" +
                     "    \"query\" : {\n" +
                     "        \"multi_match\": { \"query\" : \"" + search_parameters[0] + "\",\n " +
-                    "\"fields\": [ \"Title\", \"Description\"] }\n" +
+                    "\"fields\": [ \"Title\", \"Description\", \"locationName\"] }\n" +
                     "    }\n" +
                     "}" ;
             Log.i("searchable", "Query is: " + query);

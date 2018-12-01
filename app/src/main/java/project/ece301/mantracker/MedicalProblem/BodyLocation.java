@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class BodyLocation implements Photo {
 
     protected String bodyImage;
+    protected String label;
     protected String ImageCordinates;
 
 
-    public BodyLocation(String bodyImage, String Coordinates){
+    public BodyLocation(String bodyImage, String Coordinates, String label){
         this.bodyImage=bodyImage;
         this.ImageCordinates=Coordinates;
+        this.label=label;
     }
 
 
@@ -30,6 +32,12 @@ public class BodyLocation implements Photo {
 
     public String getBodyImage(){
         return bodyImage;
+    }
+    public String getLabel(){
+        return label;
+    }
+    public String getImageCordinates(){
+        return ImageCordinates;
     }
 
 }

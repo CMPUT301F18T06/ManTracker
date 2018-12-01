@@ -43,8 +43,12 @@ public class RecordListActivity extends AppCompatActivity {
                 Intent recordDetailsSwitch = new Intent(RecordListActivity.this, RecordDetailsActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("RECORDID", recordList.get(position).getID());
-                extras.putInt("USERINDEX", index);
                 extras.putString("USERNAME", recordList.get(position).getAssociatedPatient());
+
+                extras.putInt("USERINDEX", index); // offline patient index
+                extras.putInt("ProblemIndex", problemIndex); // offline problem index
+                extras.putInt("RECORDINDEX", position); // offline record index
+
 
                 recordDetailsSwitch.putExtras(extras);
                 startActivity(recordDetailsSwitch);
@@ -102,7 +106,7 @@ public class RecordListActivity extends AppCompatActivity {
         }
 
         try {
-            adapter.notifyDataSetChanged();
+
             //set the patient username and problem title header
             TextView username_text = findViewById(R.id.addNewRecordHeader);
             username_text.setText(patients.get(index).getUsername().toString());
@@ -119,6 +123,8 @@ public class RecordListActivity extends AppCompatActivity {
         TextView date_text = findViewById(R.id.recordDate);
         date_text.setText(problemDate);
 
+        adapter.notifyDataSetChanged();
+
     }
 
     public void toAddRecordActivity(View view) {
@@ -130,5 +136,12 @@ public class RecordListActivity extends AppCompatActivity {
         extras.putInt("USERINDEX", index);
         intent.putExtras(extras); //pass the patient username to the add record activity
         startActivity(intent);
+    }
+
+    public void toUserProfile(View view) {
+        //send the patient information to the user profile activity
+        Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
+        userProfileIntent.putExtra("USERINDEX", index);
+        startActivity(userProfileIntent);
     }
 }

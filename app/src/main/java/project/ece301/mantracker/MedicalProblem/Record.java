@@ -16,6 +16,7 @@ public class Record implements details, Serializable { //implementing serializab
     private String Title;
     private String associatedProblemID;
     private String associatedPatient;
+    private String locationName; //used when querying for location key words
 
     private ArrayList<BodyLocation> bodyLocations;
 
@@ -29,8 +30,12 @@ public class Record implements details, Serializable { //implementing serializab
 
          bodyLocations = new ArrayList<BodyLocation>();
          photos = new ArrayList<String>();
-        ID = UUID.randomUUID().toString();
+         ID = UUID.randomUUID().toString();
     }
+
+    public void setLocationName(String locationName) {this.locationName = locationName;}
+
+    public String getLocationName() {return this.locationName;}
 
     public void setAssociatedPatient(String username) {
         associatedPatient = username;
@@ -79,11 +84,6 @@ public class Record implements details, Serializable { //implementing serializab
     }
 //
 
-    //    Input a BodyLocationPoint class
-    public void deleteBodyLocationPoint(Object bdlocationpoint){
-
-    }
-
     public ArrayList<BodyLocation> getBodyLocationList(){
         return bodyLocations;
     }
@@ -94,6 +94,9 @@ public class Record implements details, Serializable { //implementing serializab
         bodyLocations.add(bdlocation);
     }
 
+    public void deleteBodyLocation(int index){
+        bodyLocations.remove(index);
+    }
 
 
     public Object getBodyLocation(){
