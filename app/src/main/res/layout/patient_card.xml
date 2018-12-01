@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/standard"
     app:cardCornerRadius="0dp"
     app:cardElevation="@dimen/elevation">
 
@@ -11,17 +12,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/patient_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="example" />
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/num_problems"
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
+            android:contentDescription="@string/actor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/problemListSearch"
+            app:srcCompat="@drawable/actor" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="example" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/patient_id"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard"
+                android:layout_marginBottom="@dimen/standard"
+                android:layout_marginLeft="0dp"
+                android:text="example"
+                android:textAlignment="viewStart"
+                android:textAllCaps="true"
+                android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/num_problems_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standard"
+                    android:text="@string/tracked_problems" />
+
+                <TextView
+                    android:id="@+id/num_problems"
+                    android:layout_marginLeft="@dimen/standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="example" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

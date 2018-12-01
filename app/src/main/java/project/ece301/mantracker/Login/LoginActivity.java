@@ -12,7 +12,6 @@ import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
 import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
 import project.ece301.mantracker.File.StoreData;
-import project.ece301.mantracker.PatientHome.PatientHomeActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
@@ -54,12 +53,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     @Override
     public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
         Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
+        goToMain.putExtra("CAREPROVIDERINDEX", careProvider.getIndex());
+        Log.i("CAREPROVIDERHOME", String.valueOf(careProvider.getIndex()));
         startActivity(goToMain);
         finish();
     }
 
     @Override
-    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
+    public void navigateToPatientHome(Patient patient) {
         Intent goToMain = new Intent(this, ProblemListActivity.class);
         goToMain.putExtra("PATIENTINDEX", patient.getIndex());
         Log.i("PATIENTHOME", String.valueOf(patient.getIndex()));
