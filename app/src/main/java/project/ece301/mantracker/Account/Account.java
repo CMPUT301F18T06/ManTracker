@@ -25,12 +25,16 @@ public class Account {
     private Username username;
     private Email email;
     private String phone;
+    private String ID;
+    private int localIndex;
 
-    /**
+     /**
      * Constructs Account objects
      *
      */
-    public Account() {}
+    public Account() {
+        ID = UUID.randomUUID().toString();
+    }
 
     /**
      * Constructs Account Objects
@@ -43,6 +47,7 @@ public class Account {
         this.username = username;
         this.email = email;
         this.phone = phone;
+        ID = UUID.randomUUID().toString(); //random ID
     }
 
     /**
@@ -92,5 +97,15 @@ public class Account {
     public Username getUsername() {
         return username;
     }
+
+    public String getUsernameText() {
+        return username.getUserID();
+    }
+
+    public void setIndex(int index) { localIndex = index;}
+
+    public int getIndex() {return localIndex;}
+
+    public String getID() {return ID;}
 }
 

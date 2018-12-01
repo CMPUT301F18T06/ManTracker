@@ -59,6 +59,7 @@ public class MedicalProblem implements details {
         associatedPatientID = patientID;
         patientUsername = username;
     }
+    public String getPatientUsername () {return patientUsername;}
 
     /**
      * Gets the ID of the patient associated with this medical problem
@@ -108,6 +109,14 @@ public class MedicalProblem implements details {
      */
     public void addRecord(Record newRecord) {
         associatedRecords.add(newRecord);
+    }
+
+    public void setRecord(int index, Record record) {
+        associatedRecords.set(index,record);
+    }
+
+    public ArrayList<Record> getAllRecords() {
+        return associatedRecords;
     }
 
     /**

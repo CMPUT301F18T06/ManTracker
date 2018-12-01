@@ -14,6 +14,7 @@ package project.ece301.mantracker.DataManagment;
 
 import android.util.Log;
 
+import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
+import static project.ece301.mantracker.File.StoreData.patients;
+
 /**
  * Class for retrieving data from ElasticSearch server
  *
@@ -33,6 +36,8 @@ import project.ece301.mantracker.User.Patient;
  */
 public class DataManager {
     private static DataManager instance;
+
+    private static Account loggedInUser;
 
     /**
      * Returns an instance of DataManager.
@@ -45,6 +50,21 @@ public class DataManager {
     }
 
     public DataManager() {
+    }
+
+    public static void setLoggedInUser(Account loggedInUser) {
+        Log.d("LOGIN", "Setting loggin session");
+        DataManager.loggedInUser = loggedInUser;
+    }
+
+    public Account getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public Account logIn(String username) {
+        Account account = getUser(username);
+        loggedInUser = account;
+        return account;
     }
 
     /**
@@ -92,15 +112,30 @@ public class DataManager {
      * @return True if successful. False otherwise.
      */
     public boolean addUser(Account account) {
-        return true;
+        if (account instanceof CareProvider) {
+            CareProvider careProvider = (CareProvider) account;
+            //post to elasticsearch
+            ElasticSearchCareproviderContoller.AddCareProviderTask addCareProviderTask = new ElasticSearchCareproviderContoller.AddCareProviderTask();
+            addCareProviderTask.execute(careProvider);
+            return true;
+        } else if (account instanceof Patient) {
+            Patient patient = (Patient) account;
+            //post to elasticsearch
+            ElasticSearchPatientController.AddPatientTask addPatientTask = new ElasticSearchPatientController.AddPatientTask();
+            addPatientTask.execute(patient);
+            return true;
+        }
+        return false;
     }
 
     /**
      * Gets a list a patients from elastic search
      * @return a list of patients
      */
-    public ArrayList<Patient> getPatients() {
-        return null;
+    public ArrayList<Patient> getPatients() throws InvalidClassException {
+        if (loggedInUser instanceof CareProvider)
+            return ((CareProvider) loggedInUser).getPatientsList();
+        throw new InvalidClassException("Must be a care provider to get patients!");
     }
 
     /**
@@ -109,7 +144,27 @@ public class DataManager {
      * @return True if successful. False otherwise.
      */
     public boolean addPatient(Patient patient) {
+        ((CareProvider)loggedInUser).addPatient(patient);
+        updateStores();
+        Log.d("UPDATE", "Careprovider added patient");
         return true;
+    }
+
+    private void updateStores() {
+        addUser(loggedInUser);
+    }
+
+    public Patient getPatientAt(int i) {
+        try {
+            return getPatients().get(i);
+        } catch (InvalidClassException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public int getPatientProblemCount(int index) {
+        return ((CareProvider)loggedInUser).getPatientProblemCount(index);
     }
 
     /**
@@ -173,5 +228,9 @@ public class DataManager {
      */
     public boolean deleteRecord(Record record) {
         return true;
+    }
+
+    public int getPatientCount() {
+        return ((CareProvider)loggedInUser).getPatientCount();
     }
 }

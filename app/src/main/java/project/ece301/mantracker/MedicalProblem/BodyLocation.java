@@ -23,17 +23,19 @@ import java.util.ArrayList;
 public class BodyLocation implements Photo {
 
     protected String bodyImage;
+    protected String label;
     protected String ImageCordinates;
-
 
     /**
      * Constructs a BodyLocation
      * @param bodyImage a body image to associate with this body location
      * @param Coordinates the coordinates of the body image on this body location
+     * @param label the label of this BodyLocation
      */
-    public BodyLocation(String bodyImage, String Coordinates){
+    public BodyLocation(String bodyImage, String Coordinates, String label){
         this.bodyImage=bodyImage;
         this.ImageCordinates=Coordinates;
+        this.label=label;
     }
 
 
@@ -65,6 +67,12 @@ public class BodyLocation implements Photo {
      */
     public String getBodyImage(){
         return bodyImage;
+    }
+    public String getLabel(){
+        return label;
+    }
+    public String getImageCordinates(){
+        return ImageCordinates;
     }
 
 }

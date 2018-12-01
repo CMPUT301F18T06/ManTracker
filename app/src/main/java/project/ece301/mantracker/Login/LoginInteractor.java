@@ -19,6 +19,7 @@ public class LoginInteractor {
     public void login(final String username, final OnLoginFinishedListener listener) {
         DataManager dataManager = DataManager.getInstance();
         Account account = dataManager.getUser(username);
+        DataManager.setLoggedInUser(account);
 
         if (account == null)
             listener.onUsernameInvalidError();

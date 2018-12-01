@@ -93,6 +93,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     private String dateString;
     private String problemID;
     private String newDate;
+    private String nameMsg;
 
     private int index,ProblemIndex;
 
@@ -199,6 +200,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         for(int i =0; i<bodyLocations.size();i++){
             record.addBodyLocation(bodyLocations.get(i));
         }
+        bodyLocations.clear();
 
         for(int i =0; i<photos.size();i++){
             record.addPhoto(photos.get(i));
@@ -223,18 +225,18 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
             temp.setLatitude(latlng.latitude);
             temp.setLongitude(latlng.longitude);
             record.setGeoLocation(new Geolocation(temp));
+            record.setLocationName(nameMsg);
         }
 
         // add record in the offline file
-//        Patient patient = patients.get(index);
-//        MedicalProblem problem = patient.getProblem(ProblemIndex);
-//        problem.addRecord(record);
-//
-//        patient.setProblem(problem,ProblemIndex);
-//
-//        patients.add(index,patient);
-//        saveInFile(this); //save locally
+        Patient patient = patients.get(index);
+        MedicalProblem problem = patient.getProblem(ProblemIndex);
+        problem.addRecord(record);
 
+        patient.setProblem(problem,ProblemIndex);
+
+        patients.set(index,patient);
+        saveInFile(this); //save locally
 
         //post to elasticsearch
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
@@ -257,7 +259,12 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
      * @param view the add body photo button
      */
     public void BodyLocationPhotos(View view){
-        startActivity(new Intent(this, BodyLocationActivity.class));
+        Intent intent = new Intent(this, BodyLocationActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", ProblemIndex);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
     /**
@@ -326,7 +333,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         else if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
-                String nameMsg = String.format("Place: %s", place.getName());
+                nameMsg = String.format("Place: %s", place.getName());
                 String latlngMsg = String.format("Place: %s", place.getLatLng());
                 Toast.makeText(this, nameMsg + "\n" + latlngMsg, Toast.LENGTH_LONG).show();
                 latlng = place.getLatLng();

@@ -9,9 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,19 +25,25 @@ import project.ece301.mantracker.R;
 
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.CheckPermissionsGallery;
+import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Decode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.Encode;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromCamera;
 import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGallery;
 
 public class BodyLocationActivity extends AppCompatActivity {
 
-    String Coordinates = null;
-    String encodedImage = null;
+    String Coordinates = "0:0";
+    public static String encodedImage = null;
+    int index, problemIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_body_location);
+
+        Intent intent = getIntent();
+        index = intent.getExtras().getInt("USERINDEX");
+        problemIndex = intent.getExtras().getInt("ProblemIndex");
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -45,28 +53,48 @@ public class BodyLocationActivity extends AppCompatActivity {
         super.onStart();
 
         final ImageView imageView= findViewById(R.id.image_BL);
-        final TextView textView = findViewById(R.id.resultsView);
+        if(encodedImage!=null){
+            imageView.setImageBitmap(Decode(encodedImage));
+            imageView.setVisibility(View.VISIBLE);
+        }
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
                 {
+
+                    // image View coordinates
                     float x = Float.parseFloat(String.valueOf(event.getX()));
                     float y = Float.parseFloat(String.valueOf(event.getY()));
-                    String location = "x: " +
-                            String.valueOf(x + ", y: " + y);
-                    textView.setText(location);
 
                     // set the cursor
                     ImageView cursor = findViewById(R.id.cursor);
                     cursor.setVisibility(View.VISIBLE);
-
                     cursor.setX(imageView.getLeft() + x );
                     cursor.setY(imageView.getTop() + y );
 
+                    // image width and height of drawable image
+                    float ImageWidth = imageView.getMeasuredWidth();
+                    float ImageHeight = imageView.getMeasuredHeight();
+
+                    // bitmap width and height
+                    float BitmapWidth = Decode(encodedImage).getWidth();
+                    float BitmapHeight = Decode(encodedImage).getHeight();
+
+                    // actual coordinates of the pixel
+                    float WidthRatio = BitmapWidth / ImageWidth;
+                    float HeightRatio = BitmapHeight / ImageHeight;
+
+                    float xCoordinate = (imageView.getLeft() + x) * WidthRatio ;
+                    float yCoordinate = (imageView.getTop() + y ) * HeightRatio ;
+
+
+                    Toast.makeText(BodyLocationActivity.this, "" + yCoordinate
+                            +"," + xCoordinate, Toast.LENGTH_SHORT).show();
+
                     // set coordinates of the final cursor position
-                    Coordinates = x + ":" + y ;
+                    Coordinates = xCoordinate + ":" + yCoordinate ;
 
                 }
                 return true;
@@ -178,15 +206,28 @@ public class BodyLocationActivity extends AppCompatActivity {
         }
     }
 
+    public void selectOldBodyPhoto(View view){
+        Intent intent = new Intent(this, AvailableBodyLocationPhotos.class);
+        Bundle extras = new Bundle();
+
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", problemIndex);
+
+        intent.putExtras(extras);
+
+        startActivity(intent);
+    }
 
     public void SaveButtonClick(View view){
 
-        // Save the Photo and the point location in the File
-        AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates));
+        EditText labelButton = findViewById(R.id.body_label);
+        String label = labelButton.getText().toString();
 
+        // Save the Photo and the point location in the File
+        if(encodedImage!=null)
+            AddRecordActivity.bodyLocations.add(new BodyLocation(encodedImage,Coordinates,label));
+        encodedImage = null;
         // Back to the Add Record Screen where User can Add more Photos
         finish();
     }
-
-
 }

@@ -31,6 +31,7 @@ public class Record implements details, Serializable { //implementing serializab
     private String Title;
     private String associatedProblemID;
     private String associatedPatient;
+    private String locationName; //used when querying for location key words
 
     private ArrayList<BodyLocation> bodyLocations;
 
@@ -47,8 +48,12 @@ public class Record implements details, Serializable { //implementing serializab
 
          bodyLocations = new ArrayList<BodyLocation>();
          photos = new ArrayList<String>();
-        ID = UUID.randomUUID().toString();
+         ID = UUID.randomUUID().toString();
     }
+
+    public void setLocationName(String locationName) {this.locationName = locationName;}
+
+    public String getLocationName() {return this.locationName;}
 
     /**
      * Sets the associated patient of this record
@@ -138,17 +143,6 @@ public class Record implements details, Serializable { //implementing serializab
     public void setDescription(String description) {
         Description = description;
     }
-//
-
-    //    Input a BodyLocationPoint class
-
-    /**
-     * Deletes a Body Location Point associated with this record
-     * @param bdlocationpoint the body location point to delete
-     */
-    public void deleteBodyLocationPoint(Object bdlocationpoint){
-
-    }
 
     /**
      * Gets a list of BodyLocations associated with this record
@@ -166,6 +160,10 @@ public class Record implements details, Serializable { //implementing serializab
     // Input a bodylocation class
     public void addBodyLocation(BodyLocation bdlocation){
         bodyLocations.add(bdlocation);
+    }
+
+    public void deleteBodyLocation(int index){
+        bodyLocations.remove(index);
     }
 
     /**
@@ -192,8 +190,8 @@ public class Record implements details, Serializable { //implementing serializab
     public int getNumOfPhotos(){
         return 0;
     }
-    public ArrayList<Object> getPhotoList(){
-        return null;
+    public ArrayList<String> getPhotoList(){
+        return photos;
 
     }
 
