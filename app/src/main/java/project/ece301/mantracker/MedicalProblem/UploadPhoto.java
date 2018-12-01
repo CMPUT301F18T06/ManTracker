@@ -1,3 +1,13 @@
+/**
+ * Class Name: UploadPhoto
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 31, 2018
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.MedicalProblem;
 
 import android.Manifest;
@@ -16,6 +26,12 @@ import project.ece301.mantracker.R;
 
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 
+/**
+ * Static Class that contains functions for uploading photos from camera and gallery
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public class UploadPhoto {
 
     private static int REQUEST_CODE = 0;
@@ -30,6 +46,10 @@ public class UploadPhoto {
             Manifest.permission.CAMERA
     };
 
+    /**
+     * Allows the user to upload a photo from camera by starting a new activity for result
+     * @param activity the activity calling this function
+     */
     public static void UploadFromCamera(Activity activity){
 
         REQUEST_CODE = 1;
@@ -40,6 +60,10 @@ public class UploadPhoto {
         activity.startActivityForResult(cameraPhoto, REQUEST_CODE);
     }
 
+    /**
+     * Allows the user to upload a photo from gallery by starting a new activity for result
+     * @param activity the activity calling this function
+     */
     public static void UploadFromGallery(Activity activity){
 
         REQUEST_CODE = 2;
@@ -51,6 +75,13 @@ public class UploadPhoto {
     }
 
 
+    /**
+     * Checks if the user has gallery permissions enabled.
+     * If not, then ask for gallery permissions.
+     * If gallery permissions are enabled, then starts an upload from gallery activity.
+     * If not, then does nothing.
+     * @param activity the activity calling this function
+     */
     // Check if user has the right permissions
     public static void CheckPermissionsGallery(Activity activity) {
 
@@ -66,6 +97,13 @@ public class UploadPhoto {
         }
     }
 
+    /**
+     * Checks if the user has camera permissions enabled.
+     * If not, then ask for camera permissions.
+     * If gallery permissions are enabled, then starts an upload from camera activity.
+     * If not, then does nothing.
+     * @param activity the activity calling this function
+     */
     // Check if user has the right permissions
     public static void CheckPermissionsCamera(Activity activity){
 
@@ -80,7 +118,14 @@ public class UploadPhoto {
         }
     }
 
-
+    /**
+     * Encodes a bitmap object in a base64 string
+     *
+     * @param bitmap the Bitmap to encode
+     * @param compressFormat the compress format
+     * @param quality the desired compression quality
+     * @return
+     */
     // credit Roman Truba from Stack Overflow
     // https://stackoverflow.com/questions/9768611/encode-and-decode-bitmap-object-in-base64-string-in-android
 
@@ -91,6 +136,12 @@ public class UploadPhoto {
         return Base64.encodeToString(byteArray.toByteArray(), Base64.DEFAULT);
     }
 
+    /**
+     * Decodes a base64 string into a BitMap object
+     *
+     * @param Base64Image the base64 image string
+     * @return the decoded bitmap object
+     */
     public static Bitmap Decode(String Base64Image)
     {
         byte[] decodedBytes = Base64.decode(Base64Image, 0);
