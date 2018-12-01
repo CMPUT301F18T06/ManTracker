@@ -66,10 +66,6 @@
             android:label="@string/title_activity_edit_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".PatientHome.PatientHomeActivity"
-            android:label="@string/title_activity_patient_home"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -96,6 +92,7 @@
         <activity android:name=".Activity.AvailableBodyLocationPhotos" />
         <activity android:name=".Activity.RecordBodyImages" />
         <activity android:name=".Activity.UserProfileActivity"></activity>
+        <activity android:name=".Activity.RecordPhotos"></activity>
     </application>
 
 </manifest>
