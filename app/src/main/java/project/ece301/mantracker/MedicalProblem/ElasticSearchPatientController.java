@@ -54,7 +54,6 @@ public class ElasticSearchPatientController {
         }
     }
 
-    // TODO we need a function which gets tweets from elastic search
     public static class GetPatientTask extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(String... search_parameters) {

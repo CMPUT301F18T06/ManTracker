@@ -2,8 +2,6 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 import project.ece301.mantracker.details;
@@ -107,8 +105,9 @@ public class Record implements details, Serializable { //implementing serializab
     public int getNumOfPhotos(){
         return 0;
     }
-    public ArrayList<Object> getPhotoList(){
-        return null;
+
+    public ArrayList<String> getPhotoList(){
+        return photos;
 
     }
 
