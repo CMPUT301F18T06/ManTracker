@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,7 @@ import static project.ece301.mantracker.File.StoreData.patients;
 It will display the current record's title, date and description.
 It will also display any photos that are associated with it
 * */
-public class RecordDetailsActivity extends AppCompatActivity {
+public class RecordDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
     private ArrayList<Record> recordList = new ArrayList<Record>();
     private ArrayList<String> photoList = new ArrayList<String>();
 
@@ -35,6 +39,8 @@ public class RecordDetailsActivity extends AppCompatActivity {
     private String recordID; //used for elasticsearch
     private String associatedUsername;
     Record chosenRecord;
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,10 @@ public class RecordDetailsActivity extends AppCompatActivity {
         index = intent.getExtras().getInt("USERINDEX");
         problemIndex = intent.getExtras().getInt("ProblemIndex");
         recordIndex = intent.getExtras().getInt("RECORDINDEX");
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -117,4 +127,17 @@ public class RecordDetailsActivity extends AppCompatActivity {
         finish(); //end this activity
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Do setup activities here
+
+        // Get the current location of the device and set the position of the map.
+        getRecordLocation();
+    }
+
+    private void getRecordLocation() {
+
+    }
 }
