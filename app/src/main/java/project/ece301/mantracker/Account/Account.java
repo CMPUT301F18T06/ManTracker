@@ -12,7 +12,15 @@
 
 package project.ece301.mantracker.Account;
 
-
+/**
+ * Represents a user account
+ * Accounts have a username, an email and a phone.
+ *
+ * @version 1.0
+ * @see Username
+ * @see Email
+ * @since 1.0
+ */
 public class Account {
     private Username username;
     private Email email;

@@ -18,6 +18,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //Validates and sets usernames
+
+/**
+ * Represents a Username.
+ * Contains functions for setting, getting and validating a username string.
+ *
+ * @version 1.0
+ * @see Account
+ * @since 1.0
+ */
 public class Username {
     private static final int minLength = 8;
     private static final String pattern = "[\\w.-]{"+minLength+",}";

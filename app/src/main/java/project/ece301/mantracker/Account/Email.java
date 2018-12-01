@@ -17,6 +17,15 @@ import android.support.annotation.NonNull;
 import java.util.regex.Pattern;
 
 //Validates and sets usernames
+
+/**
+ * Represents an email.
+ * Contains functions for setting and validating email strings.
+ *
+ * @version 1.0
+ * @see Account
+ * @since 1.0
+ */
 public class Email {
     private static final String pattern = "[\\w]+([.]+[\\w]+)*@[a-z0-9]+\\.+[a-z0-9]+";
 

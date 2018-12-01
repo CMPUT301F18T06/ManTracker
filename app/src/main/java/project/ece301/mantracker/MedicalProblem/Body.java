@@ -16,6 +16,15 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing a body which can have body locations.
+ * Bodies can have a body side, e.g. front or back.
+ * Bodies have a list of BodyLocations.
+ *
+ * @version 1.0
+ * @see BodyLocation
+ * @since 1.0
+ */
 public class Body {
     protected String bodySide;
     protected ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();

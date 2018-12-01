@@ -34,6 +34,17 @@ import java.util.ArrayList;
 
 import project.ece301.mantracker.User.Patient;
 
+/**
+ * Class used to access and save Patient data locally.
+ * This class has an array list of patients. This array list gets updated when loading patients.
+ * To get a locally stored patient, first use the loadFromFile method to load the patients array list,
+ * then get the desired patient from the array list.
+ * To save a new patient, add a patient to the patient array list, then use the saveInFile method.
+ *
+ * @version 1.0
+ * @see Patient
+ * @since 1.0
+ */
 public class StoreData {
 
     public static final String FILENAME = "ManTracker.sav";

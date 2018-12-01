@@ -5,9 +5,6 @@
  *
  * Date: November 30, 2018
  *
- * Class representing body location.
- * Body locations can have images and image coordinates.
- *
  * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
@@ -15,6 +12,14 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.util.ArrayList;
 
+/**
+ * Class representing body location.
+ * Body locations can have photos and image coordinates.
+ *
+ * @version 1.0
+ * @see Photo
+ * @since 1.0
+ */
 public class BodyLocation implements Photo {
 
     protected String bodyImage;

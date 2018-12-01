@@ -25,6 +25,12 @@ import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
+/**
+ * Class for retrieving data from ElasticSearch server
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public class DataManager {
     private static DataManager instance;
 

@@ -20,6 +20,13 @@ import project.ece301.mantracker.DataManagment.DataManager;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
+/**
+ * Presenter for the EditProfileActivity
+ * The presenter tells its view to update itself and gets data from its datamodel.
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     private final EditProfileContract.View mProfileView;

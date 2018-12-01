@@ -17,6 +17,14 @@ import android.content.Intent;
 
 import com.google.android.gms.location.places.Place;
 
+/**
+ * Interface for getting a location.
+ * Implement this interface if your activity needs to be able to get a location
+ * using the GooglePlaces API
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public interface LocationGetter {
 
     int PLACE_PICKER_REQUEST = 1;

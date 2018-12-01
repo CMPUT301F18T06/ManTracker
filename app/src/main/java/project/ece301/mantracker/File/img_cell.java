@@ -15,6 +15,12 @@ package project.ece301.mantracker.File;
 
 //TODO nned to replace with teh real photo class
 
+/**
+ * Represents the cell of an image
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public class img_cell {
     private String title;
     private Integer img;

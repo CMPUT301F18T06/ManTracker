@@ -17,6 +17,14 @@ package project.ece301.mantracker.EditProfile;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
 
+/**
+ * This Contract puts the view and presenter into a single location, indicating that
+ * these Views and Presenters are related. The View should have a Presenter and the
+ * presenter should tell the view to update.
+ *
+ * @version 1.0
+ * @since 1.0
+ */
 public interface EditProfileContract {
     interface View {
         /**
