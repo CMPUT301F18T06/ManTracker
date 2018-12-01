@@ -1,3 +1,16 @@
+/**
+ * Class Name: AddRecordActivity
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * Activity for adding a record.
+ * This activity allows the user to add and save a new record.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.Activity;
 
 import android.app.DatePickerDialog;
@@ -173,7 +186,12 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     }
 
 
-
+    /**
+     * Saves a new record based on the fields entered by the user into the app's UI.
+     * The new record is posted to elastic search.
+     *
+     * @param view the save record button
+     */
     public void saveRecord(View view) {
         //Create a new record that will be passed back to the record list activity
         Record record = new Record();
@@ -233,10 +251,21 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
 
     }
 
+    /**
+     * Starts a BodyLocationActivity activity.
+     *
+     * @param view the add body photo button
+     */
     public void BodyLocationPhotos(View view){
         startActivity(new Intent(this, BodyLocationActivity.class));
     }
 
+    /**
+     * Displays a dialog asking the user if they want to upload existing photos or take a photo
+     * with the camera.
+     *
+     * @param view the upload record photos button
+     */
     public void UploadPhotos(View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Do you want to upload an existing photo or take a camera picture?");

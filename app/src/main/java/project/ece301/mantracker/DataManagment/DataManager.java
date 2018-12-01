@@ -1,3 +1,15 @@
+/**
+ * Class Name: DataManager
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * This class handles the retrieval of data using elastic search.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.DataManagment;
 
 import android.util.Log;
@@ -16,6 +28,10 @@ import project.ece301.mantracker.User.Patient;
 public class DataManager {
     private static DataManager instance;
 
+    /**
+     * Returns an instance of DataManager.
+     * @return an instance of DataManager.
+     */
     public static DataManager getInstance() {
         if (instance == null)
             instance = new DataManager();
@@ -25,6 +41,11 @@ public class DataManager {
     public DataManager() {
     }
 
+    /**
+     * Gets a user by their username as a string.
+     * @param username the username as a string of the user to get
+     * @return Returns the desired Account, if username is found on elastic search. Returns null if the username is not found.
+     */
     public Account getUser(String username) {
         //use elastic search to search for user and return the account
         //user could be patient or care provider
