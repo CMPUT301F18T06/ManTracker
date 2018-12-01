@@ -1,3 +1,19 @@
+/**
+ * Class Name: StoreData
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * Class used to access and save Patient data locally.
+ * This class has an array list of patients. This array list gets updated when loading patients.
+ * To get a locally stored patient, first use the loadFromFile method to load the patients array list,
+ * then get the desired patient from the array list.
+ * To save a new patient, add a patient to the patient array list, then use the saveInFile method.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.File;
 
 import android.content.Context;
@@ -23,8 +39,12 @@ public class StoreData {
     public static final String FILENAME = "ManTracker.sav";
     public static ArrayList<Patient> patients = new ArrayList<Patient>();
 
-    /* loads the objects from the file to the emotion list */
+    /* loads the objects from the file to the patient list */
 
+    /**
+     * Loads all locally stored patients into the patients arraylist.
+     * @param context the app's current context
+     */
     public static void loadFromFile(Context context) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
@@ -42,6 +62,10 @@ public class StoreData {
 
     /* saves the object from the list in the file */
 
+    /**
+     * Saves the patients arraylist locally.
+     * @param context the app's current context
+     */
     public static void saveInFile(Context context){
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,0);
@@ -60,6 +84,11 @@ public class StoreData {
         }
     }
 
+    /**
+     * Gets the index of patient
+     * @param patient the patient object to get the index of
+     * @return the index of patient
+     */
     public static int getIndexOf(Patient patient) {
         return patients.indexOf(patient);
     }
