@@ -32,7 +32,7 @@ import static project.ece301.mantracker.MedicalProblem.UploadPhoto.UploadFromGal
 
 public class BodyLocationActivity extends AppCompatActivity {
 
-    String Coordinates = null;
+    String Coordinates = "0:0";
     public static String encodedImage = null;
     int index, problemIndex;
 
