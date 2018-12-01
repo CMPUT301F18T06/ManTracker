@@ -142,6 +142,10 @@ public class Record implements details, Serializable { //implementing serializab
 
     //    Input a BodyLocationPoint class
 
+    /**
+     * Deletes a Body Location Point associated with this record
+     * @param bdlocationpoint the body location point to delete
+     */
     public void deleteBodyLocationPoint(Object bdlocationpoint){
 
     }
@@ -164,6 +168,10 @@ public class Record implements details, Serializable { //implementing serializab
         bodyLocations.add(bdlocation);
     }
 
+    /**
+     * Get the BodyLocation associated with this record
+     * @return a BodyLocation
+     */
     public Object getBodyLocation(){
         return null;
     }
@@ -177,6 +185,10 @@ public class Record implements details, Serializable { //implementing serializab
     }
 
 
+    /**
+     * Gets the number of photos attached to this record
+     * @return the number of photos associated with this record
+     */
     public int getNumOfPhotos(){
         return 0;
     }
@@ -194,6 +206,10 @@ public class Record implements details, Serializable { //implementing serializab
 
     }
 
+    /**
+     * Gets the geolocation associated with this record
+     * @return a GeoLocation
+     */
     public Object getGeoLocation(){
         return null;
     }
@@ -203,17 +219,36 @@ public class Record implements details, Serializable { //implementing serializab
         return "Patient: " + associatedPatient + " | " + this.Title + " | " + this.Description + " | " + this.date;
     }
     //    Input a commnet class
+
+    /**
+     * Adds a comment to this record
+     * @param comment the comment to add
+     */
     public void addComment(String comment){
 
     }
     //    Input a commnet class
+
+    /**
+     * Deletes a comment
+     * @param comment the comment to delete
+     */
     public void deleteComment(String comment){
 
     }
+
+    /**
+     * Get the number of comments associated with this record
+     * @return the number of comments associated with this record
+     */
     public int getNumOfComment(){
         return 0;
     }
 
+    /**
+     * Get a list of comments associated with this record
+     * @return the list of comments associated with this record
+     */
     public ArrayList<String> getCommentlist() {
         return null;
 

@@ -86,42 +86,91 @@ public class DataManager {
         return null;
     }
 
+    /**
+     * Adds a user to elastic search
+     * @param account the account to add to elastic search
+     * @return True if successful. False otherwise.
+     */
     public boolean addUser(Account account) {
         return true;
     }
 
+    /**
+     * Gets a list a patients from elastic search
+     * @return a list of patients
+     */
     public ArrayList<Patient> getPatients() {
         return null;
     }
 
+    /**
+     * Adds a patient to Elastic Search
+     * @param patient the patient to add
+     * @return True if successful. False otherwise.
+     */
     public boolean addPatient(Patient patient) {
         return true;
     }
 
+    /**
+     * Deletes a patient from elastic search.
+     * @param patient The patient to delete
+     * @return True if successful. False otherwise.
+     */
     public boolean deletePatient(Patient patient) {
         return true;
     }
 
+    /**
+     * Gets a list of problems from elastic search
+     * @param patient the patient to get problems from
+     * @return An ArrayList of MedicalProblems
+     */
     public ArrayList<MedicalProblem> getProblems(Patient patient) {
         return null;
     }
 
+    /**
+     * Adds a MedicalProblem to elastic search
+     * @param problem the Problem to add
+     * @return True if successful. False otherwise.
+     */
     public boolean addProblem(MedicalProblem problem) {
         return true;
     }
 
+    /**
+     * Deletes a problem from elastic search
+     * @param problem the problem to delete
+     * @return True if successful. False otherwise.
+     */
     public boolean deleteProblem(MedicalProblem problem) {
         return true;
     }
 
+    /**
+     * Gets a list of records from elastic search
+     * @param problem the problem associated with the records
+     * @return An ArrayList of Records
+     */
     public ArrayList<Record> getRecords(MedicalProblem problem) {
         return null;
     }
 
+    /**
+     * Adds a record to elastic search
+     * @param record the record to add
+     * @return True if successful. False otherwise.
+     */
     public boolean addRecord(Record record) {
         return true;
     }
 
+    /**
+     * Deletes a record from elastic search.
+     * @param record the record to delete
+     * @return True if successful. False otherwise.
+     */
     public boolean deleteRecord(Record record) {
         return true;
     }
