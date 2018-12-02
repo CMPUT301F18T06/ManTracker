@@ -111,11 +111,11 @@ public class RecordDetailsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish(); //end this activity
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish(); //end this activity
+//    }
 
     public void toUserProfile(View view)
     {
