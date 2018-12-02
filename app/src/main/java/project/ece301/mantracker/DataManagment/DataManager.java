@@ -23,6 +23,8 @@ import project.ece301.mantracker.MedicalProblem.ElasticSearchCareproviderContoll
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
+import project.ece301.mantracker.Observable;
+import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
@@ -85,10 +87,12 @@ public class DataManager {
             getPatientsTask.execute(username);
             List<Patient> foundPatient = getPatientsTask.get();
             patient.addAll(foundPatient);
+
         } catch (Exception e) {
             Log.i("AddRecordTask", "Failed to get the records from the async object");
         }
         if (!patient.isEmpty()) {return patient.get(0);}
+        Log.d("NoUser", "patient");
 
         try {
             //fetch from elasticsearch and populate the records list
@@ -101,6 +105,7 @@ public class DataManager {
             Log.i("GetProviderTask", "Failed to get the records from the async object");
         }
         if (!careProvider.isEmpty()) {return careProvider.get(0);}
+        Log.d("NoUser", "careprovider");
 
         //if no careprovider or patient has user name then return null
         return null;
@@ -151,7 +156,26 @@ public class DataManager {
     }
 
     private void updateStores() {
-        addUser(loggedInUser);
+        uploadUserChanges();
+    }
+
+    private boolean uploadUserChanges() {
+        if (loggedInUser instanceof CareProvider) {
+            CareProvider careProvider = (CareProvider) loggedInUser;
+            //post to elasticsearch
+            ElasticSearchCareproviderContoller.UpdateCareProviderQuery updateCareProviderQuery =
+                    new ElasticSearchCareproviderContoller.UpdateCareProviderQuery();
+            updateCareProviderQuery.execute(careProvider);
+            return true;
+        } else if (loggedInUser instanceof Patient) {
+            Patient patient = (Patient) loggedInUser;
+            //post to elasticsearch
+            ElasticSearchPatientController.UpdatePatientQuery updatePatientQuery =
+                    new ElasticSearchPatientController.UpdatePatientQuery();
+            updatePatientQuery.execute(patient);
+            return true;
+        }
+        return false;
     }
 
     public Patient getPatientAt(int i) {
@@ -223,10 +247,16 @@ public class DataManager {
 
     /**
      * Deletes a record from elastic search.
-     * @param record the record to delete
+     * @param recordIndex the record to delete
      * @return True if successful. False otherwise.
      */
-    public boolean deleteRecord(Record record) {
+    public boolean deleteRecord(int problemIndex, int recordIndex) {
+        ((Patient)loggedInUser).removeRecord(problemIndex, recordIndex);
+        return true;
+    }
+
+    public boolean deleteRecord(int problemIndex, Record record) {
+        ((Patient)loggedInUser).removeRecord(problemIndex, record);
         return true;
     }
 

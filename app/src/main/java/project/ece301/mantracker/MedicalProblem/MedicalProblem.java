@@ -157,4 +157,11 @@ public class MedicalProblem implements details {
      */
     public int getRecordCount() { return associatedRecords.size();}
 
+    public void removeRecord(int rID) {
+        associatedRecords.remove(rID);
+    }
+
+    public void removeRecord(Record record) {
+        associatedRecords.remove(record);
+    }
 }

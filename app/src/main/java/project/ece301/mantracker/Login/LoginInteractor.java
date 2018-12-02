@@ -1,5 +1,7 @@
 package project.ece301.mantracker.Login;
 
+import android.util.Log;
+
 import project.ece301.mantracker.Account.Account;
 
 import project.ece301.mantracker.DataManagment.DataManager;

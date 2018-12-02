@@ -21,9 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import io.searchbox.core.Search;
+import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.Activity.SearchableActivity;
+import project.ece301.mantracker.Activity.UserProfileActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
@@ -71,7 +74,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     private void navagateToProfile(String username) {
-        Intent goToProfile = new Intent(this, EditProfileActivity.class);
+        Intent goToProfile = new Intent(this, UserProfileActivity.class);
         goToProfile.putExtra("Username", username);
         startActivity(goToProfile);
     }
@@ -111,8 +114,9 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
 
     @Override
     public void navigateToPatient(Patient patient) { //TODO: where to?
-        Intent goToProblem = new Intent(this, CareProviderHomeActivity.class);
-        startActivity(goToProblem);
+        Intent goToProblems = new Intent(this, ProblemListActivity.class);
+        goToProblems.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
+        startActivity(goToProblems);
     }
 
 
