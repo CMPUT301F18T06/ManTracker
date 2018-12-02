@@ -139,7 +139,7 @@ public class DataManager {
     }
 
     /**
-     * Adds a patient to Elastic Search
+     * Adds a patient to a care provider on Elastic Search
      * @param patient the patient to add
      * @return True if successful. False otherwise.
      */
@@ -168,11 +168,11 @@ public class DataManager {
     }
 
     /**
-     * Deletes a patient from elastic search.
-     * @param patient The patient to delete
+     * Deletes a user from elastic search.
+     * @param account The user to delete
      * @return True if successful. False otherwise.
      */
-    public boolean deletePatient(Patient patient) {
+    public boolean deleteUser(Account account) {
         return true;
     }
 

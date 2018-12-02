@@ -16,8 +16,12 @@ package project.ece301.mantracker.EditProfile;
 import android.support.annotation.NonNull;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
@@ -71,5 +75,55 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     @Override
     public void loadPhone() {
         this.mProfileView.showPhone(this.user.getPhone());
+    }
+
+    @Override
+    public boolean saveUser(String username, String email, String phone) {
+        int index = StoreData.getIndexOf(user);
+        if (user instanceof CareProvider) {
+            try {
+                CareProvider newCP = new CareProvider(new Email(email),
+                        new Username(username), phone);
+                newCP.setIndex(index);
+
+                // update local storage
+                StoreData.careProviders.set(index, newCP);
+
+                // update elastic search by adding the new account and deleting the old
+                mDataManager.addUser(newCP);
+                mDataManager.deleteUser(user);
+
+                // update the logged in user.
+                user = newCP;
+                DataManager.setLoggedInUser(user);
+            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else if (user instanceof Patient) {
+            try {
+                Patient newPatient = new Patient(new Email(email), new Username(username),
+                        phone);
+                newPatient.setIndex(index);
+
+                // update local storage
+                StoreData.patients.set(index, newPatient);
+
+                // update elastic search by adding the new account and deleting the old
+                mDataManager.addUser(newPatient);
+                mDataManager.deleteUser(user);
+
+                // update the logged in user.
+                user = newPatient;
+                DataManager.setLoggedInUser(user);
+            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+        return true;
     }
 }

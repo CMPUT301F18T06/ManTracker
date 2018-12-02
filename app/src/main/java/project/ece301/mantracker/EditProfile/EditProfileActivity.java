@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -70,5 +73,26 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     @Override
     public void showPhone(String phone) {
         this.phoneEditText.setText(phone);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_save:
+                mEditProfilePresenter.saveUser(usernameEditText.getText().toString(),
+                        emailEditText.getText().toString(), phoneEditText.getText().toString());
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
