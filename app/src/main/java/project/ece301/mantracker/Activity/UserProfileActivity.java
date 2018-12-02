@@ -1,8 +1,10 @@
 package project.ece301.mantracker.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +13,11 @@ import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
+import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
 import static project.ece301.mantracker.File.StoreData.patients;
 /* This activity simply displays the user's username, phone and email*/
@@ -22,6 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView phone;
     private int patientindex;
     private Toolbar toolbar;
+    protected final int EDIT_REQUEST_CODE = 1;
 
 
     @Override
@@ -45,15 +52,15 @@ public class UserProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.userProfileUsername);
         email = findViewById(R.id.userProfileEmail);
         phone = findViewById(R.id.userProfilePhone);
+
+        //get the patient index
+        Intent intent = getIntent();
+        patientindex = intent.getIntExtra("USERINDEX", 0);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-
-        //get the patient index
-        Intent intent = getIntent();
-        patientindex = intent.getIntExtra("USERINDEX", 0);
 
         //set email, phone and username
         username.setText(patients.get(patientindex).getUsername().toString());
@@ -72,16 +79,29 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // action with ID action_refresh was selected
+            // action with ID action_edit was selected
             case R.id.action_edit:
                 Intent goToEdit = new Intent(this, EditProfileActivity.class);
                 goToEdit.putExtra("Username", patients.get(patientindex).
                         getUsername().toString());
-                startActivity(goToEdit);
+                startActivityForResult(goToEdit, EDIT_REQUEST_CODE);
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == EDIT_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                patientindex = data.getIntExtra(EditProfileActivity.NEW_INDEX, 0);
+                }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // do nothing
+            }
+        }
     }
 }

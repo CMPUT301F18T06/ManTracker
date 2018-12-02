@@ -13,7 +13,9 @@
 
 package project.ece301.mantracker.EditProfile;
 
+import android.os.Debug;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
@@ -80,6 +82,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     @Override
     public boolean saveUser(String username, String email, String phone) {
         int index = StoreData.getIndexOf(user);
+        Log.d("EditProfile", "Saving User: " + Integer.toString(index));
         if (user instanceof CareProvider) {
             try {
                 CareProvider newCP = new CareProvider(new Email(email),
@@ -109,6 +112,8 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
                 // update local storage
                 StoreData.patients.set(index, newPatient);
+                Log.d("EditProfile", "Saved User: " +
+                        StoreData.patients.get(index).getUsername().toString());
 
                 // update elastic search by adding the new account and deleting the old
                 mDataManager.addUser(newPatient);
@@ -125,5 +130,9 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
             throw new IllegalArgumentException();
         }
         return true;
+    }
+
+    public int getUserIndex() {
+        return user.getIndex();
     }
 }

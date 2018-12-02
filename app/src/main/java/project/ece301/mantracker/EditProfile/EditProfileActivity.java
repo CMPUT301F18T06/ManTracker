@@ -1,9 +1,11 @@
 package project.ece301.mantracker.EditProfile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,10 +13,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
+import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.Patient;
 
 public class EditProfileActivity extends AppCompatActivity implements EditProfileContract.View{
 
@@ -25,6 +32,8 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     private EditText emailEditText;
     private EditText phoneEditText;
     private Toolbar toolbar;
+
+    public static final String NEW_INDEX = "NEW_INDEX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +48,10 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
                 finish();
+
             }
         });
 
@@ -87,8 +99,14 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         switch (item.getItemId()) {
             // action with ID action_refresh was selected
             case R.id.action_save:
-                mEditProfilePresenter.saveUser(usernameEditText.getText().toString(),
-                        emailEditText.getText().toString(), phoneEditText.getText().toString());
+                if (mEditProfilePresenter.saveUser(usernameEditText.getText().toString(),
+                        emailEditText.getText().toString(), phoneEditText.getText().toString())) {
+                    Intent saveIntent = new Intent();
+                    saveIntent.putExtra(NEW_INDEX, mEditProfilePresenter.getUserIndex());
+                    setResult(Activity.RESULT_OK, saveIntent);
+                    finish();
+                }
+
                 break;
             default:
                 break;
