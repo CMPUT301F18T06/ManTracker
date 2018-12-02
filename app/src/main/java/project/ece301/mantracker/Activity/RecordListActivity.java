@@ -17,10 +17,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import project.ece301.mantracker.Edit_MedPro.edit_medpro;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
-import project.ece301.mantracker.Edit_MedPro.edit_medpro;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
@@ -184,11 +185,17 @@ public class RecordListActivity extends AppCompatActivity {
                         break;
                     case R.id.medpro_action_delete:
                         Toast.makeText(RecordListActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+                        Log.i("recordLisyAct_proID",problemID);
+                        ElasticSearchProblemController.DeleteProblemTask deleprom = new ElasticSearchProblemController.DeleteProblemTask();
+                        deleprom.execute(problemID);
+                        finish();
+
                         break;
                     case R.id.medpro_action_edit:
                         Intent goEditproActivity = new Intent( RecordListActivity.this,  edit_medpro.class);
                         goEditproActivity.putExtra("PROTITLE", title);
                         goEditproActivity.putExtra("PRODESCRI", prodescription);
+                        goEditproActivity.putExtra("PROBLEMID", problemID);
                         startActivity(goEditproActivity);
 
                         Toast.makeText(RecordListActivity.this, "Edit", Toast.LENGTH_SHORT).show();

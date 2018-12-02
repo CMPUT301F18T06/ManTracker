@@ -98,6 +98,12 @@ public class ElasticSearchPatientController {
 
 
 
+
+
+
+
+
+
     public static void verifySettings() {
 
         DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
