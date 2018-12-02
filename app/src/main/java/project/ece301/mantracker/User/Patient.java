@@ -18,7 +18,6 @@ public class Patient extends Account{
     private ArrayList<Geolocation> geoLocations = new ArrayList<Geolocation>();
     private ArrayList<Record> records = new ArrayList<Record>();
     private String patientID;
-    private int localIndex;
 
     public Patient() {
         patientID = UUID.randomUUID().toString(); //random ID
@@ -29,10 +28,7 @@ public class Patient extends Account{
         patientID = UUID.randomUUID().toString(); //random ID
     }
 
-    public void setIndex(int index) { localIndex = index;}
-
-    public int getIndex() {return localIndex;}
-
+    @Override
     public String getID() {return patientID;}
 
     public MedicalProblem getProblem(int index) {
@@ -63,7 +59,7 @@ public class Patient extends Account{
 
     public void addRecord(Record record) {}
 
-    public Record getRecord(Integer rID) { return null; }
+    public Record getRecord(int problemId, int recordID) { return getProblem(problemId).getRecord(recordID); }
 
     public int getNumberOfProblems() {return problemList.size();}
 

@@ -58,9 +58,10 @@ public class AvailableBodyLocationPhotos extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        final ImageView imageView = findViewById(R.id.RecordBodyImage);
+        final ImageView imageView = findViewById(R.id.RecordPhoto);
         final TextView textview = findViewById(R.id.BodyLabel);
         imageView.setImageBitmap(Decode(images.get(current_image)));
+
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override

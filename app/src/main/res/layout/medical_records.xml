@@ -66,6 +66,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textSize="18sp"
+        android:textColor="@color/darkBlue"
+        android:clickable="true"
+        android:onClick="toUserProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/recordUserHeader"
         app:layout_constraintTop_toBottomOf="@+id/medpro_toolbar" />

@@ -46,6 +46,8 @@
     <string name="Records">Records</string>
     <string name="Username">Username: </string>
     <string name="AddRecord">Add New Record</string>
+    <string name="PhoneHeader">Phone: </string>
+    <string name="EmailHeader">Email: </string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>
@@ -72,10 +74,13 @@
     <string name="title_activity_record_details">RecordDetailsActivity</string>
     <string name="UploadPhotos">Upload Photos</string>
     <string name="upload_photo_count">Upload Photo Count: </string>
+    <string name="tracked_problems">Tracked Problems:</string>
     <string name="label_hint">Label</string>
     <string name="oldBodyPhotos">Select</string>
     <string name="ChooseBodyImage">Select</string>
     <string name="BodyLabel">Label</string>
     <string name="BodyLocationImages">Body Location Images</string>
     <string name="DeleteImageButton">Delete</string>
+    <string name="LogOut">Sign Out</string>
+    <string name="RecordPhotos">Photos</string>
 </resources>

@@ -85,6 +85,19 @@ public class RecordDetailsActivity extends AppCompatActivity {
     }
 
 
+    public void RecordPhotos(View view){
+        Intent intent = new Intent(this, RecordPhotos.class);
+        Bundle extras = new Bundle();
+
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", problemIndex);
+        extras.putInt("RecordIndex", recordIndex);
+
+        intent.putExtras(extras);
+
+        startActivity(intent);
+    }
+
     public void RecordBodyImages(View view){
         Intent intent = new Intent(this, RecordBodyImages.class);
         Bundle extras = new Bundle();

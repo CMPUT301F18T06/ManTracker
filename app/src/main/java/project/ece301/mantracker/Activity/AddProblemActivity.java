@@ -1,3 +1,15 @@
+/**
+ * Class Name: AddProblemActivity
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * Activity for adding a problem. This activity allows the user to add and save a new problem.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.Activity;
 
 import android.content.Intent;
@@ -13,7 +25,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
-import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
@@ -38,6 +49,12 @@ public class AddProblemActivity extends AppCompatActivity {
         heading_text.setText(patients.get(index).getUsername().toString());
     }
 
+    /**
+     * Handles the user clicking the save button.
+     * Adds a problem to the patient object based on the fields the
+     * user inputted in the UI and posts the new problem on elasticsearch.
+     * @param view the save button object on the UI
+     */
     public void Save_Click(View view){
 
         // set the username

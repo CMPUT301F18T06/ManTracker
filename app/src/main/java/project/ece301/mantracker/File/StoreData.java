@@ -1,3 +1,19 @@
+/**
+ * Class Name: StoreData
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * Class used to access and save Patient data locally.
+ * This class has an array list of patients. This array list gets updated when loading patients.
+ * To get a locally stored patient, first use the loadFromFile method to load the patients array list,
+ * then get the desired patient from the array list.
+ * To save a new patient, add a patient to the patient array list, then use the saveInFile method.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.File;
 
 import android.content.Context;
@@ -16,15 +32,35 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
+// TODO: covert to Saving Accounts -- see rfurrer Feelsbook
 
+/**
+ * Class used to access and save Patient data locally.
+ * This class has an array list of patients. This array list gets updated when loading patients.
+ * To get a locally stored patient, first use the loadFromFile method to load the patients array list,
+ * then get the desired patient from the array list.
+ * To save a new patient, add a patient to the patient array list, then use the saveInFile method.
+ *
+ * @version 1.0
+ * @see Patient
+ * @since 1.0
+ */
 public class StoreData {
 
     public static final String FILENAME = "ManTracker.sav";
+    public static final String CP_FILENAME = "ManTrackerCareProvidors.sav";
     public static ArrayList<Patient> patients = new ArrayList<Patient>();
+    public static ArrayList<CareProvider> careProviders = new ArrayList<CareProvider>();
 
-    /* loads the objects from the file to the emotion list */
+    /* loads the objects from the file to the patient list */
 
+    /**
+     * Loads all locally stored patients into the patients arraylist.
+     * @param context the app's current context
+     */
     public static void loadFromFile(Context context) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
@@ -40,8 +76,26 @@ public class StoreData {
         }
     }
 
+    public static void loadCareProvidersFromFile(Context context) {
+        try {
+            FileInputStream fis = context.openFileInput(CP_FILENAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<CareProvider>>(){}.getType();
+            careProviders = gson.fromJson(reader, listType);
+        }catch (FileNotFoundException e) {
+            careProviders = new ArrayList<CareProvider>();
+        }
+    }
+
     /* saves the object from the list in the file */
 
+    /**
+     * Saves the patients arraylist locally.
+     * @param context the app's current context
+     */
     public static void saveInFile(Context context){
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,0);
@@ -59,8 +113,43 @@ public class StoreData {
             e.printStackTrace();
         }
     }
+  
+    public static void saveCareProvidersInFile(Context context){
+        try {
+            FileOutputStream fos = context.openFileOutput(CP_FILENAME,0);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter writer = new BufferedWriter(osw);
 
-    public static int getIndexOf(Patient patient) {
+            Gson gson =new Gson();
+            gson.toJson(careProviders ,writer);
+
+            writer.flush();
+            fos.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static int getIndexOf(Account account) {
+        if (account instanceof CareProvider)
+            return getIndexOfCareProvider((CareProvider) account);
+        if (account instanceof Patient)
+            return getIndexOfPatient((Patient) account);
+        throw new IllegalArgumentException();
+    }
+
+    /**
+     * Gets the index of patient
+     * @param patient the patient object to get the index of
+     * @return the index of patient
+     */
+    public static int getIndexOfPatient(Patient patient) {
         return patients.indexOf(patient);
+    }
+
+    public static int getIndexOfCareProvider(CareProvider careProvider) {
+        return careProviders.indexOf(careProvider);
     }
 }
