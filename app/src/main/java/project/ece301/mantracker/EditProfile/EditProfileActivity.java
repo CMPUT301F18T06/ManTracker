@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import project.ece301.mantracker.Account.Email;
@@ -17,9 +18,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     private EditProfilePresenter mEditProfilePresenter;
     private String username;
 
-    private TextView usernameTextView;
-    private TextView emailTextView;
-    private TextView phoneTextView;
+    private EditText usernameEditText;
+    private EditText emailEditText;
+    private EditText phoneEditText;
     private Toolbar toolbar;
 
     @Override
@@ -40,9 +41,9 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         });
 
         // Get the text views.
-        this.usernameTextView = findViewById(R.id.usernameTextView);
-        this.emailTextView = findViewById(R.id.emailTextView);
-        this.phoneTextView = findViewById(R.id.phoneTextView);
+        this.usernameEditText = findViewById(R.id.editUsername);
+        this.emailEditText = findViewById(R.id.editEmail);
+        this.phoneEditText= findViewById(R.id.editPhone);
 
         // Get the username
         Intent intent = getIntent();
@@ -58,16 +59,16 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
      */
     @Override
     public void showUsername(Username username) {
-        this.usernameTextView.setText(username.getUserID());
+        this.usernameEditText.setText(username.getUserID());
     }
 
     @Override
     public void showEmail(Email email) {
-        this.emailTextView.setText(email.getEmail());
+        this.emailEditText.setText(email.getEmail());
     }
 
     @Override
     public void showPhone(String phone) {
-        this.phoneTextView.setText(phone);
+        this.phoneEditText.setText(phone);
     }
 }
