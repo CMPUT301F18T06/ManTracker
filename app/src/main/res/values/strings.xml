@@ -88,4 +88,5 @@
     <string name="DeleteImageButton">Delete</string>
     <string name="LogOut">Sign Out</string>
     <string name="RecordPhotos">Photos</string>
+    <string name="comments">Comments</string>
 </resources>
