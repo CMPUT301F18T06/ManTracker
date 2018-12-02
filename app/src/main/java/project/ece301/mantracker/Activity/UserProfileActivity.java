@@ -3,10 +3,15 @@ package project.ece301.mantracker.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
+import project.ece301.mantracker.EditProfile.EditProfileActivity;
 import project.ece301.mantracker.R;
 import static project.ece301.mantracker.File.StoreData.patients;
 /* This activity simply displays the user's username, phone and email*/
@@ -55,5 +60,28 @@ public class UserProfileActivity extends AppCompatActivity {
         email.setText(patients.get(patientindex).getEmail().getEmail());
         phone.setText(patients.get(patientindex).getPhone());
         
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.user_profile_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.action_edit:
+                Intent goToEdit = new Intent(this, EditProfileActivity.class);
+                goToEdit.putExtra("Username", patients.get(patientindex).
+                        getUsername().toString());
+                startActivity(goToEdit);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }
