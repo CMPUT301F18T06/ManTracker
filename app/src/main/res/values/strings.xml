@@ -40,6 +40,7 @@
     <string name="add_patient_prompt">Enter Patient User ID</string>
     <string name="add_patient_title">Add a Patient</string>
     <string name="not_added">Not Added</string>
+    <string name="already_added">Already Added</string>
     <string name="added">Added</string>
     <string name="Results">Search Results</string>
     <string name="Problems">Problems</string>

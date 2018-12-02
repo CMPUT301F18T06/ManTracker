@@ -1,6 +1,8 @@
 package project.ece301.mantracker.CreateAccount;
 
 
+import android.util.Log;
+
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
@@ -12,6 +14,7 @@ import project.ece301.mantracker.User.Patient;
 
 
 public class CreateAccountInteractor {
+    final static String TAG = "CreateAccountInteractor";
 
     interface OnCreateAccountFinishedListener {
         void onUsernameInvalidError();
@@ -47,7 +50,9 @@ public class CreateAccountInteractor {
 
             }
 
-            dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
+            Log.d("ADDINGUSER", username);
+            boolean result = dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
+            Log.d(TAG, "createAccount: " + result);
             dataManager.setLoggedInUser(account);
 
 

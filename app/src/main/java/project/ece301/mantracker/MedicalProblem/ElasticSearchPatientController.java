@@ -100,38 +100,6 @@ public class ElasticSearchPatientController {
         }
     }
 
-    public static class UpdatePatientQuery extends AsyncTask<Patient, Void, Void> {
-        /* Will be used when searching */
-        @Override
-        protected Void doInBackground(Patient... patients) {
-            verifySettings();
-            Patient patient = patients[0];
-
-            Update update = new Update.Builder(patient)
-                    .index("cmput301f18t06test")
-                    .type("patient")
-                    .id(patient.getID())
-                    .build();
-            try {
-                // where is the client?
-                DocumentResult result = client.execute(update);
-
-                if (result.isSucceeded()) {
-                    Log.i("UpdatePatientTask", "POSTED successfully");
-                }
-                else {
-                    Log.i("ElasticError", "Elasticsearch was not able to update the patient");
-                }
-            }
-            catch (Exception e) {
-                Log.i("UpdatePatientTask", "The application failed to build and send the patient");
-            }
-
-
-            return null;
-        }
-    }
-
 
     public static void verifySettings() {
 

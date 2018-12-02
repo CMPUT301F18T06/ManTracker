@@ -10,6 +10,7 @@ public interface CareProviderHomeView {
     void showNoSearchResults();
     void showNoPatientToast(String username);
     void showAddedPatientToast(String username);
+    void showAlreadyAddedPatientToast(String username);
 
     void navigateToPatient(Patient patient);
 }

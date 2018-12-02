@@ -32,16 +32,14 @@ public class CareProviderHomePresenter {
 
     public void addPatient(String username) {
         Account account = dataManager.getUser(username);
-        if (account instanceof Patient) {
-            Patient patient = (Patient) account;
+        if (account == null)
+            careProviderHomeView.showNoPatientToast(username);
+        else if (dataManager.getPatients().contains(account)) {
+            careProviderHomeView.showAlreadyAddedPatientToast(username);
+        } else if (account instanceof Patient) {
+            dataManager.addPatient((Patient) account);
             careProviderHomeView.showAddedPatientToast(username);
-            Log.d("ADD PATIENT", "before");
-            Log.d("ADD PATIENT", account.getUsernameText());
-            dataManager.addUser(dataManager.getLoggedInUser());
-            dataManager.addPatient(patient);
-            Log.d("ADD PATIENT", "done");
             careProviderHomeView.update();
-            Log.d("ADD PATIENT", "view updated");
         } else if (account instanceof CareProvider) {
             careProviderHomeView.showNoPatientToast(username);
         } else {

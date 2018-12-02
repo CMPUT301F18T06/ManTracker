@@ -83,6 +83,19 @@ public class DataManager {
         try {
             //fetch from elasticsearch and populate the records list
             //Records are queried by the current user's username
+            ElasticSearchCareproviderContoller.GetCareProviderTask getCareProvidersTask = new ElasticSearchCareproviderContoller.GetCareProviderTask();
+            getCareProvidersTask.execute(username);
+            List<CareProvider> foundCareProvider = getCareProvidersTask.get();
+            careProvider.addAll(foundCareProvider);
+        } catch (Exception e) {
+            Log.i("GetProviderTask", "Failed to get the records from the async object");
+        }
+        if (!careProvider.isEmpty()) {return careProvider.get(0);}
+        Log.d("NoCareProvider", username);
+
+        try {
+            //fetch from elasticsearch and populate the records list
+            //Records are queried by the current user's username
             ElasticSearchPatientController.GetPatientTask getPatientsTask = new ElasticSearchPatientController.GetPatientTask();
             getPatientsTask.execute(username);
             List<Patient> foundPatient = getPatientsTask.get();
@@ -92,7 +105,7 @@ public class DataManager {
             Log.i("AddRecordTask", "Failed to get the records from the async object");
         }
         if (!patient.isEmpty()) {return patient.get(0);}
-        Log.d("NoUser", "patient");
+        Log.d("NoPatient", username);
 
         try {
             //fetch from elasticsearch and populate the records list
@@ -105,7 +118,7 @@ public class DataManager {
             Log.i("GetProviderTask", "Failed to get the records from the async object");
         }
         if (!careProvider.isEmpty()) {return careProvider.get(0);}
-        Log.d("NoUser", "careprovider");
+        Log.d("NoCareProvider", username);
 
         //if no careprovider or patient has user name then return null
         return null;
@@ -137,10 +150,10 @@ public class DataManager {
      * Gets a list a patients from elastic search
      * @return a list of patients
      */
-    public ArrayList<Patient> getPatients() throws InvalidClassException {
+    public ArrayList<Patient> getPatients() {
         if (loggedInUser instanceof CareProvider)
             return ((CareProvider) loggedInUser).getPatientsList();
-        throw new InvalidClassException("Must be a care provider to get patients!");
+        return null;
     }
 
     /**
@@ -160,10 +173,8 @@ public class DataManager {
     }
 
     public Patient getPatientAt(int i) {
-        try {
+        if (getPatients() != null) {
             return getPatients().get(i);
-        } catch (InvalidClassException e) {
-            e.printStackTrace();
         }
         return null;
     }

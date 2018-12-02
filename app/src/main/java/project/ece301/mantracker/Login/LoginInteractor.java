@@ -20,6 +20,7 @@ public class LoginInteractor {
 
     public void login(final String username, final OnLoginFinishedListener listener) {
         DataManager dataManager = DataManager.getInstance();
+        Log.d("USER", username);
         Account account = dataManager.getUser(username);
         DataManager.setLoggedInUser(account);
 

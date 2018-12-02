@@ -97,6 +97,12 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
+    public void showAlreadyAddedPatientToast(String username) {
+        Toast.makeText(getApplicationContext(), username + " " + getResources()
+                .getString(R.string.already_added), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
