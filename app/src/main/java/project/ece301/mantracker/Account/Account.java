@@ -12,6 +12,8 @@
 
 package project.ece301.mantracker.Account;
 
+import java.util.UUID;
+
 /**
  * Represents a user account
  * Accounts have a username, an email and a phone.

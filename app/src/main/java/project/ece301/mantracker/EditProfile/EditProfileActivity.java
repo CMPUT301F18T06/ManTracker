@@ -2,8 +2,6 @@ package project.ece301.mantracker.EditProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,11 +20,24 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
     private TextView usernameTextView;
     private TextView emailTextView;
     private TextView phoneTextView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        // Set up toolbar
+        toolbar = findViewById(R.id.my_toolbar);
+        toolbar.setTitle(getString(R.string.title_activity_edit_profile));
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Get the text views.
         this.usernameTextView = findViewById(R.id.usernameTextView);

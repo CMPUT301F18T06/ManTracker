@@ -16,6 +16,7 @@ package project.ece301.mantracker.EditProfile;
 import android.support.annotation.NonNull;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -50,9 +51,11 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     @Override
     public void loadUser(String username) {
         this.user = this.mDataManager.getUser(username);
-        this.loadUsername();
-        this.loadEmail();
-        this.loadPhone();
+        if (this.user != null) {
+            this.loadUsername();
+            this.loadEmail();
+            this.loadPhone();
+        }
     }
 
     @Override
