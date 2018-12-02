@@ -37,7 +37,7 @@ public class CareProviderHomePresenter {
             careProviderHomeView.showAddedPatientToast(username);
             Log.d("ADD PATIENT", "before");
             Log.d("ADD PATIENT", account.getUsernameText());
-//            dataManager.addUser(dataManager.getLoggedInUser());
+            dataManager.addUser(dataManager.getLoggedInUser());
             dataManager.addPatient(patient);
             Log.d("ADD PATIENT", "done");
             careProviderHomeView.update();

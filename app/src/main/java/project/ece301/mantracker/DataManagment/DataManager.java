@@ -156,26 +156,7 @@ public class DataManager {
     }
 
     private void updateStores() {
-        uploadUserChanges();
-    }
-
-    private boolean uploadUserChanges() {
-        if (loggedInUser instanceof CareProvider) {
-            CareProvider careProvider = (CareProvider) loggedInUser;
-            //post to elasticsearch
-            ElasticSearchCareproviderContoller.UpdateCareProviderQuery updateCareProviderQuery =
-                    new ElasticSearchCareproviderContoller.UpdateCareProviderQuery();
-            updateCareProviderQuery.execute(careProvider);
-            return true;
-        } else if (loggedInUser instanceof Patient) {
-            Patient patient = (Patient) loggedInUser;
-            //post to elasticsearch
-            ElasticSearchPatientController.UpdatePatientQuery updatePatientQuery =
-                    new ElasticSearchPatientController.UpdatePatientQuery();
-            updatePatientQuery.execute(patient);
-            return true;
-        }
-        return false;
+        addUser(loggedInUser);
     }
 
     public Patient getPatientAt(int i) {

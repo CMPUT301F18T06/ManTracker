@@ -33,7 +33,11 @@ public class ElasticSearchPatientController {
             verifySettings();
             Patient patient = patients[0];
 
-            Index index = new Index.Builder(patient).index("cmput301f18t06test").type("patient").build();
+            Index index = new Index.Builder(patient)
+                    .index("cmput301f18t06test")
+                    .type("patient")
+                    .id(patient.getID())
+                    .build();
 
             try {
                 // where is the client?
