@@ -7,11 +7,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
 import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
 import project.ece301.mantracker.File.StoreData;
+
+import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
+
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
@@ -20,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private EditText username;
     private LoginPresenter presenter;
+    private EditText shortCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         StoreData.loadFromFile(this); //load local storage
 
         username = findViewById(R.id.username);
+        shortCode = findViewById(R.id.shortCodeInput);
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
         findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
@@ -83,5 +92,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         intent.addCategory( Intent.CATEGORY_HOME );
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void shortCodeEntered(View view) {
+        //we are going to use elasticsearch to find all the patients and check if any of them match
+        //the short code entered and then og in like normal
+        ElasticSearchPatientController.GetPatientCodeTask getPatientTask = new ElasticSearchPatientController.GetPatientCodeTask();
+        getPatientTask.execute(shortCode.getText().toString());
+        List<Patient> foundPatient;
+        try {
+            foundPatient = getPatientTask.get();
+            presenter.validateCredentials(foundPatient.get(0).getUsername().toString());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
 }
