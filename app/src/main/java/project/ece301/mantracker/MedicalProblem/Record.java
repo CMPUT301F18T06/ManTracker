@@ -31,6 +31,7 @@ public class Record implements details, Serializable { //implementing serializab
     private String associatedPatient;
     private String locationName; //used when querying for location key words
 
+
     private ArrayList<BodyLocation> bodyLocations;
 
     private ArrayList<String> commentlist;

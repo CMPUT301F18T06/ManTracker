@@ -13,7 +13,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView username;
     private TextView email;
     private TextView phone;
+    private TextView loginCode;
     private int patientindex;
+
 
 
     @Override
@@ -25,6 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.userProfileUsername);
         email = findViewById(R.id.userProfileEmail);
         phone = findViewById(R.id.userProfilePhone);
+        loginCode = findViewById(R.id.LoginCode);
     }
 
     @Override
@@ -39,6 +42,6 @@ public class UserProfileActivity extends AppCompatActivity {
         username.setText(patients.get(patientindex).getUsername().toString());
         email.setText(patients.get(patientindex).getEmail().getEmail());
         phone.setText(patients.get(patientindex).getPhone());
-        
+        loginCode.setText(patients.get(patientindex).getShortCode());
     }
 }
