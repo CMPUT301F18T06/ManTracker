@@ -30,6 +30,7 @@ public class MedicalProblem implements details {
     private String description;
     private String title;
     private ArrayList<Record> associatedRecords;
+    private ArrayList<Comment> comments;
     private String id;  //unique id for problems. Will be used for ES
     private String associatedPatientID;
     private String patientUsername;
@@ -52,6 +53,7 @@ public class MedicalProblem implements details {
     public MedicalProblem(String initDescription, String initTitle, String initDate, String patientID,
                           String username) {
         associatedRecords = new ArrayList<Record>();
+        comments = new ArrayList<>();
         description = initDescription;
         title = initTitle;
         date = initDate;
@@ -157,11 +159,18 @@ public class MedicalProblem implements details {
      */
     public int getRecordCount() { return associatedRecords.size();}
 
+  
     public void removeRecord(int rID) {
         associatedRecords.remove(rID);
-    }
 
     public void removeRecord(Record record) {
         associatedRecords.remove(record);
+      
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 }

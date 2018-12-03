@@ -4,6 +4,6 @@ package project.ece301.mantracker;
  * Observable objects nofity observers
  */
 public interface Observable {
-    public void notifyOberservers();
-    public void addOberserver(Observer observer);
+    void addObserver(Observer observer);
+    void notifyObservers();
 }

@@ -1,5 +1,6 @@
 package project.ece301.mantracker.CareProviderHome;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.InvalidClassException;
@@ -8,18 +9,20 @@ import java.util.ArrayList;
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.Presenter;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
-public class CareProviderHomePresenter {
+public class CareProviderHomePresenter extends Presenter {
     private CareProviderHomeView careProviderHomeView;
     private DataManager dataManager;
 
-    public CareProviderHomePresenter(CareProviderHomeView careProviderHomeView) {
+    public CareProviderHomePresenter(Context context, CareProviderHomeView careProviderHomeView) {
+        super(context);
         this.careProviderHomeView = careProviderHomeView;
-        dataManager = DataManager.getInstance();
+        dataManager = DataManager.getInstance(context);
         careProviderHomeView.update();
     }
 

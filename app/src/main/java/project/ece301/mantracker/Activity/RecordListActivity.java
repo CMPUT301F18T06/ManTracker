@@ -10,37 +10,49 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.Edit_MedPro.edit_medpro;
+import project.ece301.mantracker.MedicalProblem.Comment;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
+import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.CareProvider;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
 public class RecordListActivity extends AppCompatActivity {
+    private static String TAG = "RecordListActivity";
     private ListView recordListView;
     private ArrayAdapter<Record> adapter;
+    private ArrayAdapter<Comment> commentArrayAdapter;
     private ArrayList<Record> recordList;
+    private ArrayList<Comment> commentList;
+    private ListView commentListView;
     int index;
     int problemIndex;
     private String problemID;
     private String problemDescription;
     private String problemDate;
     private ArrayList<String> photoStrings;
+    private MedicalProblem problem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medical_records);
         recordListView = findViewById(R.id.recordList);
+        commentListView = findViewById(R.id.commentList);
 
         recordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override //when user selects a problem from the list
@@ -60,6 +72,29 @@ public class RecordListActivity extends AppCompatActivity {
                 startActivity(recordDetailsSwitch);
             }
         });
+
+        commentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override //when user selects a problem from the list
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                onCommentClicked(position);
+            }
+        });
+    }
+
+    void onOpenAddCommentDialog() {
+        new AddCommentDialogFragment().show(getSupportFragmentManager(), TAG);
+    }
+
+    void addComment(String comment) {
+        commentList.add(new Comment(DataManager.getInstance(getApplicationContext()).getLoggedInUser(), comment));
+        commentArrayAdapter.notifyDataSetChanged();
+    }
+
+    void onCommentClicked(int position) {
+        commentList.get(position).getUser().getUsernameText();
+        Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
+        userProfileIntent.putExtra("USERINDEX", commentList.get(position).getUser().getIndex());
+        startActivity(userProfileIntent);
     }
 
     @Override
@@ -103,6 +138,12 @@ public class RecordListActivity extends AppCompatActivity {
             Log.d("RecordList", "onResume: Error getting record");
         }
 
+        if (DataManager.getInstance(getApplicationContext()).getLoggedInUser() instanceof CareProvider) {
+            problem = DataManager.getInstance(getApplicationContext()).getProblem(0, problemIndex);
+            ((ImageButton)findViewById(R.id.addRecordButton))
+                    .setOnClickListener(view -> onOpenAddCommentDialog());
+        }
+
         try {
             //set the patient username and problem title header
             TextView username_text = findViewById(R.id.addNewRecordHeader);
@@ -113,6 +154,20 @@ public class RecordListActivity extends AppCompatActivity {
 //            title_text.setText(title);
         } catch (Exception e) {
             Log.d("RecordList", "onResume: Error loading user data");
+        }
+
+        try {
+            ElasticSearchProblemController.GetProblemsTask getProblemsTask = new ElasticSearchProblemController.GetProblemsTask();
+            getProblemsTask.execute(problemID);
+            problem = getProblemsTask.get().get(0);
+            commentList = problem.getComments();
+            commentArrayAdapter = new ArrayAdapter<Comment>(this, R.layout.comment_list_item, commentList);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
         }
 
         try {

@@ -12,5 +12,5 @@ public interface CareProviderHomeView {
     void showAddedPatientToast(String username);
     void showAlreadyAddedPatientToast(String username);
 
-    void navigateToPatient(Patient patient);
+    void navigateToPatient(int index);
 }

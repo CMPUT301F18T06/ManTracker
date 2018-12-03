@@ -15,6 +15,7 @@ import project.ece301.mantracker.Activity.MainActivity;
 import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
 import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.File.StoreData;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
@@ -41,7 +42,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         findViewById(R.id.create_account).setOnClickListener(v -> navigateToCreateAccount());
       
-        presenter = new LoginPresenter(this, new LoginInteractor());
+        presenter = new LoginPresenter(getApplicationContext(), this, new LoginInteractor());
+        presenter.tryLoadingSession();
     }
 
     private void validateCredentials() {

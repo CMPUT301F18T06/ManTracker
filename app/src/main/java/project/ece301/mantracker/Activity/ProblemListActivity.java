@@ -20,24 +20,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
+import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.DataManagment.LocalStorage;
 import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
 public class ProblemListActivity extends AppCompatActivity {
 
-    private ArrayList<MedicalProblem> problems;
     private ListView oldProblems;
     private ArrayAdapter<MedicalProblem> adapter;
     public static final String EXTRA_MESSAGE = "com.example.aman.aanand_feelsbook.MESSAGE";
     private int index;
+    private int actualIndex;
     private SearchView searchBar;
     private TextView heading_text;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,11 @@ public class ProblemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problem_list);
         oldProblems = (ListView) findViewById(R.id.problem_list);
         heading_text = findViewById(R.id.userNameTextView);
+        if (DataManager.getInstance(getApplicationContext()).getLoggedInUser() instanceof CareProvider) {
+            ((TextView) findViewById(R.id.goodDayTextView)).setText(R.string.veiwing);
+            (findViewById(R.id.floatingActionButton)).setVisibility(View.GONE);
+            (findViewById(R.id.logout)).setVisibility(View.GONE);
+        }
 
         //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -58,16 +67,19 @@ public class ProblemListActivity extends AppCompatActivity {
                 //go to the patient record list
                 Intent recordListSwitch = new Intent(ProblemListActivity.this, RecordListActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("PROBLEMTITLE", problems.get(position).getTitle());
+                extras.putString("PROBLEMTITLE", dataManager.getProblem(actualIndex, position).getTitle());
                 extras.putInt("USERINDEX", index); // offline patient index
+                extras.putInt("ACTUALUSERINDEX", actualIndex); // session patient index
                 extras.putInt("ProblemIndex", position); // offline problem ID
-                extras.putString("PROBLEMID", problems.get(position).getId());
-                extras.putString("PROBLEMDESCRIPTION", problems.get(position).getDescription());
-                extras.putString("PROBLEMDATE", problems.get(position).getDate());
+                extras.putInt("ActualProblemIndex", position); // offline problem ID
+                extras.putString("PROBLEMID",dataManager.getProblem(actualIndex, position).getId());
+                extras.putString("PROBLEMDESCRIPTION", dataManager.getProblem(actualIndex, position).getDescription());
+                extras.putString("PROBLEMDATE", dataManager.getProblem(actualIndex, position).getDate());
                 recordListSwitch.putExtras(extras);
                 startActivity(recordListSwitch);
             }
         });
+        dataManager = DataManager.getInstance(getApplicationContext());
     }
 
     @Override
@@ -76,44 +88,51 @@ public class ProblemListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         index = intent.getIntExtra("PATIENTINDEX", -1);
+        actualIndex = intent.getIntExtra("PATIENTINDEX", -1);
         Log.i("PatientQuery", "index: " + index);
 
         // set the username
 
-        heading_text.setText(patients.get(index).getUsername().toString());
+        heading_text.setText(dataManager.getPatient(index).getUsername().toString());
         Log.i("AddProblemTask", "index: "+ String.valueOf(index));
 
-        problems = new ArrayList<MedicalProblem>();
         adapter = new ArrayAdapter<MedicalProblem>(this,
-                R.layout.problem_list_item, problems);
+                R.layout.problem_list_item, dataManager.getProblems(actualIndex));
         populateUserProblems(index);
         oldProblems.setAdapter(adapter);
     }
 
+    /**
+     * Updates problems from ES. Should not be here
+     * @param index
+     */
     private void populateUserProblems(int index){
 
         try {
           //try to get from elasticsearch first. If not able, grab locally
             ElasticSearchProblemController.GetProblemsTask getProblemsTask = new ElasticSearchProblemController.GetProblemsTask();
-            getProblemsTask.execute(patients.get(index).getID());
+            getProblemsTask.execute(dataManager.getPatient(index).getID());
+            Log.d("PATIENT", dataManager.getPatient(index).getID());
 
             try {
                 List<MedicalProblem> foundProblems = getProblemsTask.get();
-                problems.addAll(foundProblems);
                 Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
+                dataManager.setProblems(actualIndex, foundProblems);
+                adapter.notifyDataSetChanged();
+                LocalStorage.saveLoginSession(getApplicationContext(), dataManager.getLoggedInUser());
 
             } catch (Exception e) {
                 Log.i("AddProblemTask", "Failed to get the records from the async object");
             }
-            adapter.notifyDataSetChanged();
             Log.i("PATIENTHOME", "NOTIFIED");
         } catch (Exception e) {
-            ArrayList<MedicalProblem> med_problem = new ArrayList<MedicalProblem>();
-            med_problem=patients.get(index).getAllProblems();
-            Log.i("PATIENTHOME", "SHOULDNOTREACH");
-            for(int i=0;i<med_problem.size();i++){
-                problems.add(med_problem.get(i));
-            }
+//            //What is med_problem for? None longer matters as already loaded in dataManager
+//            ArrayList<MedicalProblem> med_problem = new ArrayList<MedicalProblem>();
+//            med_problem=patients.get(index).getAllProblems();
+//            Log.i("PATIENTHOME", "SHOULDNOTREACH");
+//            for(int i=0;i<med_problem.size();i++){
+//                problems.add(med_problem.get(i));
+//            }
         }
     }
 
@@ -127,13 +146,16 @@ public class ProblemListActivity extends AppCompatActivity {
         //send the patient information to the user profile activity
         Intent userProfileIntent = new Intent(ProblemListActivity.this, UserProfileActivity.class );
         userProfileIntent.putExtra("USERINDEX", index);
+        userProfileIntent.putExtra("ActualIndex", actualIndex);
         startActivity(userProfileIntent);
     }
 
 
     public void LogOut(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        DataManager.getInstance(getApplicationContext()).setLoggedInUser(null);
         intent.putExtra("LOGOUT","0");
         startActivity(intent);
+        finish();
     }
 }

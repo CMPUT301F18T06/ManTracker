@@ -48,7 +48,7 @@ public class CreateAccountInteractor {
     public void createAccount(final String username, final String email, final String phone,
                               final boolean isCareProvider, final OnCreateAccountFinishedListener listener,
                               Context context) {
-        DataManager dataManager = DataManager.getInstance();
+        DataManager dataManager = DataManager.getInstance(context);
         StoreData.loadFromFile(context);
         try {
             Account account;
@@ -72,10 +72,8 @@ public class CreateAccountInteractor {
                 account = patient;
 
             }
-
             Log.d("ADDINGUSER", username);
-            boolean result = dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
-            Log.d(TAG, "createAccount: " + result);
+            boolean result = dataManager.addUser(account);
             dataManager.setLoggedInUser(account);
 
 
