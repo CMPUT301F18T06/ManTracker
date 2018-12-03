@@ -30,7 +30,7 @@ public class Comment implements Comparable<Comment> {
     private static final SimpleDateFormat dF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
             Locale.getDefault());
     private Date date;
-    private Account user;
+    private String username;
     private String comment;
 
     /**
@@ -42,7 +42,7 @@ public class Comment implements Comparable<Comment> {
      */
     public Comment(Date date, Account user, String comment) {
         this.date = date;
-        this.user = user;
+        this.username = user.getUsernameText();
         this.comment = comment;
     }
 
@@ -54,7 +54,7 @@ public class Comment implements Comparable<Comment> {
      */
     public Comment(Account user, String comment) {
         this.date = new Date();
-        this.user = user;
+        this.username = user.getUsernameText();
         this.comment = comment;
     }
 
@@ -87,19 +87,11 @@ public class Comment implements Comparable<Comment> {
     }
 
     /**
-     * Get the user who posted the comment
-     * @return the user who posted the comment
-     */
-    public Account getUser() {
-        return user;
-    }
-
-    /**
      * Get the UserID of the user who posted the comment
      * @return the UserID of the user who posted the comment
      */
     public String getUserID() {
-        return user.getUsernameText();
+        return username;
     }
 
     /**
@@ -107,7 +99,7 @@ public class Comment implements Comparable<Comment> {
      * @param user the user who posted the comment
      */
     public void setUser(Account user) {
-        this.user = user;
+        this.username = user.getUsernameText();
     }
 
     /**
