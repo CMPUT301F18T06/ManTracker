@@ -337,6 +337,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
                 String latlngMsg = String.format("Place: %s", place.getLatLng());
                 Toast.makeText(this, nameMsg + "\n" + latlngMsg, Toast.LENGTH_LONG).show();
                 latlng = place.getLatLng();
+                updatePlaceName(place.getName().toString());
             }
         }
     }
@@ -372,5 +373,9 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         } catch (Exception e) {
             Log.d("Place", "Error starting Google Places Activity");
         }
+    }
+
+    private void updatePlaceName(String _placeName) {
+        this.locationButton.setText(_placeName);
     }
 }
