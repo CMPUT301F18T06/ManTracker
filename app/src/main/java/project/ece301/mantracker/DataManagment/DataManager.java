@@ -37,8 +37,8 @@ import project.ece301.mantracker.User.Patient;
 public class DataManager implements Observable {
     private static DataManager instance;
 
-    private static Account loggedInUser;
-    private static Context context;
+    private Account loggedInUser;
+    private Context context;
     private ArrayList<Observer> observers;
 
     /**
@@ -46,20 +46,21 @@ public class DataManager implements Observable {
      * @return an instance of DataManager.
      */
     public static DataManager getInstance(Context context) {
-        if (instance == null)
+        if (instance == null) {
             instance = new DataManager(context);
+            Log.d("NEWINSTANCE","");
+        }
         return instance;
     }
 
     public DataManager(Context context) {
+        this.loggedInUser = null;
         this.context = context;
         this.observers = new ArrayList<>();
     }
 
     public void tryLoadingLoginSession(){
         loggedInUser = LocalStorage.loadLoginSession(context);
-        if (loggedInUser != null)
-            saveLoginSession();
     }
 
     private void saveLoginSession(){
@@ -67,9 +68,10 @@ public class DataManager implements Observable {
     }
 
     public void setLoggedInUser(Account loggedInUser) {
-        Log.d("LOGIN", "Setting loggin session");
-        DataManager.loggedInUser = loggedInUser;
-        saveLoginSession();
+        Log.d("LOGIN", "Setting loggin session " + String.valueOf(loggedInUser != null));
+        this.loggedInUser = loggedInUser;
+        if (loggedInUser != null)
+            saveLoginSession();
     }
 
     public Account getLoggedInUser() {
@@ -80,6 +82,10 @@ public class DataManager implements Observable {
         Account account = getUser(username);
         loggedInUser = account;
         return account;
+    }
+    public void logOut() {
+        loggedInUser = null;
+        LocalStorage.saveLoginSession(context, null);
     }
 
     /**
@@ -271,9 +277,11 @@ public class DataManager implements Observable {
         observers.add(observer);
     }
 
-    public Patient getPatient(int actualIndex) {
+    public Account getPatient(int actualIndex) {
         if (loggedInUser instanceof Patient)
-            return (Patient) loggedInUser;
+            return loggedInUser;
+        if (actualIndex < 0)
+            return loggedInUser;
         return ((CareProvider) loggedInUser).getPatient(actualIndex);
     }
 

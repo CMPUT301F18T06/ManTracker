@@ -31,10 +31,13 @@ public class LocalStorage {
         Gson gson = new Gson();
         if (account instanceof CareProvider)
             editor.putString(GSON_KEY+"_CP", gson.toJson((CareProvider)account));
-        else
+        else if (account != null)
             editor.putString(GSON_KEY+"_P", gson.toJson((Patient) account));
-        editor.apply();
-        Log.d(NAME, "SAVED");
+        else {
+            editor.putString(GSON_KEY+"_CP", "");
+            editor.putString(GSON_KEY+"_P", "");
+        }
+        editor.commit();
     }
 
     public static Account loadLoginSession(Context context){
@@ -47,11 +50,22 @@ public class LocalStorage {
             if(jsonText.isEmpty()) {
                 return null;
             }
-            editor.clear().apply();
-            return gson.fromJson(jsonText, Patient.class);
+            editor.putString(GSON_KEY+"_CP", "");
+            editor.putString(GSON_KEY+"_P", "");
+            editor.apply();
+            Log.d(NAME, "Loading patient");
+            Patient patient = gson.fromJson(jsonText, Patient.class);
+            editor.commit();
+            Log.d(NAME, patient.getUsernameText());
+            if (patient != null)
+                return patient;
         } else {
-            editor.clear().apply();
-            return gson.fromJson(jsonText, CareProvider.class);
+            Log.d(NAME, "Loading care provider");
+            editor.putString(GSON_KEY+"_CP", "");
+            editor.putString(GSON_KEY+"_P", "");
+            editor.apply();
+            CareProvider careProvider = gson.fromJson(jsonText, CareProvider.class);
         }
+        return null;
     }
 }

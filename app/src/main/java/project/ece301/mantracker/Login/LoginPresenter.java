@@ -1,6 +1,7 @@
 package project.ece301.mantracker.Login;
 
 import android.content.Context;
+import android.util.Log;
 
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.Presenter;
@@ -20,13 +21,6 @@ public class LoginPresenter extends Presenter implements LoginInteractor.OnLogin
     public void tryLoadingSession() {
         DataManager dataManager = DataManager.getInstance(context);
         dataManager.tryLoadingLoginSession();
-        if (dataManager.getLoggedInUser() != null
-                && dataManager.getLoggedInUser() instanceof CareProvider)
-            loginView.navigateToCareProviderHome((CareProvider) dataManager.getLoggedInUser());
-        if (dataManager.getLoggedInUser() != null
-                && dataManager.getLoggedInUser() instanceof Patient)
-            loginView.navigateToPatientHome((Patient) dataManager.getLoggedInUser());
-
     }
 
     public void validateCredentials(String username) {

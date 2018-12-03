@@ -20,6 +20,7 @@ import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
 import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
@@ -65,20 +66,21 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         patientindex = intent.getIntExtra("USERINDEX", 0);
         index = intent.getIntExtra("USERINDEX", -1);
+        dataManager = DataManager.getInstance(getApplicationContext());
     }
 
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onResume(){
+        super.onResume();
 
 
         //set email, phone and username
-        if (dataManager.getLoggedInUser() instanceof Patient) {
+        if (dataManager.getLoggedInUser() instanceof Patient || index < 0) {
             username.setText(dataManager.getLoggedInUser().getUsernameText());
             email.setText(dataManager.getLoggedInUser().getEmail().getEmail());
             phone.setText(dataManager.getLoggedInUser().getPhone());
             loginCode.setText(dataManager.getLoggedInUser().getShortCode());
-        } else {
+        } else if (dataManager.getLoggedInUser() instanceof CareProvider) {
             username.setText(dataManager.getPatient(index).getUsername().toString());
             email.setText(dataManager.getPatient(index).getEmail().getEmail());
             phone.setText(dataManager.getPatient(index).getPhone());

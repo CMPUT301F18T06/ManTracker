@@ -38,6 +38,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     private PatientListAdapter adapter;
     private DrawerLayout drawerLayout;
     private SearchView searchBar;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +58,14 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         searchBar.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this,
                 SearchableActivity.class)));
         findViewById(R.id.add_patient).setOnClickListener(v -> onOpenAddPatientDialog());
-        findViewById(R.id.logout).setOnClickListener(v -> logOut());
+        findViewById(R.id.logoutCP).setOnClickListener(v -> logOut());
+        dataManager = DataManager.getInstance(getApplicationContext());
     }
 
 
     public void logOut() {
         Intent intent = new Intent(this, LoginActivity.class);
-        DataManager.getInstance(getApplicationContext()).setLoggedInUser(null);
+        dataManager.logOut();
         intent.putExtra("LOGOUT","0");
         startActivity(intent);
         finish();
@@ -72,8 +74,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     @Override
     protected void onResume() {
         super.onResume();
-        String name = DataManager.getInstance(getApplicationContext()).
-                getLoggedInUser().getUsernameText();
+        String name = dataManager.getLoggedInUser().getUsernameText();
 
         ((Button) findViewById(R.id.userNameTextView)).setText(name);
         (findViewById(R.id.userNameTextView)).setOnClickListener(view -> navagateToProfile(-1));

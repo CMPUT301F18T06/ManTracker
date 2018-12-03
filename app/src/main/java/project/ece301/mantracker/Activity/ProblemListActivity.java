@@ -79,7 +79,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 startActivity(recordListSwitch);
             }
         });
-        dataManager = new DataManager(getApplicationContext());
+        dataManager = DataManager.getInstance(getApplicationContext());
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
         // set the username
 
-        heading_text.setText(patients.get(index).getUsername().toString());
+        heading_text.setText(dataManager.getPatient(index).getUsername().toString());
         Log.i("AddProblemTask", "index: "+ String.valueOf(index));
 
         adapter = new ArrayAdapter<MedicalProblem>(this,
@@ -112,17 +112,18 @@ public class ProblemListActivity extends AppCompatActivity {
           //try to get from elasticsearch first. If not able, grab locally
             ElasticSearchProblemController.GetProblemsTask getProblemsTask = new ElasticSearchProblemController.GetProblemsTask();
             getProblemsTask.execute(dataManager.getPatient(index).getID());
+            Log.d("PATIENT", dataManager.getPatient(index).getID());
 
             try {
                 List<MedicalProblem> foundProblems = getProblemsTask.get();
                 Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
                 dataManager.setProblems(actualIndex, foundProblems);
+                adapter.notifyDataSetChanged();
+                LocalStorage.saveLoginSession(getApplicationContext(), dataManager.getLoggedInUser());
 
             } catch (Exception e) {
                 Log.i("AddProblemTask", "Failed to get the records from the async object");
             }
-            adapter.notifyDataSetChanged();
-            LocalStorage.saveLoginSession(getApplicationContext(), dataManager.getLoggedInUser());
             Log.i("PATIENTHOME", "NOTIFIED");
         } catch (Exception e) {
 //            //What is med_problem for? None longer matters as already loaded in dataManager

@@ -98,10 +98,17 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
             user.setEmail(new Email(email));
         } catch (Email.InvalidEmailException e) {
             e.printStackTrace();
+            return false;
         }
         user.setPhone(phone);
-        mDataManager.setLoggedInUser(user);
-        mDataManager.addUser(user);
+        try {
+            mDataManager.setLoggedInUser(user);
+            mDataManager.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        assert (false);
         Log.d("StoreData", "PRINTING STORED PATIENTS");
         for (Patient savedP : StoreData.patients) {
             Log.d("StoreData", savedP.getUsername().toString());
