@@ -1,5 +1,7 @@
 package project.ece301.mantracker.CreateAccount;
 
+import android.content.Context;
+
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
@@ -12,8 +14,10 @@ public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateA
         this.createAccountInteractor = createAccountInteractor;
     }
 
-    public void validateCredentials(String username, String email, String phone, boolean isCareProvider) {
-        createAccountInteractor.createAccount(username, email, phone, isCareProvider,this);
+    public void validateCredentials(String username, String email, String phone, boolean isCareProvider,
+                                    Context context) {
+        createAccountInteractor.createAccount(username, email, phone, isCareProvider,this,
+                context);
     }
 
     public void onDestroy() {

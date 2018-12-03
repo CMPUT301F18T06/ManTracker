@@ -110,6 +110,7 @@ public class Account {
 
     public String getID() {return ID;}
 
+//     https://www.geeksforgeeks.org/overriding-equals-method-in-java/
     @Override
     public boolean equals(Object o) {
 
@@ -118,17 +119,17 @@ public class Account {
             return true;
         }
 
-        /* Check if o is an instance of Complex or not
+        /* Check if o is an instance of Account or not
           "null instanceof [type]" also returns false */
         if (!(o instanceof Account)) {
             return false;
         }
 
-        // typecast o to Complex so that we can compare data members
-        Account c = (Account) o;
+        // typecast o to Account so that we can compare data members
+        Account account = (Account) o;
 
         // Compare the data members and return accordingly
-        return ((Account) o).getUsername().toString().equals(c.getUsername().toString());
+        return this.getUsername().toString().equals(account.getUsername().toString());
     }
 }
 

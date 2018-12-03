@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import io.searchbox.core.Search;
 import project.ece301.mantracker.Activity.SearchableActivity;
+import project.ece301.mantracker.Activity.UserProfileActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
 import project.ece301.mantracker.R;
@@ -71,7 +72,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     private void navagateToProfile(String username) {
-        Intent goToProfile = new Intent(this, EditProfileActivity.class);
+        Intent goToProfile = new Intent(this, UserProfileActivity.class);
         goToProfile.putExtra("Username", username);
         startActivity(goToProfile);
     }
