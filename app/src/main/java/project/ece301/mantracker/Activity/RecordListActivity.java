@@ -110,13 +110,19 @@ public class RecordListActivity extends AppCompatActivity implements Observer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            ElasticSearchProblemController.AddProblemTask addProblemsTask = new ElasticSearchProblemController.AddProblemTask();
+            addProblemsTask.execute(problem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void onCommentClicked(int position) {
-        commentList.get(position).getUser().getUsernameText();
-        Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
-        userProfileIntent.putExtra("USERINDEX", commentList.get(position).getUser().getIndex());
-        startActivity(userProfileIntent);
+//        commentList.get(position).getUserID();
+//        Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
+//        userProfileIntent.putExtra("USERINDEX", commentList.get(position).getUserID().getIndex());
+//        startActivity(userProfileIntent);
     }
 
     @Override

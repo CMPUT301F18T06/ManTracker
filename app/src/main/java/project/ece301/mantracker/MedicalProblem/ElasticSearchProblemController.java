@@ -57,7 +57,7 @@ public class ElasticSearchProblemController {
         }
     }
 
-    // TODO we need a function which gets tweets from elastic search
+    // TODO we need a function which gets Problems from elastic search
     public static class GetProblemsTask extends AsyncTask<String, Void, ArrayList<MedicalProblem>> {
         @Override
         protected ArrayList<MedicalProblem> doInBackground(String... search_parameters) {
