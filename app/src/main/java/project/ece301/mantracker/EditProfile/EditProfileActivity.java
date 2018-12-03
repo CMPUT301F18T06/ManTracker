@@ -66,7 +66,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
         // Set up the presenter
         mEditProfilePresenter = new EditProfilePresenter(DataManager.getInstance(),
-                this, this.username);
+                this, this.username, this);
     }
 
     /*

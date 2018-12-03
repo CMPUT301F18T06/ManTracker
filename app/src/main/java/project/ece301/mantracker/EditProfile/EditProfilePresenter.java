@@ -13,6 +13,7 @@
 
 package project.ece301.mantracker.EditProfile;
 
+import android.content.Context;
 import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     private final EditProfileContract.View mProfileView;
     private final DataManager mDataManager;
     private Account user;
+    private Context mContext;
 
     /**
      * Constructs an EditProfilePresenter
@@ -48,9 +50,11 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
      */
     public EditProfilePresenter(@NonNull DataManager dm,
                                 @NonNull EditProfileContract.View editProfileView,
-                                String username) {
+                                String username, Context context) {
         mProfileView = editProfileView; // TODO: checkNotNull
         mDataManager = dm;
+        mContext = context;
+
         this.loadUser(username);
     }
 
@@ -91,6 +95,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
                 // update local storage
                 StoreData.careProviders.set(index, newCP);
+                StoreData.saveCareProvidersInFile(mContext);
 
                 // update elastic search by adding the new account and deleting the old
                 mDataManager.addUser(newCP);
@@ -107,13 +112,17 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
         else if (user instanceof Patient) {
             try {
                 Patient newPatient = new Patient(new Email(email), new Username(username),
-                        phone);
+                        phone, StoreData.patients.get(index).getShortCode());
                 newPatient.setIndex(index);
+                Log.d("EditProfile", "newPatient Shortcode: " +
+                        newPatient.getShortCode());
 
                 // update local storage
                 StoreData.patients.set(index, newPatient);
-                Log.d("EditProfile", "Saved User: " +
-                        StoreData.patients.get(index).getUsername().toString());
+                StoreData.saveInFile(mContext);
+
+                Log.d("EditProfile", "EditProfilePresenter: Shortcode: " +
+                        StoreData.patients.get(index).getShortCode());
 
                 // update elastic search by adding the new account and deleting the old
                 mDataManager.addUser(newPatient);

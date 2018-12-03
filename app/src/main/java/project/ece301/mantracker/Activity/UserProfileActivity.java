@@ -54,11 +54,11 @@ public class UserProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.userProfileUsername);
         email = findViewById(R.id.userProfileEmail);
         phone = findViewById(R.id.userProfilePhone);
+        loginCode = findViewById(R.id.LoginCode);
 
         //get the patient index
         Intent intent = getIntent();
         patientindex = intent.getIntExtra("USERINDEX", 0);
-        loginCode = findViewById(R.id.LoginCode);
     }
 
     @Override
@@ -101,6 +101,8 @@ public class UserProfileActivity extends AppCompatActivity {
         if (requestCode == EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 patientindex = data.getIntExtra(EditProfileActivity.NEW_INDEX, 0);
+                Log.d("EditProfile", "UserProfileActivity: User Shortcode: " +
+                        StoreData.patients.get(patientindex).getShortCode());
                 }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // do nothing
