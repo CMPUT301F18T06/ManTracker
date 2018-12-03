@@ -5,10 +5,14 @@ import android.util.Log;
 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
+import java.util.List;
 
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.DataManagment.LocalStorage;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
+import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.Presenter;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
@@ -35,6 +39,7 @@ public class CareProviderHomePresenter extends Presenter {
 
     public void addPatient(String username) {
         Account account = dataManager.getUser(username);
+        populateUserProblems(dataManager.getPatients().size()-1);
         if (account == null)
             careProviderHomeView.showNoPatientToast(username);
         else if (dataManager.getPatients().contains(account)) {
@@ -49,6 +54,40 @@ public class CareProviderHomePresenter extends Presenter {
             careProviderHomeView.showNoPatientToast(username);
         }
 
+    }
+
+    /**
+     * Updates problems from ES. Should not be here
+     * @param index
+     */
+    private void populateUserProblems(int index){
+
+        try {
+            //try to get from elasticsearch first. If not able, grab locally
+            ElasticSearchProblemController.GetProblemsTask getProblemsTask = new ElasticSearchProblemController.GetProblemsTask();
+            getProblemsTask.execute(dataManager.getPatient(index).getID());
+            Log.d("PATIENT", dataManager.getPatient(index).getID());
+
+            try {
+                List<MedicalProblem> foundProblems = getProblemsTask.get();
+                Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
+                dataManager.setProblems(index, foundProblems);
+                Log.i("ELASTICSEARCH", foundProblems.toString());
+                LocalStorage.saveLoginSession(context, dataManager.getLoggedInUser());
+
+            } catch (Exception e) {
+                Log.i("AddProblemTask", "Failed to get the records from the async object");
+            }
+            Log.i("PATIENTHOME", "NOTIFIED");
+        } catch (Exception e) {
+//            //What is med_problem for? None longer matters as already loaded in dataManager
+//            ArrayList<MedicalProblem> med_problem = new ArrayList<MedicalProblem>();
+//            med_problem=patients.get(index).getAllProblems();
+//            Log.i("PATIENTHOME", "SHOULDNOTREACH");
+//            for(int i=0;i<med_problem.size();i++){
+//                problems.add(med_problem.get(i));
+//            }
+        }
     }
 
     public Patient getPatientAt(int i) {

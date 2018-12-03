@@ -108,7 +108,6 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
             e.printStackTrace();
             return false;
         }
-        assert (false);
         Log.d("StoreData", "PRINTING STORED PATIENTS");
         for (Patient savedP : StoreData.patients) {
             Log.d("StoreData", savedP.getUsername().toString());

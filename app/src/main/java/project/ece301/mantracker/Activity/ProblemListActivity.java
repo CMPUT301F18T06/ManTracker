@@ -66,16 +66,18 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
             @Override //when user selects a problem from the list
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //go to the patient record list
+                Log.d("Click", String.valueOf(position));
+                Log.d("Click", dataManager.getProblems(actualIndex).toString());
                 Intent recordListSwitch = new Intent(ProblemListActivity.this, RecordListActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("PROBLEMTITLE", dataManager.getProblem(actualIndex, position).getTitle());
+                extras.putString("PROBLEMTITLE", dataManager.getProblems(actualIndex).get(position).getTitle());
                 extras.putInt("USERINDEX", index); // offline patient index
                 extras.putInt("ACTUALUSERINDEX", actualIndex); // session patient index
                 extras.putInt("ProblemIndex", position); // offline problem ID
                 extras.putInt("ActualProblemIndex", position); // offline problem ID
-                extras.putString("PROBLEMID",dataManager.getProblem(actualIndex, position).getId());
-                extras.putString("PROBLEMDESCRIPTION", dataManager.getProblem(actualIndex, position).getDescription());
-                extras.putString("PROBLEMDATE", dataManager.getProblem(actualIndex, position).getDate());
+                extras.putString("PROBLEMID",dataManager.getProblems(actualIndex).get(position).getId());
+                extras.putString("PROBLEMDESCRIPTION", dataManager.getProblems(actualIndex).get(position).getDescription());
+                extras.putString("PROBLEMDATE", dataManager.getProblems(actualIndex).get(position).getDate());
                 recordListSwitch.putExtras(extras);
                 startActivity(recordListSwitch);
             }
@@ -88,19 +90,14 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
         adapter = new ArrayAdapter<MedicalProblem>(this,
                 R.layout.problem_list_item, dataManager.getProblems(actualIndex));
         oldProblems.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         populateUserProblems(index);
         patients.addAll(dataManager.getPatients());
+        update();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        Intent intent = getIntent();
-        index = intent.getIntExtra("PATIENTINDEX", -1);
-        actualIndex = intent.getIntExtra("PATIENTINDEX", -1);
-        Log.i("PatientQuery", "index: " + index);
 
         // set the username
 
@@ -110,9 +107,9 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
         adapter = new ArrayAdapter<MedicalProblem>(this,
                 R.layout.problem_list_item, dataManager.getProblems(actualIndex));
         oldProblems.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         populateUserProblems(index);
         patients.addAll(dataManager.getPatients());
+        update();
     }
 
     /**
@@ -130,9 +127,10 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
             try {
                 List<MedicalProblem> foundProblems = getProblemsTask.get();
                 Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
-                dataManager.setProblems(actualIndex, foundProblems);
+                dataManager.setProblems(index, foundProblems);
                 Log.i("ELASTICSEARCH", foundProblems.toString());
                 LocalStorage.saveLoginSession(getApplicationContext(), dataManager.getLoggedInUser());
+                update();
 
             } catch (Exception e) {
                 Log.i("AddProblemTask", "Failed to get the records from the async object");

@@ -1,12 +1,12 @@
 /**
  * Class Name: DataManager
- *
+ * <p>
  * Version: Version 1.0
- *
+ * <p>
  * Date: November 30, 2018
- *
+ * <p>
  * This class handles the retrieval of data using elastic search.
- *
+ * <p>
  * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
@@ -28,6 +28,7 @@ import project.ece301.mantracker.Observable;
 import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
+
 /**
  * Class for retrieving data from ElasticSearch server
  *
@@ -48,7 +49,7 @@ public class DataManager implements Observable {
     public static DataManager getInstance(Context context) {
         if (instance == null) {
             instance = new DataManager(context);
-            Log.d("NEWINSTANCE","");
+            Log.d("NEWINSTANCE", "");
         }
         return instance;
     }
@@ -59,11 +60,11 @@ public class DataManager implements Observable {
         this.observers = new ArrayList<>();
     }
 
-    public void tryLoadingLoginSession(){
+    public void tryLoadingLoginSession() {
         loggedInUser = LocalStorage.loadLoginSession(context);
     }
 
-    private void saveLoginSession(){
+    private void saveLoginSession() {
         LocalStorage.saveLoginSession(context, loggedInUser);
     }
 
@@ -83,6 +84,7 @@ public class DataManager implements Observable {
         loggedInUser = account;
         return account;
     }
+
     public void logOut() {
         loggedInUser = null;
         LocalStorage.saveLoginSession(context, null);
@@ -95,39 +97,43 @@ public class DataManager implements Observable {
      */
     public Account getUser(String username) {
         //use elastic search to search for user and return the account
-    //user could be patient or care provider
-    ArrayList<Patient> patient = new ArrayList<Patient>();
-    ArrayList<CareProvider> careProvider = new ArrayList<CareProvider>();
+        //user could be patient or care provider
+        ArrayList<Patient> patient = new ArrayList<Patient>();
+        ArrayList<CareProvider> careProvider = new ArrayList<CareProvider>();
 
         try {
-        //fetch from elasticsearch and populate the records list
-        //Records are queried by the current user's username
-        ElasticSearchPatientController.GetPatientTask getPatientsTask = new ElasticSearchPatientController.GetPatientTask();
-        getPatientsTask.execute(username);
-        List<Patient> foundPatient = getPatientsTask.get();
-        patient.addAll(foundPatient);
-    } catch (Exception e) {
-        Log.i("AddRecordTask", "Failed to get the records from the async object");
-    }
-        if (!patient.isEmpty()) {return patient.get(0);}
+            //fetch from elasticsearch and populate the records list
+            //Records are queried by the current user's username
+            ElasticSearchPatientController.GetPatientTask getPatientsTask = new ElasticSearchPatientController.GetPatientTask();
+            getPatientsTask.execute(username);
+            List<Patient> foundPatient = getPatientsTask.get();
+            patient.addAll(foundPatient);
+        } catch (Exception e) {
+            Log.i("AddRecordTask", "Failed to get the records from the async object");
+        }
+        if (!patient.isEmpty()) {
+            return patient.get(0);
+        }
         Log.d("NoPatient", username);
 
         try {
-        //fetch from elasticsearch and populate the records list
-        //Records are queried by the current user's username
-        ElasticSearchCareproviderContoller.GetCareProviderTask getCareProvidersTask = new ElasticSearchCareproviderContoller.GetCareProviderTask();
-        getCareProvidersTask.execute(username);
-        List<CareProvider> foundCareProvider = getCareProvidersTask.get();
-        careProvider.addAll(foundCareProvider);
-    } catch (Exception e) {
-        Log.i("GetProviderTask", "Failed to get the records from the async object");
-    }
-        if (!careProvider.isEmpty()) {return careProvider.get(0);}
+            //fetch from elasticsearch and populate the records list
+            //Records are queried by the current user's username
+            ElasticSearchCareproviderContoller.GetCareProviderTask getCareProvidersTask = new ElasticSearchCareproviderContoller.GetCareProviderTask();
+            getCareProvidersTask.execute(username);
+            List<CareProvider> foundCareProvider = getCareProvidersTask.get();
+            careProvider.addAll(foundCareProvider);
+        } catch (Exception e) {
+            Log.i("GetProviderTask", "Failed to get the records from the async object");
+        }
+        if (!careProvider.isEmpty()) {
+            return careProvider.get(0);
+        }
         Log.d("NoCareProvider", username);
 
-    //if no careprovider or patient has user name then return null
+        //if no careprovider or patient has user name then return null
         return null;
-}
+    }
 
     /**
      * Adds or Updates a user to elastic search
@@ -172,7 +178,7 @@ public class DataManager implements Observable {
      * @return True if successful. False otherwise.
      */
     public boolean addPatient(Patient patient) {
-        ((CareProvider)loggedInUser).addPatient(patient);
+        ((CareProvider) loggedInUser).addPatient(patient);
         updateStores();
         Log.d("UPDATE", "Careprovider added patient");
         return true;
@@ -191,7 +197,7 @@ public class DataManager implements Observable {
     }
 
     public int getPatientProblemCount(int index) {
-        return ((CareProvider)loggedInUser).getPatientProblemCount(index);
+        return ((CareProvider) loggedInUser).getPatientProblemCount(index);
     }
 
     /**
@@ -256,17 +262,17 @@ public class DataManager implements Observable {
      * @return True if successful. False otherwise.
      */
     public boolean deleteRecord(int problemIndex, int recordIndex) {
-        ((Patient)loggedInUser).removeRecord(problemIndex, recordIndex);
+        ((Patient) loggedInUser).removeRecord(problemIndex, recordIndex);
         return true;
     }
 
     public boolean deleteRecord(int problemIndex, Record record) {
-        ((Patient)loggedInUser).removeRecord(problemIndex, record);
+        ((Patient) loggedInUser).removeRecord(problemIndex, record);
         return true;
     }
 
     public int getPatientCount() {
-        return ((CareProvider)loggedInUser).getPatientCount();
+        return ((CareProvider) loggedInUser).getPatientCount();
     }
 
     public MedicalProblem getProblem(int patientIndex, int problemIndex) {
@@ -279,7 +285,7 @@ public class DataManager implements Observable {
 
     @Override
     public void notifyObservers() {
-        for (Observer observer: observers)
+        for (Observer observer : observers)
             observer.update();
     }
 

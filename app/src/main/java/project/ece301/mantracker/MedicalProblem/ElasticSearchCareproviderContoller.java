@@ -72,7 +72,7 @@ public class ElasticSearchCareproviderContoller{
                     "    \"query\" : {\n" +
                     "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
-                    "}" ;
+                    "}" ; //{"username":"buggedUser"}
 
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t06test")
