@@ -28,7 +28,6 @@ public class LoginInteractor {
         dataManager.setLoggedInUser(account);
 
         StoreData.storeAccountLocally(account, context);
-        Log.d("LoginInteractor", "LocalIndex: " + account.getID().toString());
 
         if (account == null)
             listener.onUsernameInvalidError();
