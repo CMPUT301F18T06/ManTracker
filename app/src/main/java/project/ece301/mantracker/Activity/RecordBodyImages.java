@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -39,15 +40,16 @@ public class RecordBodyImages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_body_images);
 
+        current_image = 0;
+        images.clear();
+        labels.clear();
+        Coordinates.clear();
+
         Intent intent = getIntent();
         index = intent.getExtras().getInt("USERINDEX");
         problemIndex = intent.getExtras().getInt("ProblemIndex");
         recordIndex = intent.getExtras().getInt("RecordIndex");
 
-        current_image = 0;
-        images.clear();
-        labels.clear();
-        Coordinates.clear();
 
         Record record = patients.get(index).getProblem(problemIndex).getRecord(recordIndex);
         ArrayList<BodyLocation> bodyLocations = record.getBodyLocationList();
@@ -70,6 +72,9 @@ public class RecordBodyImages extends AppCompatActivity {
 
         final ImageView imageView = findViewById(R.id.RecordPhoto);
 
+        if(images.size()!=0)
+            setImage();
+
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -85,11 +90,13 @@ public class RecordBodyImages extends AppCompatActivity {
                         if(current_image < images.size()-1){
                             current_image++;
                             setImage();
+                            setCursor();
                         }
                     }else if(x<ImageWidth/2){
                         if(current_image > 0){
                             current_image--;
                             setImage();
+                            setCursor();
                         }
                     }
                 }
@@ -100,18 +107,25 @@ public class RecordBodyImages extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        setImage();
+        if(images.size()!=0)
+            setCursor();
     }
 
     private void setImage(){
 
         final ImageView imageView = findViewById(R.id.RecordPhoto);
         final TextView textview = findViewById(R.id.RecordImageLabel);
-        final ImageView cursor = findViewById(R.id.cursorRecordBodyImage);
+
+        imageView.setImageBitmap(Decode(images.get(current_image)));
+        textview.setText(labels.get(current_image));
+
+    }
+
+    private void setCursor(){
+        ImageView imageView = findViewById(R.id.RecordPhoto);
+        ImageView cursor = findViewById(R.id.cursorRecordBodyImage);
 
         Bitmap bitmap = Decode(images.get(current_image));
-        imageView.setImageBitmap(bitmap);
-        textview.setText(labels.get(current_image));
 
         // image width and height of drawable image
         ImageHeight = imageView.getMeasuredHeight();
@@ -129,31 +143,6 @@ public class RecordBodyImages extends AppCompatActivity {
 
         cursor.setX(Float.parseFloat (Coordinates.get(current_image).split(":")[0]) / WidthRatio );
         cursor.setY(Float.parseFloat (Coordinates.get(current_image).split(":")[1]) / HeightRatio);
-
-    }
-
-    private void DefaultState(){
-
-        current_image = 0;
-        images.clear();
-        labels.clear();
-        Coordinates.clear();
-
-        Record record = patients.get(index).getProblem(problemIndex).getRecord(recordIndex);
-        ArrayList<BodyLocation> bodyLocations = record.getBodyLocationList();
-        for(int i=0; i<bodyLocations.size(); i++){
-            images.add(bodyLocations.get(i).getBodyImage());
-            labels.add(bodyLocations.get(i).getLabel());
-            Coordinates.add(bodyLocations.get(i).getImageCordinates());
-        }
-
-        if(images.size()!=0){
-            setImage();
-        }
-        else{
-            Toast.makeText(this, "No Images to Show", Toast.LENGTH_SHORT).show();
-            finish();
-        }
     }
 
     public void DeleteImage(View view){
@@ -168,22 +157,26 @@ public class RecordBodyImages extends AppCompatActivity {
         MedicalProblem problem = patient.getProblem(problemIndex);
 
         Record record = problem.getRecord(recordIndex);
-        record.deleteBodyLocation(current_image);
 
-        int size = record.getBodyLocationList().size();
+        record.deleteBodyLocation(current_image);
 
         problem.setRecord(recordIndex,record);
         patient.setProblem(problem,problemIndex);
 
         patients.set(index,patient);
 
+
         // save in file
         saveInFile(this);
 
-        if(size!=0){
-            DefaultState();
-        }
-        else{
+       if (current_image > 0) {
+            current_image--;
+       }
+
+        if (images.size() > 0) {
+            setImage();
+            setCursor();
+        } else {
             Toast.makeText(this, "No Images to Show", Toast.LENGTH_SHORT).show();
             finish();
         }

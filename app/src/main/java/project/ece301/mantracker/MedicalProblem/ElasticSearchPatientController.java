@@ -54,7 +54,6 @@ public class ElasticSearchPatientController {
         }
     }
 
-    // TODO we need a function which gets tweets from elastic search
     public static class GetPatientTask extends AsyncTask<String, Void, ArrayList<Patient>> {
         @Override
         protected ArrayList<Patient> doInBackground(String... search_parameters) {
@@ -95,6 +94,54 @@ public class ElasticSearchPatientController {
             return patients;
         }
     }
+
+    // get the patient that matches the short code
+    public static class GetPatientCodeTask extends AsyncTask<String, Void, ArrayList<Patient>> {
+        @Override
+        protected ArrayList<Patient> doInBackground(String... search_parameters) {
+            verifySettings();
+
+            ArrayList<Patient> patients = new ArrayList<Patient>();
+
+            // TODO Build the query
+
+            //String query = "{ \"size\": 3, \"query\" : { \"term\" : { \"message\" : \""+ search_parameters[0] + "\"}}}";
+            String query = "{ \"size\": 10, \n" +
+                    "    \"query\" : {\n" +
+                    "        \"match\" : { \"shortCode\" : \"" + search_parameters[0] + "\" }\n" +
+                    "    }\n" +
+                    "}" ;
+
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t06test")
+                    .addType("patient")
+                    .build();
+
+            try {
+                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    @SuppressWarnings("deprecation")
+                    List<Patient> foundPatients = result.getSourceAsObjectList(Patient.class);
+                    patients.addAll(foundPatients);
+                }
+                else {
+                    Log.i("AddPatientTask", "The search query failed to find any records that matched");
+                }
+            }
+            catch (Exception e) {
+                Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
+            }
+
+            return patients;
+        }
+    }
+
+
+
+
+
+
 
 
 

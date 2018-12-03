@@ -26,9 +26,11 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView username;
     private TextView email;
     private TextView phone;
+    private TextView loginCode;
     private int patientindex;
     private Toolbar toolbar;
     protected final int EDIT_REQUEST_CODE = 1;
+
 
 
     @Override
@@ -56,6 +58,7 @@ public class UserProfileActivity extends AppCompatActivity {
         //get the patient index
         Intent intent = getIntent();
         patientindex = intent.getIntExtra("USERINDEX", 0);
+        loginCode = findViewById(R.id.LoginCode);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class UserProfileActivity extends AppCompatActivity {
         username.setText(patients.get(patientindex).getUsername().toString());
         email.setText(patients.get(patientindex).getEmail().getEmail());
         phone.setText(patients.get(patientindex).getPhone());
-        
+        loginCode.setText(patients.get(patientindex).getShortCode());
     }
 
     @Override

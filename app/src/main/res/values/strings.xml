@@ -48,6 +48,11 @@
     <string name="AddRecord">Add New Record</string>
     <string name="PhoneHeader">Phone: </string>
     <string name="EmailHeader">Email: </string>
+    <string name="LoginHeader">Login Code: </string>
+    <string name="altLoginHint">Enter Short Code</string>
+    <string name="altLoginHeader">Alternate Login: </string>
+    <string name="altLoginButton">Alternate Login</string>
+    <string name="OR">OR</string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>
@@ -83,7 +88,8 @@
     <string name="DeleteImageButton">Delete</string>
     <string name="LogOut">Sign Out</string>
     <string name="RecordPhotos">Photos</string>
-
+    <string name="comments">Comments</string>
+  
     <!--Toolbar-->
     <string name="back">Back</string>
     <string name="edit">Edit</string>
