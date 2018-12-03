@@ -60,9 +60,6 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        for (LatLng latLng : latLngs) {
-            gmap.addMarker(new MarkerOptions().position(latLng));
-        }
     }
 
     @Override
@@ -99,7 +96,12 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(12);
-        if (latLngs.size() > 0)
+        if (latLngs.size() > 0) {
             gmap.moveCamera(CameraUpdateFactory.newLatLng(latLngs.get(0)));
+
+            for (LatLng latLng : latLngs) {
+                gmap.addMarker(new MarkerOptions().position(latLng));
+            }
+        }
     }
 }
