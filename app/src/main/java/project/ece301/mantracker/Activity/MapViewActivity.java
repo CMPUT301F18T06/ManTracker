@@ -92,7 +92,7 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(12);
-        LatLng ny = new LatLng(40.7143528, -74.0059731);
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+        if (latLngs.size() > 0)
+            gmap.moveCamera(CameraUpdateFactory.newLatLng(latLngs.get(0)));
     }
 }

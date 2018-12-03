@@ -137,10 +137,9 @@ public class ProblemListActivity extends AppCompatActivity {
 
 
     public void LogOut(View view) {
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        intent.putExtra("LOGOUT","0");
-//        startActivity(intent);
-        goToGoogleMapsPlaces();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("LOGOUT","0");
+        startActivity(intent);
     }
 
     public ArrayList<LatLng> getAllLocations(){
