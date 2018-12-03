@@ -85,6 +85,10 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     @Override
     public boolean saveUser(String username, String email, String phone) {
+        Log.d("StoreData", "PRINTING STORED PATIENTS");
+        for (Patient savedP : StoreData.patients) {
+            Log.d("StoreData", savedP.getUsername().toString());
+        }
         int index = StoreData.getIndexOf(user);
         Log.d("EditProfile", "Saving User: " + Integer.toString(index));
         if (user instanceof CareProvider) {

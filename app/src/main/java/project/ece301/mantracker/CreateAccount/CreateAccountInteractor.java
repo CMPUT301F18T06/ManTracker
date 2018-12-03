@@ -1,6 +1,9 @@
 package project.ece301.mantracker.CreateAccount;
 
 
+import android.content.Context;
+import android.util.Log;
+
 import java.util.Random;
 
 import project.ece301.mantracker.Account.Account;
@@ -41,9 +44,10 @@ public class CreateAccountInteractor {
     }
 
     public void createAccount(final String username, final String email, final String phone,
-                      final boolean isCareProvider, final OnCreateAccountFinishedListener listener) {
+                              final boolean isCareProvider, final OnCreateAccountFinishedListener listener,
+                              Context context) {
         DataManager dataManager = DataManager.getInstance();
-
+        StoreData.loadFromFile(context);
         try {
             Account account;
             Username username1 = new Username(username);
@@ -57,12 +61,17 @@ public class CreateAccountInteractor {
             } else {
                 String patientCode = generateShortCode();
                 Patient patient = new Patient(email1, username1, phone, patientCode);
-                StoreData.patients.add(patient); // TODO: Get rid of this when elastic search works.
+                StoreData.patients.add(patient);
+                Log.d("StoreData", "PRINTING STORED PATIENTS");
+                for (Patient savedP : StoreData.patients) {
+                    Log.d("StoreData", savedP.toString());
+                }
                 listener.onPatientCreated(patient);
                 account = patient;
 
             }
 
+            // Save the new user to elastic search
             dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
             dataManager.setLoggedInUser(account);
 
