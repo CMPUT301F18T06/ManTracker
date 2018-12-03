@@ -18,6 +18,7 @@ import java.util.Arrays;
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
 import project.ece301.mantracker.Account.Username;
+import project.ece301.mantracker.Activity.UserProfileActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
@@ -26,7 +27,7 @@ import project.ece301.mantracker.User.Patient;
 public class EditProfileActivity extends AppCompatActivity implements EditProfileContract.View{
 
     private EditProfilePresenter mEditProfilePresenter;
-    private String username;
+    private int userIndex;
 
     private EditText usernameEditText;
     private EditText emailEditText;
@@ -62,11 +63,11 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
 
         // Get the username
         Intent intent = getIntent();
-        this.username = intent.getStringExtra("Username");
+        this.userIndex = intent.getIntExtra(UserProfileActivity.PROFILE_EDIT_INDEX, -1);
 
         // Set up the presenter
         mEditProfilePresenter = new EditProfilePresenter(DataManager.getInstance(getApplicationContext()),
-                this, this.username, this);
+                this, this.userIndex, this);
     }
 
     /*

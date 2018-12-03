@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
                 try{
                     Patient patient = new Patient();
-                    patient.setUsername(new Username("KaranvirGidda"));
+                    patient.setUsername(new Username("KaranvirGidda",getApplicationContext()));
                     patients.add(patient);
 
                     index = patients.indexOf(patient);

@@ -12,6 +12,7 @@
 
 package project.ece301.mantracker.Account;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.regex.Matcher;
@@ -45,8 +46,8 @@ public class Username {
         return Pattern.compile(pattern).matcher(userID).matches();
     }
 
-    private static boolean isUnique(String s) {
-        return DataManager.getInstance().getUser(s)==null;
+    private static boolean isUnique(String s, Context context) {
+        return DataManager.getInstance(context).getUser(s)==null;
     }
 
     /**
@@ -55,8 +56,8 @@ public class Username {
      * @param userID username
      * @throws InvalidUsernameException if userID is an invalid username.
      */
-    public Username(@NonNull String userID) throws InvalidUsernameException {
-        setUserID(userID);
+    public Username(@NonNull String userID, Context context) throws InvalidUsernameException {
+        setUserID(userID, context);
     }
 
     /**
@@ -73,10 +74,10 @@ public class Username {
      * @param userID the username as string
      * @throws InvalidUsernameException if userID is an invalid username.
      */
-    public void setUserID(String userID) throws InvalidUsernameException {
+    public void setUserID(String userID, Context context) throws InvalidUsernameException {
         if (!isValid(userID))
             throw new InvalidUsernameException();
-        if (!isUnique(userID))
+        if (!isUnique(userID, context))
             throw new TakenUsernameException();
         else
             this.username = userID;

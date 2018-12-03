@@ -49,9 +49,9 @@ public interface EditProfileContract {
 
         /**
          * Loads a user
-         * @param username the username of the user to load
+         * @param index the index of the user to load
          */
-        void loadUser(String username);
+        void loadUser(int index);
 
         /**
          * Loads a username

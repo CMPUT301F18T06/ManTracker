@@ -46,21 +46,21 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
      * Constructs an EditProfilePresenter
      * @param dm a DataManager object
      * @param editProfileView an EditProfileView
-     * @param username the username of the user whose profile should be loaded.
+     * @param userIndex the index of the user whose profile should be loaded.
      */
     public EditProfilePresenter(@NonNull DataManager dm,
                                 @NonNull EditProfileContract.View editProfileView,
-                                String username, Context context) {
+                                int userIndex, Context context) {
         mProfileView = editProfileView; // TODO: checkNotNull
         mDataManager = dm;
         mContext = context;
 
-        this.loadUser(username);
+        this.loadUser(userIndex);
     }
 
     @Override
-    public void loadUser(String username) {
-        this.user = this.mDataManager.getUser(username);
+    public void loadUser(int index) {
+        this.user = this.mDataManager.getLoggedInUser();
         if (this.user != null) {
             this.loadUsername();
             this.loadEmail();
@@ -85,10 +85,9 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     @Override
     public boolean saveUser(String username, String email, String phone) {
-        Account user = mDataManager.getLoggedInUser();
         if (!user.getUsernameText().equals(username)) {
             try {
-                user.setUsername(new Username(username));
+                user.setUsername(new Username(username, mContext));
             } catch (Username.InvalidUsernameException e) {
                 e.printStackTrace();
                 return false;
@@ -103,69 +102,32 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
         user.setPhone(phone);
         try {
             mDataManager.setLoggedInUser(user);
-            mDataManager.addUser(user);
+            Log.d("EditProfile", "Set logged in user successfully!");
+            if (user instanceof Patient) {
+                Log.d("EditProfile", "USER INSTANCE OF PATIENT");
+            }
+            else if (user instanceof CareProvider) {
+                Log.d("EditProfile", "USER INSTANCE OF CAREPROVIDER");
+            }
+            try {
+                CareProvider newCarepro = new CareProvider(new Email("testemail@test.com"),
+                        new Username("testUsername987", mContext), "780123456");
+                Boolean addSuccess = mDataManager.addUser(newCarepro);
+                Log.d("EditProfile", "Added Successfully? "+ String.valueOf(addSuccess));
+//                Log.d("EditProfile", "New name: " + user.getUsernameText());
+                Account justAdded = mDataManager.getUser(newCarepro.getUsernameText());
+                Log.d("EditProfile", "Found newCarePro? " + String.valueOf(justAdded != null));
+                Log.d("EditProfile", "Just added: " + justAdded.getUsernameText());
+            } catch (Email.InvalidEmailException | Username.InvalidUsernameException e) {
+                Log.d("EditProfile", "invalid new guy");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        assert (false);
-        Log.d("StoreData", "PRINTING STORED PATIENTS");
-        for (Patient savedP : StoreData.patients) {
-            Log.d("StoreData", savedP.getUsername().toString());
-        }
-        int index = StoreData.getIndexOf(user);
-        Log.d("EditProfile", "Saving User: " + Integer.toString(index));
-        if (user instanceof CareProvider) {
-            try {
-                CareProvider newCP = new CareProvider(new Email(email),
-                        new Username(username), phone);
-                newCP.setIndex(index);
 
-                // update local storage
-                StoreData.careProviders.set(index, newCP);
-                StoreData.saveCareProvidersInFile(mContext);
-
-                // update elastic search by adding the new account and deleting the old
-                mDataManager.addUser(newCP);
-                mDataManager.deleteUser(user);
-
-                // update the logged in user.
-                user = newCP;
-                mDataManager.setLoggedInUser(user);
-            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
-                e.printStackTrace(); // TODO: Note this will always be called as Username will throw TakenUsernameException
-                return false;
-            }
-        }
-        else if (user instanceof Patient) {
-            try {
-                Patient newPatient = new Patient(new Email(email), new Username(username),
-                        phone, StoreData.patients.get(index).getShortCode());
-                newPatient.setIndex(index);
-                Log.d("EditProfile", "newPatient Shortcode: " +
-                        newPatient.getShortCode());
-
-                // update local storage
-                StoreData.patients.set(index, newPatient);
-                StoreData.saveInFile(mContext);
-
-                Log.d("EditProfile", "EditProfilePresenter: Shortcode: " +
-                        StoreData.patients.get(index).getShortCode());
-
-                // update elastic search by adding the new account and deleting the old
-                mDataManager.addUser(newPatient);
-                mDataManager.deleteUser(user);
-
-                // update the logged in user.
-                user = newPatient;
-                mDataManager.setLoggedInUser(user);
-            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
-            throw new IllegalArgumentException();
-        }
+        Log.d("EditProfile", "Saved successfully!");
         return true;
     }
 

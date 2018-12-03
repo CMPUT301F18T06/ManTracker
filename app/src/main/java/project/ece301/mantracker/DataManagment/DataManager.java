@@ -68,7 +68,7 @@ public class DataManager implements Observable {
     }
 
     public void setLoggedInUser(Account loggedInUser) {
-        Log.d("LOGIN", "Setting loggin session " + String.valueOf(loggedInUser != null));
+        Log.d("LOGIN", "Setting login session " + String.valueOf(loggedInUser != null));
         this.loggedInUser = loggedInUser;
         if (loggedInUser != null)
             saveLoginSession();

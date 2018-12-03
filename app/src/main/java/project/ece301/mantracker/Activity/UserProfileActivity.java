@@ -31,13 +31,12 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView phone;
     private TextView loginCode;
-    private int patientindex;
     private int index;
     private Toolbar toolbar;
     protected final int EDIT_REQUEST_CODE = 1;
     private DataManager dataManager;
 
-
+    public static final String PROFILE_EDIT_INDEX = "PROFILE_EDIT_INDEX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +61,8 @@ public class UserProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.userProfilePhone);
         loginCode = findViewById(R.id.LoginCode);
 
-        //get the patient index
+        //get the user index
         Intent intent = getIntent();
-        patientindex = intent.getIntExtra("USERINDEX", 0);
         index = intent.getIntExtra("USERINDEX", -1);
         dataManager = DataManager.getInstance(getApplicationContext());
     }
@@ -101,8 +99,7 @@ public class UserProfileActivity extends AppCompatActivity {
             // action with ID action_edit was selected
             case R.id.action_edit:
                 Intent goToEdit = new Intent(this, EditProfileActivity.class);
-                goToEdit.putExtra("Username", dataManager.getPatient(index).
-                        getUsernameText());
+                goToEdit.putExtra(PROFILE_EDIT_INDEX, dataManager.getPatient(index).getIndex());
                 startActivityForResult(goToEdit, EDIT_REQUEST_CODE);
                 break;
             default:
@@ -113,13 +110,11 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Do you need this?
-
         if (requestCode == EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
-                patientindex = data.getIntExtra(EditProfileActivity.NEW_INDEX, 0);
-                Log.d("EditProfile", "UserProfileActivity: User Shortcode: " +
-                        StoreData.patients.get(patientindex).getShortCode());
+                index = data.getIntExtra(EditProfileActivity.NEW_INDEX, -1);
+//                Log.d("EditProfile", "UserProfileActivity: User Shortcode: " +
+//                        StoreData.patients.get(index).getShortCode());
                 }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // do nothing

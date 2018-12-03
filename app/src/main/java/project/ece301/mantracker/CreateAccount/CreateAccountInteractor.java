@@ -52,7 +52,7 @@ public class CreateAccountInteractor {
         StoreData.loadFromFile(context);
         try {
             Account account;
-            Username username1 = new Username(username);
+            Username username1 = new Username(username, context);
             Email email1 = new Email(email);
             //TODO: validate phone number
 
