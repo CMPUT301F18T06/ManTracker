@@ -48,6 +48,7 @@ public class Record implements details, Serializable { //implementing serializab
          bodyLocations = new ArrayList<BodyLocation>();
          photos = new ArrayList<String>();
          ID = UUID.randomUUID().toString();
+         geolocation = null;
     }
 
     public void setLocationName(String locationName) {this.locationName = locationName;}

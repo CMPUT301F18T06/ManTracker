@@ -16,6 +16,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,9 @@ import project.ece301.mantracker.DataManagment.LocalStorage;
 import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
+import project.ece301.mantracker.MedicalProblem.Geolocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
@@ -50,6 +55,7 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_problem_list);
         oldProblems = (ListView) findViewById(R.id.problem_list);
         heading_text = findViewById(R.id.userNameTextView);
+        findViewById(R.id.mapBTN).setOnClickListener(view -> goToGoogleMapsPlaces());
         if (DataManager.getInstance(getApplicationContext()).getLoggedInUser() instanceof CareProvider) {
             ((TextView) findViewById(R.id.goodDayTextView)).setText(R.string.veiwing);
             (findViewById(R.id.floatingActionButton)).setVisibility(View.GONE);
@@ -174,5 +180,22 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
     @Override
     public void update() {
         adapter.notifyDataSetChanged();
+    }
+
+    public ArrayList<LatLng> getAllLocations(){
+        ArrayList<LatLng> geolocations = new ArrayList<>();
+        for (MedicalProblem problem: problems){
+            for (Record record: problem.getAllRecords()) {
+                if (record.getGeoLocation() != null)
+                    geolocations.add(record.getGeoLocation().getLatLng());
+            }
+        }
+        return geolocations;
+    }
+
+    public void goToGoogleMapsPlaces() {
+        Intent viewMap = new Intent(this, MapViewActivity.class);
+        viewMap.putExtra("LATLNGS", getAllLocations());
+        startActivity(viewMap);
     }
 }
