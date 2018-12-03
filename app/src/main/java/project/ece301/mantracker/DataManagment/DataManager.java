@@ -158,6 +158,11 @@ public class DataManager implements Observable {
     public ArrayList<Patient> getPatients() {
         if (loggedInUser instanceof CareProvider)
             return ((CareProvider) loggedInUser).getPatientsList();
+        if (loggedInUser instanceof Patient) {
+            ArrayList<Patient> patients = new ArrayList<Patient>();
+            patients.add((Patient) loggedInUser);
+            return patients;
+        }
         return null;
     }
 

@@ -85,6 +85,7 @@ public class Patient extends Account{
 
     public void removeRecord(int problemIndex, int rID) {
         problemList.get(problemIndex).removeRecord(rID);
+    }
 
     public void setProblems(List<MedicalProblem> foundProblems) {
         problemList = (ArrayList<MedicalProblem>) foundProblems;

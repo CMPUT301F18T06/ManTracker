@@ -26,13 +26,14 @@ import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
-public class ProblemListActivity extends AppCompatActivity {
+public class ProblemListActivity extends AppCompatActivity implements Observer {
 
     private ListView oldProblems;
     private ArrayAdapter<MedicalProblem> adapter;
@@ -79,7 +80,17 @@ public class ProblemListActivity extends AppCompatActivity {
                 startActivity(recordListSwitch);
             }
         });
+
+        Intent intent = getIntent();
+        index = intent.getIntExtra("PATIENTINDEX", -1);
+        actualIndex = intent.getIntExtra("PATIENTINDEX", -1);
         dataManager = DataManager.getInstance(getApplicationContext());
+        adapter = new ArrayAdapter<MedicalProblem>(this,
+                R.layout.problem_list_item, dataManager.getProblems(actualIndex));
+        oldProblems.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        populateUserProblems(index);
+        patients.addAll(dataManager.getPatients());
     }
 
     @Override
@@ -98,8 +109,10 @@ public class ProblemListActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<MedicalProblem>(this,
                 R.layout.problem_list_item, dataManager.getProblems(actualIndex));
-        populateUserProblems(index);
         oldProblems.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        populateUserProblems(index);
+        patients.addAll(dataManager.getPatients());
     }
 
     /**
@@ -118,7 +131,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 List<MedicalProblem> foundProblems = getProblemsTask.get();
                 Log.i("ELASTICSEARCH", "WORKS SUCCESSFULLY FOR PROBLEMs");
                 dataManager.setProblems(actualIndex, foundProblems);
-                adapter.notifyDataSetChanged();
+                Log.i("ELASTICSEARCH", foundProblems.toString());
                 LocalStorage.saveLoginSession(getApplicationContext(), dataManager.getLoggedInUser());
 
             } catch (Exception e) {
@@ -140,6 +153,7 @@ public class ProblemListActivity extends AppCompatActivity {
         Intent addProblemSwitch = new Intent(ProblemListActivity.this, AddProblemActivity.class);
         addProblemSwitch.putExtra(EXTRA_MESSAGE,Integer.toString(index));
         startActivity(addProblemSwitch);
+        update();
     }
 
     public void toUserProfile(View view) {
@@ -157,5 +171,10 @@ public class ProblemListActivity extends AppCompatActivity {
         intent.putExtra("LOGOUT","0");
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void update() {
+        adapter.notifyDataSetChanged();
     }
 }

@@ -131,9 +131,9 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
-    public void navigateToPatient(Patient patient) {
+    public void navigateToPatient(int index) {
         Intent goToProblems = new Intent(this, ProblemListActivity.class);
-        goToProblems.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
+        goToProblems.putExtra("PATIENTINDEX", index);
         startActivity(goToProblems);
     }
 

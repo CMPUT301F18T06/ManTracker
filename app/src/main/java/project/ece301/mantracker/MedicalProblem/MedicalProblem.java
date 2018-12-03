@@ -162,9 +162,11 @@ public class MedicalProblem implements details {
   
     public void removeRecord(int rID) {
         associatedRecords.remove(rID);
+    }
 
     public void removeRecord(Record record) {
         associatedRecords.remove(record);
+    }
       
     public ArrayList<Comment> getComments() {
         return comments;

@@ -46,7 +46,7 @@ public class Username {
     }
 
     private static boolean isUnique(String s) {
-        return DataManager.getInstance().getUser(s)==null;
+        return DataManager.getInstance(null).getUser(s)==null;
     }
 
     /**

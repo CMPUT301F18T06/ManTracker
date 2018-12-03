@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void navigateToPatientHome(Patient patient) {
         Intent goToMain = new Intent(this, ProblemListActivity.class);
         goToMain.putExtra("PATIENTINDEX", patient.getIndex());
+        goToMain.putExtra("MYINDEX", -1);
         Log.i("PATIENTHOME", String.valueOf(patient.getIndex()));
         startActivity(goToMain);
         finish();
