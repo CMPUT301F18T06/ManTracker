@@ -14,6 +14,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 import project.ece301.mantracker.User.CareProvider;
 
 
@@ -31,7 +32,11 @@ public class ElasticSearchCareproviderContoller{
             verifySettings();
             CareProvider careprovider = careProviders[0];
 
-            Index index = new Index.Builder(careprovider).index("cmput301f18t06test").type("careprovider").build();
+            Index index = new Index.Builder(careprovider)
+                    .index("cmput301f18t06test")
+                    .type("careprovider")
+                    .id(careprovider.getID())
+                    .build();
 
             try {
                 // where is the client?
@@ -67,7 +72,7 @@ public class ElasticSearchCareproviderContoller{
                     "    \"query\" : {\n" +
                     "        \"match\" : { \"username\" : \"" + search_parameters[0] + "\" }\n" +
                     "    }\n" +
-                    "}" ;
+                    "}" ; //{"username":"buggedUser"}
 
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t06test")

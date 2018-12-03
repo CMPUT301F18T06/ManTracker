@@ -52,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/standard"
-                    android:text="@string/tracked_problems" />
+                    android:text="@string/local_problems" />
 
                 <TextView
                     android:id="@+id/num_problems"

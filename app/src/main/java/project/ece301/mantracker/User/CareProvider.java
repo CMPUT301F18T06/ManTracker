@@ -24,7 +24,7 @@ public class CareProvider extends Account {
     }
 
     public CareProvider(Email email, Username username, String phone) {
-        super(email, username, phone);
+        super(email, username, phone, "Not Applicable");
         patients = new ArrayList<Patient>();
     }
 
@@ -34,6 +34,14 @@ public class CareProvider extends Account {
 
     public Patient getPatient(int index) {
         return patients.get(index);
+    }
+
+    public MedicalProblem getPatientProblem(Patient patient, String problemID) {
+        for (MedicalProblem problem : patient.getAllProblems()) {
+            if (problem.getId().equals(problemID))
+                return problem;
+        }
+        return null;
     }
 
     public ArrayList<MedicalProblem> getPatientProblems(int index) {
@@ -56,7 +64,9 @@ public class CareProvider extends Account {
         patients.remove(patient);
     }
 
-    public ArrayList<Patient> getPatientsList() { return patients; }
+    public ArrayList<Patient> getPatientsList() {
+        return patients;
+    }
 
     public int getPatientProblemCount(int index) {
         return (null != patients ? (null != patients.get(index).getAllProblems()
