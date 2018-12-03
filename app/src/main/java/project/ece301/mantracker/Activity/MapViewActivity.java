@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 import project.ece301.mantracker.R;
 
-public class MapViewActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class MapViewActivity extends AppCompatActivity implements OnMapReadyCallback {
     private MapView mapView;
     private GoogleMap gmap;
     private ArrayList<LatLng> latLngs;
@@ -32,15 +33,16 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
-        } else {
-            Intent intent = getIntent();
-            latLngs = intent.getParcelableArrayListExtra("LATLNGS");
         }
+        Intent intent = getIntent();
+        latLngs = intent.getParcelableArrayListExtra("LATLNGS");
+        Log.d("Places", String.valueOf(latLngs.size()));
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -53,11 +55,12 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
 
         mapView.onSaveInstanceState(mapViewBundle);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        for (LatLng latLng: latLngs) {
+        for (LatLng latLng : latLngs) {
             gmap.addMarker(new MarkerOptions().position(latLng));
         }
     }
@@ -73,6 +76,7 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         super.onStop();
         mapView.onStop();
     }
+
     @Override
     protected void onPause() {
         mapView.onPause();
@@ -84,11 +88,13 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         mapView.onDestroy();
         super.onDestroy();
     }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
