@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.InputType;
+import android.util.Log;
 import android.widget.EditText;
 
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
@@ -34,7 +35,10 @@ public class AddCommentDialogFragment extends DialogFragment implements DialogIn
     public void onClick(DialogInterface dialog, int position) {
         String comment = editQuantity.getText().toString();
         RecordListActivity callingActivity = (RecordListActivity) getActivity();
-        callingActivity.addComment(comment);
+        Log.d("Comment", comment);
+        if (callingActivity != null) {
+            callingActivity.addComment(comment);
+        }
         dialog.dismiss();
     }
 }

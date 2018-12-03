@@ -2,6 +2,7 @@ package project.ece301.mantracker.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -26,12 +27,13 @@ import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
+import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 
 import static project.ece301.mantracker.File.StoreData.patients;
 
-public class RecordListActivity extends AppCompatActivity {
+public class RecordListActivity extends AppCompatActivity implements Observer {
     private static String TAG = "RecordListActivity";
     private ListView recordListView;
     private ArrayAdapter<Record> adapter;
@@ -46,6 +48,7 @@ public class RecordListActivity extends AppCompatActivity {
     private String problemDate;
     private ArrayList<String> photoStrings;
     private MedicalProblem problem;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class RecordListActivity extends AppCompatActivity {
         setContentView(R.layout.medical_records);
         recordListView = findViewById(R.id.recordList);
         commentListView = findViewById(R.id.commentList);
+        commentList = new ArrayList<>();
 
         recordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override //when user selects a problem from the list
@@ -79,15 +83,33 @@ public class RecordListActivity extends AppCompatActivity {
                 onCommentClicked(position);
             }
         });
+        dataManager = DataManager.getInstance(getApplicationContext());
+        commentArrayAdapter = new ArrayAdapter<Comment>(this, R.layout.comment_list_item, commentList);
+        commentListView.setAdapter(commentArrayAdapter);
+
+
     }
 
     void onOpenAddCommentDialog() {
         new AddCommentDialogFragment().show(getSupportFragmentManager(), TAG);
     }
 
-    void addComment(String comment) {
-        commentList.add(new Comment(DataManager.getInstance(getApplicationContext()).getLoggedInUser(), comment));
-        commentArrayAdapter.notifyDataSetChanged();
+    void addComment(@NonNull String comment) {
+        Log.d(TAG, comment);
+        Log.w(TAG, commentList.toString());
+        MedicalProblem problem = dataManager.getProblem(index, problemIndex);
+        Log.w(TAG, problem.toString());
+        Log.w(TAG, problem.getComments().toString());
+        try {
+            Comment comment1 = new Comment(DataManager.getInstance(getApplicationContext())
+                    .getLoggedInUser(), comment);
+
+            commentList.add(comment1);
+            problem.setComments(commentList);
+            commentArrayAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void onCommentClicked(int position) {
@@ -139,7 +161,7 @@ public class RecordListActivity extends AppCompatActivity {
         }
 
         if (DataManager.getInstance(getApplicationContext()).getLoggedInUser() instanceof CareProvider) {
-            problem = DataManager.getInstance(getApplicationContext()).getProblem(0, problemIndex);
+            problem = dataManager.getProblem(index, problemIndex);
             ((ImageButton)findViewById(R.id.addRecordButton))
                     .setOnClickListener(view -> onOpenAddCommentDialog());
         }
@@ -147,7 +169,7 @@ public class RecordListActivity extends AppCompatActivity {
         try {
             //set the patient username and problem title header
             TextView username_text = findViewById(R.id.addNewRecordHeader);
-            username_text.setText(patients.get(index).getUsername().toString());
+            username_text.setText(dataManager.getPatient(index).getUsernameText());
             Toolbar medpro_toolbar = (Toolbar)findViewById(R.id.medpro_toolbar);
             setMedproToolbar(medpro_toolbar,title,problemDescription);
 //            TextView title_text = findViewById(R.id.recordTitleTextView);
@@ -161,7 +183,6 @@ public class RecordListActivity extends AppCompatActivity {
             getProblemsTask.execute(problemID);
             problem = getProblemsTask.get().get(0);
             commentList = problem.getComments();
-            commentArrayAdapter = new ArrayAdapter<Comment>(this, R.layout.comment_list_item, commentList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -206,7 +227,7 @@ public class RecordListActivity extends AppCompatActivity {
         date_text.setText(problemDate);
 
 
-        adapter.notifyDataSetChanged();
+        update();
 
 
     }
@@ -275,9 +296,6 @@ public class RecordListActivity extends AppCompatActivity {
 
 
 
-
-
-
     public void toUserProfile(View view) {
         //send the patient information to the user profile activity
         Intent userProfileIntent = new Intent(RecordListActivity.this, UserProfileActivity.class );
@@ -285,6 +303,11 @@ public class RecordListActivity extends AppCompatActivity {
         startActivity(userProfileIntent);
     }
 
+    @Override
+    public void update() {
+        adapter.notifyDataSetChanged();
+        commentArrayAdapter.notifyDataSetChanged();
+    }
 }
 
 
