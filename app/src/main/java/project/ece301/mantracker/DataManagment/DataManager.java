@@ -100,19 +100,6 @@ public class DataManager implements Observable {
         //user could be patient or care provider
         ArrayList<Patient> patient = new ArrayList<Patient>();
         ArrayList<CareProvider> careProvider = new ArrayList<CareProvider>();
-//        try {
-//            //fetch from elasticsearch and populate the records list
-//            //Records are queried by the current user's username
-//            ElasticSearchCareproviderContoller.GetCareProviderTask getCareProvidersTask = new ElasticSearchCareproviderContoller.GetCareProviderTask();
-//            getCareProvidersTask.execute(username);
-//            List<CareProvider> foundCareProvider = getCareProvidersTask.get();
-//            careProvider.addAll(foundCareProvider);
-//        } catch (Exception e) {
-//            Log.i("GetProviderTask", "Failed to get the records from the async object");
-//        }
-//        if (!careProvider.isEmpty()) {
-//            return careProvider.get(0); //returns "careprovider123"
-//        }
 
         try {
             //fetch from elasticsearch and populate the records list
