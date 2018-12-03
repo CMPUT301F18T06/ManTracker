@@ -97,4 +97,5 @@
     <string name="edit">Edit</string>
     <string name="enter_your_comment">Enter your comment:</string>
     <string name="add_comment">Add comment</string>
+    <string name="local_problems">Locally Stored Problems:</string>
 </resources>
