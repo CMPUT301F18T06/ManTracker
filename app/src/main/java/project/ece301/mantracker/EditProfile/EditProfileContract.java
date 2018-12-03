@@ -67,5 +67,13 @@ public interface EditProfileContract {
          * Loads a phone number
          */
         void loadPhone();
+
+        /**
+         * Saves the new user information on elastic search and locally
+         * @param username
+         * @param email
+         * @param phone
+         */
+        boolean saveUser(String username, String email, String phone);
     }
 }
