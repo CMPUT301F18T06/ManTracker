@@ -110,6 +110,7 @@ public class DataManager implements Observable {
         Log.i("AddRecordTask", "Failed to get the records from the async object");
     }
         if (!patient.isEmpty()) {return patient.get(0);}
+        Log.d("NoPatient", username);
 
         try {
         //fetch from elasticsearch and populate the records list
@@ -122,6 +123,7 @@ public class DataManager implements Observable {
         Log.i("GetProviderTask", "Failed to get the records from the async object");
     }
         if (!careProvider.isEmpty()) {return careProvider.get(0);}
+        Log.d("NoCareProvider", username);
 
     //if no careprovider or patient has user name then return null
         return null;
@@ -153,10 +155,10 @@ public class DataManager implements Observable {
      * Gets a list a patients from elastic search
      * @return a list of patients
      */
-    public ArrayList<Patient> getPatients() throws InvalidClassException {
+    public ArrayList<Patient> getPatients() {
         if (loggedInUser instanceof CareProvider)
             return ((CareProvider) loggedInUser).getPatientsList();
-        throw new InvalidClassException("Must be a care provider to get patients!");
+        return null;
     }
 
     /**
@@ -177,10 +179,8 @@ public class DataManager implements Observable {
     }
 
     public Patient getPatientAt(int i) {
-        try {
+        if (getPatients() != null) {
             return getPatients().get(i);
-        } catch (InvalidClassException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -247,10 +247,16 @@ public class DataManager implements Observable {
 
     /**
      * Deletes a record from elastic search.
-     * @param record the record to delete
+     * @param recordIndex the record to delete
      * @return True if successful. False otherwise.
      */
-    public boolean deleteRecord(Record record) {
+    public boolean deleteRecord(int problemIndex, int recordIndex) {
+        ((Patient)loggedInUser).removeRecord(problemIndex, recordIndex);
+        return true;
+    }
+
+    public boolean deleteRecord(int problemIndex, Record record) {
+        ((Patient)loggedInUser).removeRecord(problemIndex, record);
         return true;
     }
 

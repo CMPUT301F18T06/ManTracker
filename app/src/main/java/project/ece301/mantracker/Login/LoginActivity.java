@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
         goToMain.putExtra("CAREPROVIDERINDEX", careProvider.getIndex());
         Log.i("CAREPROVIDERHOME", String.valueOf(careProvider.getIndex()));
+        StoreData.addCareProvider(careProvider, getApplicationContext());
         startActivity(goToMain);
         finish();
     }

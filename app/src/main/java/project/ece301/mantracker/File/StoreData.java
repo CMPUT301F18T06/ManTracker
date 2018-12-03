@@ -140,6 +140,23 @@ public class StoreData {
         throw new IllegalArgumentException();
     }
 
+    public static int getCareProviderIndex(String username) {
+        for (CareProvider careProvider: careProviders) {
+            if (careProvider.getUsernameText().equals(username))
+                return careProviders.indexOf(careProvider);
+        }
+        return -1;
+    }
+
+    public static void addCareProvider(CareProvider careProvider, Context context) {
+        int index = getCareProviderIndex(careProvider.getUsernameText());
+        if (index >= 0)
+            careProviders.set(index, careProvider);
+        else
+            careProviders.add(careProvider);
+        saveCareProvidersInFile(context);
+    }
+
     /**
      * Gets the index of patient
      * @param patient the patient object to get the index of

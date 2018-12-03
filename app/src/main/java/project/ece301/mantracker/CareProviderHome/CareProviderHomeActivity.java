@@ -26,6 +26,7 @@ import project.ece301.mantracker.Activity.SearchableActivity;
 import project.ece301.mantracker.Activity.UserProfileActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
@@ -108,6 +109,12 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
+    public void showAlreadyAddedPatientToast(String username) {
+        Toast.makeText(getApplicationContext(), username + " " + getResources()
+                .getString(R.string.already_added), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
@@ -124,11 +131,10 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
-    public void navigateToPatient(int index) { //TODO: where to?
-        Intent goToProblem = new Intent(this, ProblemListActivity.class);
-        goToProblem.putExtra("PATIENTINDEX", index);
-        goToProblem.putExtra("PATIENTINDEX", index);
-        startActivity(goToProblem);
+    public void navigateToPatient(Patient patient) {
+        Intent goToProblems = new Intent(this, ProblemListActivity.class);
+        goToProblems.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
+        startActivity(goToProblems);
     }
 
 

@@ -1,6 +1,7 @@
 package project.ece301.mantracker.CreateAccount;
 
 
+
 import android.content.Context;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import project.ece301.mantracker.User.Patient;
 
 
 public class CreateAccountInteractor {
+    final static String TAG = "CreateAccountInteractor";
 
     interface OnCreateAccountFinishedListener {
         void onUsernameInvalidError();
@@ -70,9 +72,8 @@ public class CreateAccountInteractor {
                 account = patient;
 
             }
-
-            // Save the new user to elastic search
-            dataManager.addUser(account);
+            Log.d("ADDINGUSER", username);
+            boolean result = dataManager.addUser(account);
             dataManager.setLoggedInUser(account);
 
 

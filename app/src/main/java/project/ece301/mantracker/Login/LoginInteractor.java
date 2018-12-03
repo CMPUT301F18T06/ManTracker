@@ -1,5 +1,7 @@
 package project.ece301.mantracker.Login;
 
+
+import android.util.Log;
 import android.content.Context;
 
 import project.ece301.mantracker.Account.Account;
@@ -17,6 +19,7 @@ public class LoginInteractor {
         void onPatientLogin(Patient patient);
         void onCareProviderLogin(CareProvider careProvider);
     }
+
 
     public void login(final String username, final OnLoginFinishedListener listener, Context context) {
         DataManager dataManager = DataManager.getInstance(context);
