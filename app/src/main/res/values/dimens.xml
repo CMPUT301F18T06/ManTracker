@@ -1,3 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="standard">8dp</dimen>
+    <dimen name="large">32dp</dimen>
+    <dimen name="elevation">5dp</dimen>
+    <dimen name="list_height">370dp</dimen>
 </resources>

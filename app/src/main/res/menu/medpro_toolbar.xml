@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <item android:id="@+id/medpro_action_gallery"
+        android:title="Gallery"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/medpro_action_delete"
+        android:title="Delete"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/medpro_action_edit"
+        android:title="Edit"
+        app:showAsAction="never"/>
+
+</menu>
+
+<!--TODO ICON CAN BE ADDED IF TIME ALLOWED-->

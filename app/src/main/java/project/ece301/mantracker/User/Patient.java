@@ -1,8 +1,13 @@
 package project.ece301.mantracker.User;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
@@ -10,36 +15,79 @@ import project.ece301.mantracker.MedicalProblem.Geolocation;
 
 //
 public class Patient extends Account{
-    private ArrayList<MedicalProblem> problemList;
-    private ArrayList<BodyLocation> bodyLocations;
-    private ArrayList<Geolocation> geoLocations;
-    private ArrayList<Record> records;
+    private ArrayList<MedicalProblem> problemList = new ArrayList<MedicalProblem>();
+    private ArrayList<BodyLocation> bodyLocations = new ArrayList<BodyLocation>();
+    private ArrayList<Geolocation> geoLocations = new ArrayList<Geolocation>();
+    private ArrayList<Record> records = new ArrayList<Record>();
+    private String patientID;
+
 
     public Patient() {
-
+        patientID = UUID.randomUUID().toString(); //random ID
     }
 
-    public MedicalProblem getProblem(MedicalProblem problem) { return null; }
+    public Patient(Email email, Username username, String phone, String shortCode) {
+        super(email, username, phone, shortCode);
+        patientID = UUID.randomUUID().toString(); //random ID
+    }
 
-    public void addProblem(MedicalProblem problem) {}
+    public String getID() {return patientID;}
+
+    public MedicalProblem getProblem(int index) {
+        return problemList.get(index);
+    }
+
+    public void addProblem(MedicalProblem problem) {
+        problemList.add(problem);
+    }
+
+    public void setProblem(MedicalProblem problem, int index) {
+        problemList.set(index,problem);
+    }
 
     public void deleteProblem(MedicalProblem problem) {}
 
     public ArrayList<MedicalProblem> getAllProblems() {
-        return null;
+        return problemList;
     }
 
+    //TODO what is this?
     public BodyLocation getBodyLocation(BodyLocation bodyLocation) { return null; }
+    public BodyLocation getBodyLocation(int index) { return bodyLocations.get(index); }
 
-    public void addBodyLocation(BodyLocation bodyLocation) {}
+    public void addBodyLocation(BodyLocation bodyLocation) {
+        bodyLocations.add(bodyLocation);
+    }
 
-    public void deleteBodyLocation(BodyLocation bodyLocation) {}
+    public void deleteBodyLocation(BodyLocation bodyLocation) {
+        bodyLocations.remove(bodyLocation);
+    }
 
-    public ArrayList<Record> getAllRecords() { return null; }
+    public ArrayList<Record> getAllRecords() {
+        ArrayList<Record> allRecords = new ArrayList<>();
+        for (MedicalProblem problem: problemList)
+            allRecords.addAll(problem.getAllRecords());
+        return allRecords;
+    }
 
-    public void addRecord(Record record) {}
+    public void addRecord(int problemIndex, Record record) {
+        problemList.get(problemIndex).addRecord(record); //TODO test
+    }
 
-    public Record getRecord(Integer rID) { return null; }
+    public Record getRecord(int problemId, int recordID) { return getProblem(problemId).getRecord(recordID); }
 
-    public void removeRecord(Integer rID) {}
+    public int getNumberOfProblems() {return problemList.size();}
+
+  
+    public void removeRecord(int problemIndex, Record record) {
+        problemList.get(problemIndex).removeRecord(record);
+    }
+
+    public void removeRecord(int problemIndex, int rID) {
+        problemList.get(problemIndex).removeRecord(rID);
+    }
+
+    public void setProblems(List<MedicalProblem> foundProblems) {
+        problemList = (ArrayList<MedicalProblem>) foundProblems;
+    }
 }
