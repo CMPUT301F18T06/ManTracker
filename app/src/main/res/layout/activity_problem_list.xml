@@ -98,7 +98,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:onClick="goToGoogleMapsPlaces"
         android:text="map"
         app:layout_constraintBottom_toBottomOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="@+id/problemListSearch"

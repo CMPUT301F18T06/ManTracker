@@ -50,6 +50,7 @@ public class ProblemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problem_list);
         oldProblems = (ListView) findViewById(R.id.problem_list);
         heading_text = findViewById(R.id.userNameTextView);
+        findViewById(R.id.mapBTN).setOnClickListener(view -> goToGoogleMapsPlaces());
 
         //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
