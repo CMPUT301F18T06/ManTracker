@@ -36,7 +36,7 @@ public class Record implements details, Serializable { //implementing serializab
 
     private ArrayList<String> commentlist;
 
-    private Object geolocation;
+    private Geolocation geolocation;
 
     private ArrayList<String> photos;
 
@@ -199,17 +199,16 @@ public class Record implements details, Serializable { //implementing serializab
      * Sets a GeoLocation to be associated with this record
      * @param geolocation the GeoLocation to associate with this record
      */
-    //    Input a geolocation class
-    public void setGeoLocation(Object geolocation){
-
+    public void setGeoLocation(Geolocation geolocation){
+        this.geolocation = geolocation;
     }
 
     /**
      * Gets the geolocation associated with this record
      * @return a GeoLocation
      */
-    public Object getGeoLocation(){
-        return null;
+    public Geolocation getGeoLocation(){
+        return geolocation;
     }
 
     @Override

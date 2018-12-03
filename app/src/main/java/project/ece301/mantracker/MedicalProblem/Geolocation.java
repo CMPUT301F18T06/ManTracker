@@ -52,8 +52,8 @@ public class Geolocation extends Location {
      * Gets the Latitude and longitude of this geolocation
      * @return a LatAndLong representing the latitude and longitude of this Geolocation
      */
-    public LatAndLong getGeolocation() {
-        return new LatAndLong(super.getLatitude(), super.getLongitude());
+    public LatLng getLatLng() {
+        return new LatLng(super.getLatitude(), super.getLongitude());
     }
 
 
