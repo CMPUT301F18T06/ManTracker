@@ -1,7 +1,9 @@
 package project.ece301.mantracker.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import project.ece301.mantracker.Account.Account;
 import project.ece301.mantracker.Account.Email;
@@ -19,22 +21,15 @@ public class Patient extends Account{
     private ArrayList<Record> records = new ArrayList<Record>();
     private String patientID;
 
-    private String shortCode;
 
     public Patient() {
         patientID = UUID.randomUUID().toString(); //random ID
     }
 
     public Patient(Email email, Username username, String phone, String shortCode) {
-        super(email, username, phone);
+        super(email, username, phone, shortCode);
         patientID = UUID.randomUUID().toString(); //random ID
-        this.shortCode = shortCode;
     }
-
-
-    public void setShortCode(String shortCode) {this.shortCode = shortCode;}
-
-    public String getShortCode(){ return this.shortCode;}
 
     public String getID() {return patientID;}
 
@@ -56,19 +51,43 @@ public class Patient extends Account{
         return problemList;
     }
 
+    //TODO what is this?
     public BodyLocation getBodyLocation(BodyLocation bodyLocation) { return null; }
+    public BodyLocation getBodyLocation(int index) { return bodyLocations.get(index); }
 
-    public void addBodyLocation(BodyLocation bodyLocation) {}
+    public void addBodyLocation(BodyLocation bodyLocation) {
+        bodyLocations.add(bodyLocation);
+    }
 
-    public void deleteBodyLocation(BodyLocation bodyLocation) {}
+    public void deleteBodyLocation(BodyLocation bodyLocation) {
+        bodyLocations.remove(bodyLocation);
+    }
 
-    public ArrayList<Record> getAllRecords() { return null; }
+    public ArrayList<Record> getAllRecords() {
+        ArrayList<Record> allRecords = new ArrayList<>();
+        for (MedicalProblem problem: problemList)
+            allRecords.addAll(problem.getAllRecords());
+        return allRecords;
+    }
 
-    public void addRecord(Record record) {}
+    public void addRecord(int problemIndex, Record record) {
+        problemList.get(problemIndex).addRecord(record); //TODO test
+    }
 
     public Record getRecord(int problemId, int recordID) { return getProblem(problemId).getRecord(recordID); }
 
     public int getNumberOfProblems() {return problemList.size();}
 
-    public void removeRecord(Integer rID) {}
+  
+    public void removeRecord(int problemIndex, Record record) {
+        problemList.get(problemIndex).removeRecord(record);
+    }
+
+    public void removeRecord(int problemIndex, int rID) {
+        problemList.get(problemIndex).removeRecord(rID);
+    }
+
+    public void setProblems(List<MedicalProblem> foundProblems) {
+        problemList = (ArrayList<MedicalProblem>) foundProblems;
+    }
 }

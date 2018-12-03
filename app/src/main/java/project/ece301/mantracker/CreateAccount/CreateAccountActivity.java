@@ -42,7 +42,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
       
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
-        presenter = new CreateAccountPresenter(this, new CreateAccountInteractor());
+        presenter = new CreateAccountPresenter(getApplicationContext(),this,
+                new CreateAccountInteractor());
     }
 
     private void validateCredentials() {
@@ -98,9 +99,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
         int index = StoreData.getIndexOf(careProvider);
         careProvider.setIndex(index); //set the local index for the patient
         Log.i("CP_HOME", "CP index: " + String.valueOf(index));
+        StoreData.addCareProvider(careProvider, getApplicationContext());
         goToMain.putExtra("CP_INDEX", StoreData.getIndexOf(careProvider));
-
-
         startActivity(goToMain);
         finish();
     }

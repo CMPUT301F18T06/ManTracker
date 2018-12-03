@@ -2,14 +2,20 @@ package project.ece301.mantracker.CreateAccount;
 
 import android.content.Context;
 
+import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.Presenter;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
-public class CreateAccountPresenter implements CreateAccountInteractor.OnCreateAccountFinishedListener{
+public class CreateAccountPresenter extends Presenter implements CreateAccountInteractor.OnCreateAccountFinishedListener{
     private CreateAccountView createAccountView;
     private CreateAccountInteractor createAccountInteractor;
+    private DataManager dataManager;
 
-    CreateAccountPresenter(CreateAccountView createAccountView, CreateAccountInteractor createAccountInteractor) {
+    CreateAccountPresenter(Context context, CreateAccountView createAccountView,
+                           CreateAccountInteractor createAccountInteractor) {
+        super(context);
+        dataManager = DataManager.getInstance(context);
         this.createAccountView = createAccountView;
         this.createAccountInteractor = createAccountInteractor;
     }

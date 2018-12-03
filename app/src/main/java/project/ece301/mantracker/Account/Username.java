@@ -17,6 +17,8 @@ import android.support.annotation.NonNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import project.ece301.mantracker.DataManagment.DataManager;
+
 //Validates and sets usernames
 
 /**
@@ -44,7 +46,7 @@ public class Username {
     }
 
     private static boolean isUnique(String s) {
-        return true;
+        return DataManager.getInstance(null).getUser(s)==null;
     }
 
     /**

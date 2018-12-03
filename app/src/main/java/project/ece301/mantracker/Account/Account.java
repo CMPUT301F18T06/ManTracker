@@ -14,6 +14,9 @@ package project.ece301.mantracker.Account;
 
 import java.util.UUID;
 
+//import project.ece301.mantracker.User.CareProvider;
+//import project.ece301.mantracker.User.Patient;
+
 /**
  * Represents a user account
  * Accounts have a username, an email and a phone.
@@ -29,8 +32,9 @@ public class Account {
     private String phone;
     private String ID;
     private int localIndex;
+    private String shortCode;
 
-     /**
+    /**
      * Constructs Account objects
      *
      */
@@ -45,12 +49,18 @@ public class Account {
      * @param username username associated with the account
      * @param phone phone associated with the account
      */
-    public Account(Email email, Username username, String phone) {
+    public Account(Email email, Username username, String phone, String shortCode) {
         this.username = username;
         this.email = email;
         this.phone = phone;
+        this.shortCode = shortCode;
         ID = UUID.randomUUID().toString(); //random ID
     }
+
+
+    public void setShortCode(String shortCode) {this.shortCode = shortCode;}
+
+    public String getShortCode(){ return this.shortCode;}
 
     /**
      * Sets email of the account
@@ -131,5 +141,11 @@ public class Account {
         // Compare the data members and return accordingly
         return this.getUsername().toString().equals(account.getUsername().toString());
     }
-}
 
+  //  @Override
+ //   public boolean equals(Object o) {
+  //      if (o instanceof Account || o instanceof CareProvider || o instanceof Patient)
+  //          return ((Account)o).getUsernameText().equals(this.getUsernameText());
+   //     return false;
+//    }
+}
