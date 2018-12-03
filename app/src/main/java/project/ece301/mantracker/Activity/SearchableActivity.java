@@ -133,6 +133,23 @@ public class SearchableActivity extends AppCompatActivity {
             Log.i("RecordQueryTask", "Failed");
         }
 
+        try { //search for body locations that match
+            ElasticSearchRecordController.GetAllRecords getRecordsQuery = new ElasticSearchRecordController.GetAllRecords();
+            getRecordsQuery.execute(query);
+            //returns all records. just find which ones actually match the query
+            List<Record> foundRecords = getRecordsQuery.get();
+            for(Record record: foundRecords) {
+                for(int i = 0; i < record.getBodyLocationList().size(); i++) {
+                    if (record.getBodyLocationList().get(i).equals(query)) {
+                        recordList.add(record);
+                    }
+                }
+            }
+            Log.i("RecordLabelTask", String.valueOf(recordList.size()));
+        } catch (Exception e) {
+            Log.i("RecordLabelTask", "Failed");
+        }
+
         try {
             ElasticSearchProblemController.UserQuery getProblemsQuery = new ElasticSearchProblemController.UserQuery();
             getProblemsQuery.execute(query);
@@ -142,6 +159,8 @@ public class SearchableActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.i("RecordQueryTask", "Failed");
         }
+
+
 
         recordAdapter.notifyDataSetChanged();
         problemAdapter.notifyDataSetChanged();

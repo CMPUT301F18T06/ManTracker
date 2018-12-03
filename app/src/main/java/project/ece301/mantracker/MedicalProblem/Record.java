@@ -12,8 +12,6 @@ package project.ece301.mantracker.MedicalProblem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 import project.ece301.mantracker.details;
@@ -32,6 +30,7 @@ public class Record implements details, Serializable { //implementing serializab
     private String associatedProblemID;
     private String associatedPatient;
     private String locationName; //used when querying for location key words
+
 
     private ArrayList<BodyLocation> bodyLocations;
 
@@ -190,6 +189,7 @@ public class Record implements details, Serializable { //implementing serializab
     public int getNumOfPhotos(){
         return 0;
     }
+
     public ArrayList<String> getPhotoList(){
         return photos;
 

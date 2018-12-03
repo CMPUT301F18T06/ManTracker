@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
-import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;

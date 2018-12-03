@@ -121,10 +121,18 @@ public class RecordDetailsActivity extends AppCompatActivity implements OnMapRea
         startActivity(intent);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish(); //end this activity
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        finish(); //end this activity
+//    }
+
+    public void toUserProfile(View view)
+    {
+        //send the patient information to the user profile activity
+        Intent userProfileIntent = new Intent(RecordDetailsActivity.this, UserProfileActivity.class );
+        userProfileIntent.putExtra("USERINDEX", index);
+        startActivity(userProfileIntent);
     }
 
     @Override
