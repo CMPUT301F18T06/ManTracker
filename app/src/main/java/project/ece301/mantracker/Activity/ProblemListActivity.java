@@ -28,6 +28,7 @@ import project.ece301.mantracker.DataManagment.LocalStorage;
 import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
 import project.ece301.mantracker.MedicalProblem.Geolocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
@@ -185,9 +186,21 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
     public ArrayList<LatLng> getAllLocations(){
         ArrayList<LatLng> geolocations = new ArrayList<>();
         for (MedicalProblem problem: problems){
-            for (Record record: problem.getAllRecords()) {
-                if (record.getGeoLocation() != null)
-                    geolocations.add(record.getGeoLocation().getLatLng());
+            try {
+                ArrayList<Record> recordList = new ArrayList<>();
+                //fetch from elasticsearch and populate the records list
+                //Records are queried by the current user's username
+                ElasticSearchRecordController.GetRecordsTask getRecordsTask = new ElasticSearchRecordController.GetRecordsTask();
+                getRecordsTask.execute(problem.getId());
+                List<Record> foundRecords = getRecordsTask.get();
+                recordList.addAll(foundRecords);
+
+                for (Record record: recordList) {
+                    if (record.getGeoLocation() != null)
+                        geolocations.add(record.getGeoLocation().getLatLng());
+                }
+            } catch (Exception e) {
+                Log.i("AddRecordTask", "Failed to get the records from the async object");
             }
         }
         return geolocations;
