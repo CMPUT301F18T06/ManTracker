@@ -3,4 +3,5 @@
     <dimen name="standard">8dp</dimen>
     <dimen name="large">32dp</dimen>
     <dimen name="elevation">5dp</dimen>
+    <dimen name="list_height">370dp</dimen>
 </resources>

@@ -3,15 +3,20 @@ package project.ece301.mantracker.CreateAccount;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
 import project.ece301.mantracker.Activity.MainActivity;
+import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.CareProviderHome.CareProviderHomeActivity;
-import project.ece301.mantracker.PatientHome.PatientHomeActivity;
+import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchCareproviderContoller;
+import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
+import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 public class CreateAccountActivity extends AppCompatActivity implements CreateAccountView {
 
@@ -21,6 +26,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
 
     private CheckBox isCareProvider;
     private CreateAccountPresenter presenter;
+
+    public static final String USERNAME_EXTRA = "USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     private void validateCredentials() {
         presenter.validateCredentials(username.getText().toString(), email.getText().toString(),
                 phonenumber.getText().toString(), isCareProvider.isChecked());
+
     }
 
     @Override
@@ -70,10 +78,16 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     }
 
     @Override
-    public void navigateToPatientHome(Patient patient) { //TODO: pass in account
-        Intent goToMain = new Intent(this, PatientHomeActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("user", patient);
+    public void navigateToPatientHome(Patient patient) {
+        Intent goToMain = new Intent(this, ProblemListActivity.class);
+        int index = StoreData.getIndexOf(patient);
+        patient.setIndex(index); //set the local index for the patient
+        Log.i("PATIENTHOME", "Patient index: " + String.valueOf(index));
+        goToMain.putExtra("PATIENTINDEX", StoreData.getIndexOf(patient));
+
+
+        saveInFile(getApplicationContext());
+
         startActivity(goToMain);
         finish();
     }
@@ -81,8 +95,12 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
     @Override
     public void navigateToCareProviderHome(CareProvider careProvider) { //TODO: pass in account
         Intent goToMain = new Intent(this, CareProviderHomeActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("user", careProvider);
+        int index = StoreData.getIndexOf(careProvider);
+        careProvider.setIndex(index); //set the local index for the patient
+        Log.i("CP_HOME", "CP index: " + String.valueOf(index));
+        goToMain.putExtra("CP_INDEX", StoreData.getIndexOf(careProvider));
+
+
         startActivity(goToMain);
         finish();
     }

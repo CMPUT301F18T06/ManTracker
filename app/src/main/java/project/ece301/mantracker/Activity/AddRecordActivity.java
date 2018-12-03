@@ -1,3 +1,16 @@
+/**
+ * Class Name: AddRecordActivity
+ *
+ * Version: Version 1.0
+ *
+ * Date: November 30, 2018
+ *
+ * Activity for adding a record.
+ * This activity allows the user to add and save a new record.
+ *
+ * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
+ */
+
 package project.ece301.mantracker.Activity;
 
 import android.app.DatePickerDialog;
@@ -80,6 +93,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     private String dateString;
     private String problemID;
     private String newDate;
+    private String nameMsg;
 
     private int index,ProblemIndex;
 
@@ -161,6 +175,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         problemID = extras.getString("PROBLEMID");
         ProblemIndex = extras.getInt("ProblemIndex");
         index = extras.getInt("USERINDEX");
+
     }
 
     @Override
@@ -172,7 +187,12 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
     }
 
 
-
+    /**
+     * Saves a new record based on the fields entered by the user into the app's UI.
+     * The new record is posted to elastic search.
+     *
+     * @param view the save record button
+     */
     public void saveRecord(View view) {
         //Create a new record that will be passed back to the record list activity
         Record record = new Record();
@@ -180,6 +200,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         for(int i =0; i<bodyLocations.size();i++){
             record.addBodyLocation(bodyLocations.get(i));
         }
+        bodyLocations.clear();
 
         for(int i =0; i<photos.size();i++){
             record.addPhoto(photos.get(i));
@@ -196,24 +217,26 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         record.setTitle(enteredTitle.getText().toString());
         record.setDate(newDate);
         record.setProblemID(problemID);
+        record.setAssociatedPatient(patients.get(index).getUsername().toString());
 
-        // Set geolocation
-        Location temp = new Location(LocationManager.GPS_PROVIDER);
-        temp.setLatitude(latlng.latitude);
-        temp.setLongitude(latlng.longitude);
-        record.setGeoLocation(new Geolocation(temp));
-
+        if (latlng != null) {
+            // Set geolocation
+            Location temp = new Location(LocationManager.GPS_PROVIDER);
+            temp.setLatitude(latlng.latitude);
+            temp.setLongitude(latlng.longitude);
+            record.setGeoLocation(new Geolocation(temp));
+            record.setLocationName(nameMsg);
+        }
 
         // add record in the offline file
-//        Patient patient = patients.get(index);
-//        MedicalProblem problem = patient.getProblem(ProblemIndex);
-//        problem.addRecord(record);
-//
-//        patient.setProblem(problem,ProblemIndex);
-//
-//        patients.add(index,patient);
-//        saveInFile(this); //save locally
+        Patient patient = patients.get(index);
+        MedicalProblem problem = patient.getProblem(ProblemIndex);
+        problem.addRecord(record);
 
+        patient.setProblem(problem,ProblemIndex);
+
+        patients.set(index,patient);
+        saveInFile(this); //save locally
 
         //post to elasticsearch
         ElasticSearchRecordController.AddRecordTask addRecordsTask = new ElasticSearchRecordController.AddRecordTask();
@@ -230,10 +253,26 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
 
     }
 
+    /**
+     * Starts a BodyLocationActivity activity.
+     *
+     * @param view the add body photo button
+     */
     public void BodyLocationPhotos(View view){
-        startActivity(new Intent(this, BodyLocationActivity.class));
+        Intent intent = new Intent(this, BodyLocationActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt("USERINDEX", index);
+        extras.putInt("ProblemIndex", ProblemIndex);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
+    /**
+     * Displays a dialog asking the user if they want to upload existing photos or take a photo
+     * with the camera.
+     *
+     * @param view the upload record photos button
+     */
     public void UploadPhotos(View view){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Do you want to upload an existing photo or take a camera picture?");
@@ -294,7 +333,7 @@ public class AddRecordActivity extends AppCompatActivity implements LocationGett
         else if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
-                String nameMsg = String.format("Place: %s", place.getName());
+                nameMsg = String.format("Place: %s", place.getName());
                 String latlngMsg = String.format("Place: %s", place.getLatLng());
                 Toast.makeText(this, nameMsg + "\n" + latlngMsg, Toast.LENGTH_LONG).show();
                 latlng = place.getLatLng();

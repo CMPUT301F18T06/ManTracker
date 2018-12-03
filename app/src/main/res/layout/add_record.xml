@@ -7,24 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/darkBlue">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:onClick="BodyLocationPhotos"
-        android:text="@string/UploadBLPhotos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateHeader" />
-
     <TextView
-        android:id="@+id/patientUsername"
-        android:layout_width="158dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="124dp"
-        android:text="Username"
+        android:id="@+id/addNewRecordHeader"
+        android:layout_width="254dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="64dp"
+        android:text="@string/AddRecord"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/titleHeader"
-        app:layout_constraintTop_toBottomOf="@+id/patientUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewRecordHeader" />
 
     <TextView
         android:id="@+id/commentHeader"
@@ -144,7 +133,7 @@
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:background="@color/buttonColor"
         android:onClick="BodyLocationPhotos"
         android:text="@string/UploadBLPhotos"

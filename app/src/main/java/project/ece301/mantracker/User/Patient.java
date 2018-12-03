@@ -19,14 +19,22 @@ public class Patient extends Account{
     private ArrayList<Record> records = new ArrayList<Record>();
     private String patientID;
 
+    private String shortCode;
+
     public Patient() {
         patientID = UUID.randomUUID().toString(); //random ID
     }
 
-    public Patient(Email email, Username username, String phone) {
+    public Patient(Email email, Username username, String phone, String shortCode) {
         super(email, username, phone);
         patientID = UUID.randomUUID().toString(); //random ID
+        this.shortCode = shortCode;
     }
+
+
+    public void setShortCode(String shortCode) {this.shortCode = shortCode;}
+
+    public String getShortCode(){ return this.shortCode;}
 
     public String getID() {return patientID;}
 
@@ -58,7 +66,7 @@ public class Patient extends Account{
 
     public void addRecord(Record record) {}
 
-    public Record getRecord(Integer rID) { return null; }
+    public Record getRecord(int problemId, int recordID) { return getProblem(problemId).getRecord(recordID); }
 
     public int getNumberOfProblems() {return problemList.size();}
 

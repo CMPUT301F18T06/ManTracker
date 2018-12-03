@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -31,7 +30,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD5YKGAOJgD5TFxlKdIQe_oDsP6F3HaDw8" />
+            android:value="@string/googlemaps_api_key" />
 
         <activity
             android:name=".Login.LoginActivity"
@@ -63,25 +62,41 @@
         <activity android:name=".Activity.ProblemListActivity" />
         <activity
             android:name=".Activity.AddRecordActivity"
+            android:exported="true"
             android:label="@string/title_activity_edit_profile"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:exported="true"/>
-        <activity
-            android:name=".PatientHome.PatientHomeActivity"
-            android:label="@string/title_activity_patient_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CareProviderHome.CareProviderHomeActivity"
             android:label="@string/title_activity_care_provider"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.RecordListActivity"
-            android:exported="true"/>
-        <activity android:name=".Activity.AddProblemActivity" />
-        <activity android:name=".Activity.BodyLocationActivity"></activity>
+        <activity
+            android:name=".Activity.RecordListActivity"
+            android:exported="true" />
+        <activity android:name=".Activity.AddProblemActivity"></activity>
+        <activity android:name=".Activity.BodyLocationActivity" />
         <activity
             android:name=".Activity.RecordDetailsActivity"
             android:label="@string/title_activity_record_details"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activity.img_slideshow" />
+        <activity android:name=".Activity.clickedimg" />
+        <activity android:name=".Activity.SearchableActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".Activity.AvailableBodyLocationPhotos" />
+        <activity android:name=".Activity.RecordBodyImages" />
+
+        <activity android:name=".Edit_MedPro.edit_medpro"></activity>
+
+        <activity android:name=".Activity.UserProfileActivity"></activity>
+        <activity android:name=".Activity.RecordPhotos"></activity>
+
     </application>
 
 </manifest>
