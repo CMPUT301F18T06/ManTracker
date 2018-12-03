@@ -1,17 +1,18 @@
 /**
  * Class Name: DataManager
- *
+ * <p>
  * Version: Version 1.0
- *
+ * <p>
  * Date: November 30, 2018
- *
+ * <p>
  * This class handles the retrieval of data using elastic search.
- *
+ * <p>
  * Copyright (c) Team 06, CMPUT301, University of Alberta - All Rights Reserved. You may use, distribute, or modify this code under terms and conditions of the Code of Students Behavior at University of Alberta
  */
 
 package project.ece301.mantracker.DataManagment;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.InvalidClassException;
@@ -23,10 +24,10 @@ import project.ece301.mantracker.MedicalProblem.ElasticSearchCareproviderContoll
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.MedicalProblem.Record;
+import project.ece301.mantracker.Observable;
+import project.ece301.mantracker.Observer;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
-
-import static project.ece301.mantracker.File.StoreData.patients;
 
 /**
  * Class for retrieving data from ElasticSearch server
@@ -34,27 +35,44 @@ import static project.ece301.mantracker.File.StoreData.patients;
  * @version 1.0
  * @since 1.0
  */
-public class DataManager {
+public class DataManager implements Observable {
     private static DataManager instance;
 
-    private static Account loggedInUser;
+    private Account loggedInUser;
+    private Context context;
+    private ArrayList<Observer> observers;
 
     /**
      * Returns an instance of DataManager.
      * @return an instance of DataManager.
      */
-    public static DataManager getInstance() {
-        if (instance == null)
-            instance = new DataManager();
+    public static DataManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new DataManager(context);
+            Log.d("NEWINSTANCE", "");
+        }
         return instance;
     }
 
-    public DataManager() {
+    public DataManager(Context context) {
+        this.loggedInUser = null;
+        this.context = context;
+        this.observers = new ArrayList<>();
     }
 
-    public static void setLoggedInUser(Account loggedInUser) {
-        Log.d("LOGIN", "Setting loggin session");
-        DataManager.loggedInUser = loggedInUser;
+    public void tryLoadingLoginSession() {
+        loggedInUser = LocalStorage.loadLoginSession(context);
+    }
+
+    private void saveLoginSession() {
+        LocalStorage.saveLoginSession(context, loggedInUser);
+    }
+
+    public void setLoggedInUser(Account loggedInUser) {
+        Log.d("LOGIN", "Setting loggin session " + String.valueOf(loggedInUser != null));
+        this.loggedInUser = loggedInUser;
+        if (loggedInUser != null)
+            saveLoginSession();
     }
 
     public Account getLoggedInUser() {
@@ -65,6 +83,11 @@ public class DataManager {
         Account account = getUser(username);
         loggedInUser = account;
         return account;
+    }
+
+    public void logOut() {
+        loggedInUser = null;
+        LocalStorage.saveLoginSession(context, null);
     }
 
     /**
@@ -88,7 +111,10 @@ public class DataManager {
         } catch (Exception e) {
             Log.i("AddRecordTask", "Failed to get the records from the async object");
         }
-        if (!patient.isEmpty()) {return patient.get(0);}
+        if (!patient.isEmpty()) {
+            return patient.get(0);
+        }
+        Log.d("NoPatient", username);
 
         try {
             //fetch from elasticsearch and populate the records list
@@ -100,14 +126,17 @@ public class DataManager {
         } catch (Exception e) {
             Log.i("GetProviderTask", "Failed to get the records from the async object");
         }
-        if (!careProvider.isEmpty()) {return careProvider.get(0);}
+        if (!careProvider.isEmpty()) {
+            return careProvider.get(0);
+        }
+        Log.d("NoCareProvider", username);
 
         //if no careprovider or patient has user name then return null
         return null;
     }
 
     /**
-     * Adds a user to elastic search
+     * Adds or Updates a user to elastic search
      * @param account the account to add to elastic search
      * @return True if successful. False otherwise.
      */
@@ -132,10 +161,15 @@ public class DataManager {
      * Gets a list a patients from elastic search
      * @return a list of patients
      */
-    public ArrayList<Patient> getPatients() throws InvalidClassException {
+    public ArrayList<Patient> getPatients() {
         if (loggedInUser instanceof CareProvider)
             return ((CareProvider) loggedInUser).getPatientsList();
-        throw new InvalidClassException("Must be a care provider to get patients!");
+        if (loggedInUser instanceof Patient) {
+            ArrayList<Patient> patients = new ArrayList<Patient>();
+            patients.add((Patient) loggedInUser);
+            return patients;
+        }
+        return null;
     }
 
     /**
@@ -144,7 +178,7 @@ public class DataManager {
      * @return True if successful. False otherwise.
      */
     public boolean addPatient(Patient patient) {
-        ((CareProvider)loggedInUser).addPatient(patient);
+        ((CareProvider) loggedInUser).addPatient(patient);
         updateStores();
         Log.d("UPDATE", "Careprovider added patient");
         return true;
@@ -152,19 +186,18 @@ public class DataManager {
 
     private void updateStores() {
         addUser(loggedInUser);
+        saveLoginSession();
     }
 
     public Patient getPatientAt(int i) {
-        try {
+        if (getPatients() != null) {
             return getPatients().get(i);
-        } catch (InvalidClassException e) {
-            e.printStackTrace();
         }
         return null;
     }
 
     public int getPatientProblemCount(int index) {
-        return ((CareProvider)loggedInUser).getPatientProblemCount(index);
+        return ((CareProvider) loggedInUser).getPatientProblemCount(index);
     }
 
     /**
@@ -178,11 +211,13 @@ public class DataManager {
 
     /**
      * Gets a list of problems from elastic search
-     * @param patient the patient to get problems from
+     * @param index the patient index to get problems from
      * @return An ArrayList of MedicalProblems
      */
-    public ArrayList<MedicalProblem> getProblems(Patient patient) {
-        return null;
+    public ArrayList<MedicalProblem> getProblems(int index) {
+        if (loggedInUser instanceof Patient)
+            return ((Patient) loggedInUser).getAllProblems();
+        return ((CareProvider) loggedInUser).getPatientProblems(index);
     }
 
     /**
@@ -223,14 +258,53 @@ public class DataManager {
 
     /**
      * Deletes a record from elastic search.
-     * @param record the record to delete
+     * @param recordIndex the record to delete
      * @return True if successful. False otherwise.
      */
-    public boolean deleteRecord(Record record) {
+    public boolean deleteRecord(int problemIndex, int recordIndex) {
+        ((Patient) loggedInUser).removeRecord(problemIndex, recordIndex);
+        return true;
+    }
+
+    public boolean deleteRecord(int problemIndex, Record record) {
+        ((Patient) loggedInUser).removeRecord(problemIndex, record);
         return true;
     }
 
     public int getPatientCount() {
-        return ((CareProvider)loggedInUser).getPatientCount();
+        return ((CareProvider) loggedInUser).getPatientCount();
+    }
+
+    public MedicalProblem getProblem(int patientIndex, int problemIndex) {
+        if (loggedInUser instanceof Patient)
+            return ((Patient) loggedInUser).getProblem(patientIndex);
+        else if (loggedInUser instanceof CareProvider)
+            return ((CareProvider) loggedInUser).getPatientProblem(patientIndex, problemIndex);
+        return null;
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers)
+            observer.update();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public Account getPatient(int actualIndex) {
+        if (loggedInUser instanceof Patient)
+            return loggedInUser;
+        if (actualIndex < 0)
+            return loggedInUser;
+        return ((CareProvider) loggedInUser).getPatient(actualIndex);
+    }
+
+    public void setProblems(int actualIndex, List<MedicalProblem> foundProblems) {
+        if (loggedInUser instanceof Patient)
+            ((Patient) loggedInUser).setProblems(foundProblems);
+        ((CareProvider) loggedInUser).getPatient(actualIndex).setProblems(foundProblems);
     }
 }

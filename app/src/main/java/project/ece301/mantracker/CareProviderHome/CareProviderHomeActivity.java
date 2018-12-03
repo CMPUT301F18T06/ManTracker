@@ -21,10 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import io.searchbox.core.Search;
+import project.ece301.mantracker.Activity.ProblemListActivity;
 import project.ece301.mantracker.Activity.SearchableActivity;
 import project.ece301.mantracker.Activity.UserProfileActivity;
 import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
+import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
@@ -36,6 +39,7 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     private PatientListAdapter adapter;
     private DrawerLayout drawerLayout;
     private SearchView searchBar;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,32 +52,42 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
         patientRecyclerView.setAdapter(adapter);
         patientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        presenter = new CareProviderHomePresenter(this);
+        presenter = new CareProviderHomePresenter(getApplicationContext(), this);
         //configure the search bar developer.android.com/guide/topics/search/search-dialog#java
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchBar = findViewById(R.id.search_bar);
         searchBar.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this,
                 SearchableActivity.class)));
         findViewById(R.id.add_patient).setOnClickListener(v -> onOpenAddPatientDialog());
+        findViewById(R.id.logoutCP).setOnClickListener(v -> logOut());
+        dataManager = DataManager.getInstance(getApplicationContext());
+    }
+
+
+    public void logOut() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        dataManager.logOut();
+        intent.putExtra("LOGOUT","0");
+        startActivity(intent);
+        finish();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        String name = DataManager.getInstance().
-                getLoggedInUser().getUsernameText();
+        String name = dataManager.getLoggedInUser().getUsernameText();
 
         ((Button) findViewById(R.id.userNameTextView)).setText(name);
-        (findViewById(R.id.userNameTextView)).setOnClickListener(view -> navagateToProfile(name));
+        (findViewById(R.id.userNameTextView)).setOnClickListener(view -> navagateToProfile(-1));
     }
 
     private void onOpenAddPatientDialog() {
         new AddPatientDialogFragment().show(getSupportFragmentManager(), "add_patient");
     }
 
-    private void navagateToProfile(String username) {
+    private void navagateToProfile(int index) {
         Intent goToProfile = new Intent(this, UserProfileActivity.class);
-        goToProfile.putExtra("Username", username);
+        goToProfile.putExtra("USERINDEX", index);
         startActivity(goToProfile);
     }
 
@@ -95,6 +109,12 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
+    public void showAlreadyAddedPatientToast(String username) {
+        Toast.makeText(getApplicationContext(), username + " " + getResources()
+                .getString(R.string.already_added), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     protected void onDestroy() {
         presenter.onDestroy();
         super.onDestroy();
@@ -111,9 +131,10 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
     }
 
     @Override
-    public void navigateToPatient(Patient patient) { //TODO: where to?
-        Intent goToProblem = new Intent(this, CareProviderHomeActivity.class);
-        startActivity(goToProblem);
+    public void navigateToPatient(int index) {
+        Intent goToProblems = new Intent(this, ProblemListActivity.class);
+        goToProblems.putExtra("PATIENTINDEX", index);
+        startActivity(goToProblems);
     }
 
 
@@ -133,8 +154,8 @@ public class CareProviderHomeActivity extends AppCompatActivity implements CareP
             viewHolder.setPatientNameText(patient.getUsernameText());
             viewHolder.setPatientNumberOfProblemsText(presenter.getPatientProblemCount(i));
 
-            viewHolder.cardView.setOnClickListener(v -> navigateToPatient(patient));
-            viewHolder.getTitleView().setOnClickListener(view -> navagateToProfile(patient.getUsernameText()));
+            viewHolder.cardView.setOnClickListener(v -> navigateToPatient(i));
+            viewHolder.getTitleView().setOnClickListener(view -> navagateToProfile(i));
         }
 
         @Override

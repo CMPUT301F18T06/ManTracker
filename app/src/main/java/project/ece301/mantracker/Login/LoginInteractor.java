@@ -1,8 +1,13 @@
 package project.ece301.mantracker.Login;
 
+
+import android.util.Log;
+import android.content.Context;
+
 import project.ece301.mantracker.Account.Account;
 
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
@@ -16,10 +21,13 @@ public class LoginInteractor {
         void onCareProviderLogin(CareProvider careProvider);
     }
 
-    public void login(final String username, final OnLoginFinishedListener listener) {
-        DataManager dataManager = DataManager.getInstance();
+
+    public void login(final String username, final OnLoginFinishedListener listener, Context context) {
+        DataManager dataManager = DataManager.getInstance(context);
         Account account = dataManager.getUser(username);
-        DataManager.setLoggedInUser(account);
+        dataManager.setLoggedInUser(account);
+
+        StoreData.storeAccountLocally(account, context);
 
         if (account == null)
             listener.onUsernameInvalidError();

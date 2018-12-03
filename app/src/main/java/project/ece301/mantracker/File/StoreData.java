@@ -17,6 +17,7 @@
 package project.ece301.mantracker.File;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -140,6 +141,23 @@ public class StoreData {
         throw new IllegalArgumentException();
     }
 
+    public static int getCareProviderIndex(String username) {
+        for (CareProvider careProvider: careProviders) {
+            if (careProvider.getUsernameText().equals(username))
+                return careProviders.indexOf(careProvider);
+        }
+        return -1;
+    }
+
+    public static void addCareProvider(CareProvider careProvider, Context context) {
+        int index = getCareProviderIndex(careProvider.getUsernameText());
+        if (index >= 0)
+            careProviders.set(index, careProvider);
+        else
+            careProviders.add(careProvider);
+        saveCareProvidersInFile(context);
+    }
+
     /**
      * Gets the index of patient
      * @param patient the patient object to get the index of
@@ -151,5 +169,43 @@ public class StoreData {
 
     public static int getIndexOfCareProvider(CareProvider careProvider) {
         return careProviders.indexOf(careProvider);
+    }
+
+    public static void storeAccountLocally(Account account, Context context) {
+        if (account instanceof Patient) {
+            storePatientLocally((Patient) account, context);
+        }
+        else if (account instanceof CareProvider) {
+            storeCareProviderLocally((CareProvider) account, context);
+        }
+        else {
+            Log.d("STOREDATA", "Not an instance of pat or cp");
+        }
+    }
+
+    private static void storePatientLocally(Patient patient, Context context) {
+        loadFromFile(context);
+        if (patients.contains(patient)) {
+            Log.d("STOREDATA", "Patient " + patient.getUsernameText() +
+                    "already saved locally.");
+        }
+        else {
+            // Give it an index and save locally.
+            patients.add(patient);
+            patient.setIndex(patients.indexOf(patient));
+        }
+    }
+
+    private static void storeCareProviderLocally(CareProvider careProvider, Context context) {
+        loadCareProvidersFromFile(context);
+        if (careProviders.contains(careProvider)) {
+            Log.d("STOREDATA", "Careprovider " + careProvider.getUsernameText() +
+                    "already saved locally.");
+        }
+        else {
+            // Give it an index and save locally.
+            careProviders.add(careProvider);
+            careProvider.setIndex(patients.indexOf(careProvider));
+        }
     }
 }

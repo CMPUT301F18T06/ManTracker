@@ -15,6 +15,7 @@ package project.ece301.mantracker.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
 import project.ece301.mantracker.R;
@@ -33,16 +35,20 @@ import static project.ece301.mantracker.File.StoreData.patients;
 import static project.ece301.mantracker.File.StoreData.saveInFile;
 
 public class AddProblemActivity extends AppCompatActivity {
+    private static String TAG = "AddProblemActivity";
 
     int index;
+    private DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_problem);
+        dataManager = DataManager.getInstance(getApplicationContext());
 
         Intent intent = getIntent();
         index = Integer.parseInt(intent.getStringExtra(MainActivity.EXTRA_MESSAGE));
+        Log.d(TAG, String.valueOf(index));
 
         // set the username
         TextView heading_text = findViewById(R.id.userNameTextView2);
@@ -70,6 +76,7 @@ public class AddProblemActivity extends AppCompatActivity {
         MedicalProblem problem = new MedicalProblem(problemDescription,problemTitle,date_formatted, patient.getID(), patientUsername);
         patient.addProblem(problem);
         patients.set(index,patient);
+        dataManager.setLoggedInUser(patient);
 
         saveInFile(this); //save locally
 
@@ -87,6 +94,7 @@ public class AddProblemActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+
         // Saved
         finish();
     }

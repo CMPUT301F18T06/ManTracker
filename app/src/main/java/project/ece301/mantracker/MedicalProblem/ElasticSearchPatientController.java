@@ -15,6 +15,7 @@ import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
+import io.searchbox.core.Update;
 import project.ece301.mantracker.User.Patient;
 
 
@@ -32,7 +33,11 @@ public class ElasticSearchPatientController {
             verifySettings();
             Patient patient = patients[0];
 
-            Index index = new Index.Builder(patient).index("cmput301f18t06test").type("patient").build();
+            Index index = new Index.Builder(patient)
+                    .index("cmput301f18t06test")
+                    .type("patient")
+                    .id(patient.getID())
+                    .build();
 
             try {
                 // where is the client?
@@ -136,14 +141,6 @@ public class ElasticSearchPatientController {
             return patients;
         }
     }
-
-
-
-
-
-
-
-
 
 
     public static void verifySettings() {

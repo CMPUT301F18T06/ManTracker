@@ -85,6 +85,29 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
     @Override
     public boolean saveUser(String username, String email, String phone) {
+        Account user = mDataManager.getLoggedInUser();
+        if (!user.getUsernameText().equals(username)) {
+            try {
+                user.setUsername(new Username(username));
+            } catch (Username.InvalidUsernameException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        try {
+            user.setEmail(new Email(email));
+        } catch (Email.InvalidEmailException e) {
+            e.printStackTrace();
+            return false;
+        }
+        user.setPhone(phone);
+        try {
+            mDataManager.setLoggedInUser(user);
+            mDataManager.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         Log.d("StoreData", "PRINTING STORED PATIENTS");
         for (Patient savedP : StoreData.patients) {
             Log.d("StoreData", savedP.getUsername().toString());
@@ -107,9 +130,9 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
                 // update the logged in user.
                 user = newCP;
-                DataManager.setLoggedInUser(user);
+                mDataManager.setLoggedInUser(user);
             } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
-                e.printStackTrace();
+                e.printStackTrace(); // TODO: Note this will always be called as Username will throw TakenUsernameException
                 return false;
             }
         }
@@ -134,7 +157,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
 
                 // update the logged in user.
                 user = newPatient;
-                DataManager.setLoggedInUser(user);
+                mDataManager.setLoggedInUser(user);
             } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
                 e.printStackTrace();
                 return false;

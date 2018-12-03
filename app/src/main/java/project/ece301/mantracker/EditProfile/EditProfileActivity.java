@@ -65,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity implements EditProfil
         this.username = intent.getStringExtra("Username");
 
         // Set up the presenter
-        mEditProfilePresenter = new EditProfilePresenter(DataManager.getInstance(),
+        mEditProfilePresenter = new EditProfilePresenter(DataManager.getInstance(getApplicationContext()),
                 this, this.username, this);
     }
 
