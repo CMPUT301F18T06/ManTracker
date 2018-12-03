@@ -16,6 +16,9 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +26,9 @@ import project.ece301.mantracker.CreateAccount.CreateAccountActivity;
 import project.ece301.mantracker.Login.LoginActivity;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchPatientController;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchProblemController;
+import project.ece301.mantracker.MedicalProblem.Geolocation;
 import project.ece301.mantracker.MedicalProblem.MedicalProblem;
+import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.R;
 import project.ece301.mantracker.User.Patient;
 
@@ -132,8 +137,26 @@ public class ProblemListActivity extends AppCompatActivity {
 
 
     public void LogOut(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("LOGOUT","0");
-        startActivity(intent);
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        intent.putExtra("LOGOUT","0");
+//        startActivity(intent);
+        goToGoogleMapsPlaces();
+    }
+
+    public ArrayList<LatLng> getAllLocations(){
+        ArrayList<LatLng> geolocations = new ArrayList<>();
+        for (MedicalProblem problem: problems){
+            for (Record record: problem.getAllRecords()) {
+                if (record.getGeoLocation() != null)
+                    geolocations.add(record.getGeoLocation().getLatLng());
+            }
+        }
+        return geolocations;
+    }
+
+    public void goToGoogleMapsPlaces() {
+        Intent viewMap = new Intent(this, MapViewActivity.class);
+        viewMap.putExtra("LATLNGS", getAllLocations());
+        startActivity(viewMap);
     }
 }
