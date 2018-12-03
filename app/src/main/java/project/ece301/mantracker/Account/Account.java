@@ -14,8 +14,8 @@ package project.ece301.mantracker.Account;
 
 import java.util.UUID;
 
-import project.ece301.mantracker.User.CareProvider;
-import project.ece301.mantracker.User.Patient;
+//import project.ece301.mantracker.User.CareProvider;
+//import project.ece301.mantracker.User.Patient;
 
 /**
  * Represents a user account
@@ -113,10 +113,32 @@ public class Account {
 
     public String getID() {return ID;}
 
+//     https://www.geeksforgeeks.org/overriding-equals-method-in-java/
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Account || o instanceof CareProvider || o instanceof Patient)
-            return ((Account)o).getUsernameText().equals(this.getUsernameText());
-        return false;
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Account or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Account)) {
+            return false;
+        }
+
+        // typecast o to Account so that we can compare data members
+        Account account = (Account) o;
+
+        // Compare the data members and return accordingly
+        return this.getUsername().toString().equals(account.getUsername().toString());
     }
+
+  //  @Override
+ //   public boolean equals(Object o) {
+  //      if (o instanceof Account || o instanceof CareProvider || o instanceof Patient)
+  //          return ((Account)o).getUsernameText().equals(this.getUsernameText());
+   //     return false;
+//    }
 }

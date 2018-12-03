@@ -1,7 +1,7 @@
 <resources>
     <!--App and Activities-->
     <string name="app_name">ManTracker</string>
-    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_edit_profile">Your Profile</string>
     <string name="title_activity_pateint_list">PateintListActivity</string>
     <string name="title_activity_record_list">RecordListActivity</string>
     <string name="title_activity_login">Login</string>
@@ -89,4 +89,9 @@
     <string name="DeleteImageButton">Delete</string>
     <string name="LogOut">Sign Out</string>
     <string name="RecordPhotos">Photos</string>
+    <string name="comments">Comments</string>
+  
+    <!--Toolbar-->
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
 </resources>
