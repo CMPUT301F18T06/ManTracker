@@ -7,6 +7,7 @@ import android.content.Context;
 import project.ece301.mantracker.Account.Account;
 
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.User.CareProvider;
 import project.ece301.mantracker.User.Patient;
 
@@ -25,6 +26,9 @@ public class LoginInteractor {
         DataManager dataManager = DataManager.getInstance(context);
         Account account = dataManager.getUser(username);
         dataManager.setLoggedInUser(account);
+
+        StoreData.storeAccountLocally(account, context);
+        Log.d("LoginInteractor", "LocalIndex: " + account.getID().toString());
 
         if (account == null)
             listener.onUsernameInvalidError();
