@@ -99,7 +99,7 @@ public class Comment implements Comparable<Comment> {
      * @return the UserID of the user who posted the comment
      */
     public String getUserID() {
-        return "not you";
+        return user.getUsernameText();
     }
 
     /**

@@ -277,7 +277,7 @@ public class DataManager implements Observable {
 
     public MedicalProblem getProblem(int patientIndex, int problemIndex) {
         if (loggedInUser instanceof Patient)
-            return ((Patient) loggedInUser).getProblem(patientIndex);
+            return ((Patient) loggedInUser).getProblem(problemIndex);
         else if (loggedInUser instanceof CareProvider)
             return ((CareProvider) loggedInUser).getPatientProblem(patientIndex, problemIndex);
         return null;
