@@ -16,9 +16,12 @@ import android.widget.Toast;
 import java.util.Arrays;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.DataManagment.DataManager;
 import project.ece301.mantracker.EditProfile.EditProfileActivity;
 import project.ece301.mantracker.File.StoreData;
 import project.ece301.mantracker.R;
+import project.ece301.mantracker.User.Patient;
+
 import static project.ece301.mantracker.File.StoreData.patients;
 /* This activity simply displays the user's username, phone and email*/
 
@@ -28,8 +31,10 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView phone;
     private TextView loginCode;
     private int patientindex;
+    private int index;
     private Toolbar toolbar;
     protected final int EDIT_REQUEST_CODE = 1;
+    private DataManager dataManager;
 
 
 
@@ -59,17 +64,26 @@ public class UserProfileActivity extends AppCompatActivity {
         //get the patient index
         Intent intent = getIntent();
         patientindex = intent.getIntExtra("USERINDEX", 0);
+        index = intent.getIntExtra("USERINDEX", -1);
     }
 
     @Override
     protected void onStart(){
         super.onStart();
 
+
         //set email, phone and username
-        username.setText(patients.get(patientindex).getUsername().toString());
-        email.setText(patients.get(patientindex).getEmail().getEmail());
-        phone.setText(patients.get(patientindex).getPhone());
-        loginCode.setText(patients.get(patientindex).getShortCode());
+        if (dataManager.getLoggedInUser() instanceof Patient) {
+            username.setText(dataManager.getLoggedInUser().getUsernameText());
+            email.setText(dataManager.getLoggedInUser().getEmail().getEmail());
+            phone.setText(dataManager.getLoggedInUser().getPhone());
+            loginCode.setText(dataManager.getLoggedInUser().getShortCode());
+        } else {
+            username.setText(dataManager.getPatient(index).getUsername().toString());
+            email.setText(dataManager.getPatient(index).getEmail().getEmail());
+            phone.setText(dataManager.getPatient(index).getPhone());
+            loginCode.setText(dataManager.getPatient(index).getShortCode());
+        }
     }
 
     @Override
@@ -85,8 +99,8 @@ public class UserProfileActivity extends AppCompatActivity {
             // action with ID action_edit was selected
             case R.id.action_edit:
                 Intent goToEdit = new Intent(this, EditProfileActivity.class);
-                goToEdit.putExtra("Username", patients.get(patientindex).
-                        getUsername().toString());
+                goToEdit.putExtra("Username", dataManager.getPatient(index).
+                        getUsernameText());
                 startActivityForResult(goToEdit, EDIT_REQUEST_CODE);
                 break;
             default:
@@ -97,6 +111,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Do you need this?
 
         if (requestCode == EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){

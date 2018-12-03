@@ -46,7 +46,7 @@ public class CreateAccountInteractor {
     public void createAccount(final String username, final String email, final String phone,
                               final boolean isCareProvider, final OnCreateAccountFinishedListener listener,
                               Context context) {
-        DataManager dataManager = DataManager.getInstance();
+        DataManager dataManager = DataManager.getInstance(context);
         StoreData.loadFromFile(context);
         try {
             Account account;
@@ -72,7 +72,7 @@ public class CreateAccountInteractor {
             }
 
             // Save the new user to elastic search
-            dataManager.addUser(account); //TODO: seperate add Patient and Careproviders?
+            dataManager.addUser(account);
             dataManager.setLoggedInUser(account);
 
 

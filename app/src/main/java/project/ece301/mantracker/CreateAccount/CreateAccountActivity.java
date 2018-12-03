@@ -42,7 +42,8 @@ public class CreateAccountActivity extends AppCompatActivity implements CreateAc
       
         findViewById(R.id.btn_confirm).setOnClickListener(v -> validateCredentials());
 
-        presenter = new CreateAccountPresenter(this, new CreateAccountInteractor());
+        presenter = new CreateAccountPresenter(getApplicationContext(),this,
+                new CreateAccountInteractor());
     }
 
     private void validateCredentials() {

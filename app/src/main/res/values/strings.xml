@@ -53,6 +53,7 @@
     <string name="altLoginHeader">Alternate Login: </string>
     <string name="altLoginButton">Alternate Login</string>
     <string name="OR">OR</string>
+    <string name="veiwing">Viewing: </string>
 
     <!--Error Messages-->
     <string name="email_invalid_error">Email not valid</string>
@@ -93,4 +94,6 @@
     <!--Toolbar-->
     <string name="back">Back</string>
     <string name="edit">Edit</string>
+    <string name="enter_your_comment">Enter your comment:</string>
+    <string name="add_comment">Add comment</string>
 </resources>

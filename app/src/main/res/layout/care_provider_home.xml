@@ -36,7 +36,7 @@
             app:srcCompat="@drawable/actor" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -56,14 +56,22 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/standard"
                 android:text="@string/username"
                 android:textAppearance="@android:style/TextAppearance.Material.Large"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/goodDayTextView" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/logout"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard"
+            android:text="@string/LogOut"
+            android:textAppearance="@android:style/TextAppearance.Material.Small" />
 
     </LinearLayout>
 
