@@ -78,6 +78,7 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         mapView.onPause();
         super.onPause();
     }
+
     @Override
     protected void onDestroy() {
         mapView.onDestroy();
