@@ -12,15 +12,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import project.ece301.mantracker.MedicalProblem.BodyLocation;
 import project.ece301.mantracker.MedicalProblem.ElasticSearchRecordController;
+import project.ece301.mantracker.MedicalProblem.Geolocation;
 import project.ece301.mantracker.MedicalProblem.Record;
 import project.ece301.mantracker.MedicalProblem.UploadPhoto;
 import project.ece301.mantracker.R;
@@ -41,6 +44,7 @@ public class RecordDetailsActivity extends AppCompatActivity implements OnMapRea
     Record chosenRecord;
 
     private GoogleMap mMap;
+    private final int DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,10 +146,23 @@ public class RecordDetailsActivity extends AppCompatActivity implements OnMapRea
         // Do setup activities here
 
         // Get the current location of the device and set the position of the map.
-        getRecordLocation();
+        goToLocation(getRecordLocation());
     }
 
-    private void getRecordLocation() {
+    private LatLng getRecordLocation() {
+        try {
+            return chosenRecord.getGeoLocation().getLatLng();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
+    private void goToLocation(LatLng location) {
+        try {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, DEFAULT_ZOOM));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }
