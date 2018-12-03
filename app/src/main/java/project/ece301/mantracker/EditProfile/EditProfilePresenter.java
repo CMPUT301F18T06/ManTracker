@@ -13,10 +13,18 @@
 
 package project.ece301.mantracker.EditProfile;
 
+import android.content.Context;
+import android.os.Debug;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import project.ece301.mantracker.Account.Account;
+import project.ece301.mantracker.Account.Email;
+import project.ece301.mantracker.Account.Username;
 import project.ece301.mantracker.DataManagment.DataManager;
+import project.ece301.mantracker.File.StoreData;
+import project.ece301.mantracker.User.CareProvider;
+import project.ece301.mantracker.User.Patient;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
@@ -32,6 +40,7 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     private final EditProfileContract.View mProfileView;
     private final DataManager mDataManager;
     private Account user;
+    private Context mContext;
 
     /**
      * Constructs an EditProfilePresenter
@@ -41,18 +50,22 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
      */
     public EditProfilePresenter(@NonNull DataManager dm,
                                 @NonNull EditProfileContract.View editProfileView,
-                                String username) {
+                                String username, Context context) {
         mProfileView = editProfileView; // TODO: checkNotNull
         mDataManager = dm;
+        mContext = context;
+
         this.loadUser(username);
     }
 
     @Override
     public void loadUser(String username) {
         this.user = this.mDataManager.getUser(username);
-        this.loadUsername();
-        this.loadEmail();
-        this.loadPhone();
+        if (this.user != null) {
+            this.loadUsername();
+            this.loadEmail();
+            this.loadPhone();
+        }
     }
 
     @Override
@@ -68,5 +81,67 @@ public class EditProfilePresenter implements EditProfileContract.Presenter {
     @Override
     public void loadPhone() {
         this.mProfileView.showPhone(this.user.getPhone());
+    }
+
+    @Override
+    public boolean saveUser(String username, String email, String phone) {
+        int index = StoreData.getIndexOf(user);
+        Log.d("EditProfile", "Saving User: " + Integer.toString(index));
+        if (user instanceof CareProvider) {
+            try {
+                CareProvider newCP = new CareProvider(new Email(email),
+                        new Username(username), phone);
+                newCP.setIndex(index);
+
+                // update local storage
+                StoreData.careProviders.set(index, newCP);
+                StoreData.saveCareProvidersInFile(mContext);
+
+                // update elastic search by adding the new account and deleting the old
+                mDataManager.addUser(newCP);
+                mDataManager.deleteUser(user);
+
+                // update the logged in user.
+                user = newCP;
+                DataManager.setLoggedInUser(user);
+            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else if (user instanceof Patient) {
+            try {
+                Patient newPatient = new Patient(new Email(email), new Username(username),
+                        phone, StoreData.patients.get(index).getShortCode());
+                newPatient.setIndex(index);
+                Log.d("EditProfile", "newPatient Shortcode: " +
+                        newPatient.getShortCode());
+
+                // update local storage
+                StoreData.patients.set(index, newPatient);
+                StoreData.saveInFile(mContext);
+
+                Log.d("EditProfile", "EditProfilePresenter: Shortcode: " +
+                        StoreData.patients.get(index).getShortCode());
+
+                // update elastic search by adding the new account and deleting the old
+                mDataManager.addUser(newPatient);
+                mDataManager.deleteUser(user);
+
+                // update the logged in user.
+                user = newPatient;
+                DataManager.setLoggedInUser(user);
+            } catch (Username.InvalidUsernameException | Email.InvalidEmailException e) {
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
+
+    public int getUserIndex() {
+        return user.getIndex();
     }
 }

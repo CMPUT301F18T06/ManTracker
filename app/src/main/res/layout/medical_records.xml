@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/medpro_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+
+
+    </android.support.v7.widget.Toolbar>
+
     <ImageButton
         android:id="@+id/addRecordButton"
         android:layout_width="41dp"
@@ -20,101 +32,77 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <ListView
-        android:id="@+id/recordList"
-        android:layout_width="match_parent"
-        android:layout_height="332dp"
-        android:layout_marginTop="172dp"
-        android:background="@color/darkBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.218">
-
-    </ListView>
-
-    <TextView
-        android:id="@+id/recordTitleTextView"
-        android:layout_width="304dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/recordUserHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:text="@string/User"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/addNewRecordHeader" />
 
     <TextView
         android:id="@+id/addNewRecordHeader"
         android:layout_width="175dp"
         android:layout_height="25dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         android:textColor="@color/darkBlue"
         android:clickable="true"
         android:onClick="toUserProfile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/recordUserHeader"
+        app:layout_constraintTop_toBottomOf="@+id/medpro_toolbar" />
 
     <TextView
         android:id="@+id/recordDescriptionHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="8dp"
         android:text="@string/descriptionHeader"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/recordUserHeader" />
 
     <TextView
         android:id="@+id/userRecordDescription"
         android:layout_width="259dp"
         android:layout_height="60dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/descriptionBox"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/recordDescriptionHeader"
+        app:layout_constraintTop_toBottomOf="@+id/addNewRecordHeader" />
 
     <TextView
         android:id="@+id/recordDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="8dp"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/recordDateHeader"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/userRecordDescription" />
 
     <TextView
         android:id="@+id/recordDateHeader"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="8dp"
         android:text="@string/dateHeader"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/userRecordDescription" />
 
     <TextView
         android:id="@+id/recordCountHeader"
@@ -136,14 +124,47 @@
         app:layout_constraintStart_toEndOf="@+id/recordCountHeader"
         app:layout_constraintTop_toTopOf="@+id/recordCountHeader" />
 
-    <ImageButton
-        android:id="@+id/slideshowButton"
-        android:layout_width="59dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/grey"
-        android:contentDescription="@string/contentDescription"
+    <ScrollView
+        android:id="@+id/recordscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        app:layout_constraintTop_toBottomOf="@+id/recordDateHeader"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/recordList"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/darkBlue">
+            </ListView>
+
+            <TextView
+                android:id="@+id/commentsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard"
+                android:layout_marginBottom="@dimen/standard"
+                android:text="@string/comments"
+                android:textSize="18sp" />
+            <ListView
+                android:id="@+id/commentList"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@color/darkBlue">
+
+            </ListView>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 </android.support.constraint.ConstraintLayout>

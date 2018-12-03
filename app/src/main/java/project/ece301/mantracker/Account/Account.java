@@ -12,6 +12,8 @@
 
 package project.ece301.mantracker.Account;
 
+import java.util.UUID;
+
 /**
  * Represents a user account
  * Accounts have a username, an email and a phone.
@@ -107,5 +109,26 @@ public class Account {
     public int getIndex() {return localIndex;}
 
     public String getID() {return ID;}
+
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof Account)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        Account c = (Account) o;
+
+        // Compare the data members and return accordingly
+        return ((Account) o).getUsername().toString().equals(c.getUsername().toString());
+    }
 }
 
