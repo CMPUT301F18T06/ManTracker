@@ -185,7 +185,7 @@ public class ProblemListActivity extends AppCompatActivity implements Observer {
 
     public ArrayList<LatLng> getAllLocations(){
         ArrayList<LatLng> geolocations = new ArrayList<>();
-        for (MedicalProblem problem: problems){
+        for (MedicalProblem problem: dataManager.getProblems(index)){
             try {
                 ArrayList<Record> recordList = new ArrayList<>();
                 //fetch from elasticsearch and populate the records list
